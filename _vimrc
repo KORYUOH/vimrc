@@ -2,8 +2,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2014/12/07
-"	Version	1.30
+"	Update	2015/01/11
+"	Version	1.40
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -28,7 +28,7 @@ set noswapfile
 "バックアップファイルもいらない
 set nobackup
 "undoファイルも作らない
-"set noundofile
+set noundofile
 
 "分割されたのは下
 set splitbelow
@@ -124,6 +124,8 @@ NeoBundle 'mattn/flappyvird-vim'
 
 nmap <leader>f :Unite file<CR>
 nmap <leader>mf :Unite file_mru<CR>
+nmap <leader>vg :Unite vimgrep -buffer-name=UniteQuickFix<CR>
+nmap <leader>cw :UniteResume -buffer-name=UniteQuickFix<CR>
 
 
 
