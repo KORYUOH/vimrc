@@ -74,11 +74,11 @@ nmap <F6> <ESC>a<C-R>=strftime("%H:%M")<CR><ESC>
 nmap ; :
 
 "_vimrcの再読み込み
-command! ReloadVimrc source ~/_vimrc
+command! ReloadVimrc source ~/github/_vimrc
 
-command! OpenVimrc tabnew $HOME/_vimrc
+command! OpenVimrc tabnew $HOME/github/_vimrc
 
-command! OpenGVimrc tabnew $HOME/_gvimrc
+command! OpenGVimrc tabnew $HOME/github/_gvimrc
 
 "全角スペースの表示
 function! WideSpace()
