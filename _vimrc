@@ -79,6 +79,7 @@ nmap <C-h> gT
 " Ctrl + lで右のタブへ移動する
 nmap <C-l> gt
 
+" Ctrl + Enterで改行挿入
 nmap <C-Enter> I<CR><ESC>
 
 "_vimrcの再読み込み
