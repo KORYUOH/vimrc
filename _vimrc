@@ -2,8 +2,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2015/01/11
-"	Version	1.40
+"	Update	2015/03/07
+"	Version	1.35
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -28,7 +28,7 @@ set noswapfile
 "バックアップファイルもいらない
 set nobackup
 "undoファイルも作らない
-set noundofile
+"set noundofile
 
 "分割されたのは下
 set splitbelow
@@ -72,6 +72,14 @@ nmap <F6> <ESC>a<C-R>=strftime("%H:%M")<CR><ESC>
 
 " ; <=> : 入れ替え
 nmap ; :
+
+" Ctrl + hで左のタブへ移動する
+nmap <C-h> gT
+
+" Ctrl + lで右のタブへ移動する
+nmap <C-l> gt
+
+nmap <C-Enter> I<CR><ESC>
 
 "_vimrcの再読み込み
 command! ReloadVimrc source ~/github/_vimrc
@@ -124,8 +132,6 @@ NeoBundle 'mattn/flappyvird-vim'
 
 nmap <leader>f :Unite file<CR>
 nmap <leader>mf :Unite file_mru<CR>
-nmap <leader>vg :Unite vimgrep -buffer-name=UniteQuickFix<CR>
-nmap <leader>cw :UniteResume -buffer-name=UniteQuickFix<CR>
 
 
 
