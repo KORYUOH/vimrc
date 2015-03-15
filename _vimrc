@@ -28,7 +28,7 @@ set noswapfile
 "バックアップファイルもいらない
 set nobackup
 "undoファイルも作らない
-"set noundofile
+set noundofile
 
 "分割されたのは下
 set splitbelow
