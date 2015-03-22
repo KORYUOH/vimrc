@@ -6,5 +6,5 @@
 "	Version	2.00
 "===============================================================================
 
-source _plugin
-source _basic
+source ~/github/_plugin
+source ~/github/_basic
