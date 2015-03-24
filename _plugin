@@ -24,6 +24,7 @@ call neobundle#end()
 " 読み込むプラグインを記載
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/neocomplete'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'mattn/flappyvird-vim'
