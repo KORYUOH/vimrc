@@ -2,8 +2,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2015/03/16
-"	Version	2.00
+"	Update	2015/03/25
+"	Version	3.00
 "===============================================================================
 "===============================================================================
 "NEOBUNDLEの設定
@@ -11,8 +11,14 @@
 " vim起動時のみruntimepathにneobundle.vimを追加
 if has('vim_starting')
 	set nocompatible
- 	set runtimepath+=~/.vim/neobundle/neobundle.vim
+  " neobundle をインストールしていない場合は自動インストール
+  if !isdirectory(expand("~/.vim/neobundle/neobundle.vim/"))
+    echo "install neobundle..."
+    " vim からコマンド呼び出しているだけ neobundle.vim のクローン
+    :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/neobundle/neobundle.vim")
+  endif
 endif
+
 
 " neobundle.vimの初期化 
 call neobundle#begin(expand('~/.vim/neobundle'))
@@ -45,5 +51,3 @@ filetype plugin indent on
 " インストールのチェック
 NeoBundleCheck
 
-"指定文字数を超えた場合、空白の跡で折り返さない
-set textwidth=0
