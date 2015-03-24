@@ -14,9 +14,10 @@ if has('vim_starting')
   " neobundle をインストールしていない場合は自動インストール
   if !isdirectory(expand("~/.vim/neobundle/neobundle.vim/"))
     echo "install neobundle..."
-    " vim からコマンド呼び出しているだけ neobundle.vim のクローン
+    " vim から呼び出しているだけ neobundle.vim のクローン
     :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/neobundle/neobundle.vim")
   endif
+  set runtimepath+=~/.vim/neobundle/neobundle.vim
 endif
 
 
