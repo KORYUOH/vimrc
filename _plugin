@@ -2,8 +2,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2015/03/25
-"	Version	3.00
+"	Update	2015/04/03
+"	Version	3.10
 "===============================================================================
 "===============================================================================
 "NEOBUNDLEの設定
@@ -42,6 +42,9 @@ NeoBundle 'mattn/flappyvird-vim'
 
 nmap <leader>f :Unite file<CR>
 nmap <leader>mf :Unite file_mru<CR>
+nmap <leader>vg :Unite vimgrep -buffer-name=UniteQuickFix<CR>
+nmap <leader>cw :UniteResume -buffer-name=UniteQuickFix<CR>
+nmap <leader>ul :Unite line<CR>
 
 
 
