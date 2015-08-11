@@ -1,44 +1,47 @@
+ï»¿scriptencoding=utf-8
 "===============================================================================
-"	Brief	ŒÂlVimİ’èƒtƒ@ƒCƒ‹
+"	Brief	å€‹äººVimè¨­å®šãƒ•ã‚¡ã‚¤ãƒ« Plugin
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2015/06/14
-"	Version	3.15
+"	Update	2015/08/12
+"	Version	4.15
 "===============================================================================
 "===============================================================================
-"NEOBUNDLE‚Ìİ’è
+"NEOBUNDLEã®è¨­å®š
 "===============================================================================
-" vim‹N“®‚Ì‚İruntimepath‚Éneobundle.vim‚ğ’Ç‰Á
+" vimèµ·å‹•æ™‚ã®ã¿runtimepathã«neobundle.vimã‚’è¿½åŠ 
 if has('vim_starting')
 	set nocompatible
-  " neobundle ‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚¢‚È‚¢ê‡‚Í©“®ƒCƒ“ƒXƒg[ƒ‹
+  " neobundle ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ã„ãªã„å ´åˆã¯è‡ªå‹•ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
   if !isdirectory(expand("~/.vim/neobundle/neobundle.vim/"))
     echo "install neobundle..."
-    " vim ‚©‚çŒÄ‚Ño‚µ‚Ä‚¢‚é‚¾‚¯ neobundle.vim ‚ÌƒNƒ[ƒ“
+    " vim ã‹ã‚‰å‘¼ã³å‡ºã—ã¦ã„ã‚‹ã ã‘ neobundle.vim ã®ã‚¯ãƒ­ãƒ¼ãƒ³
     :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/neobundle/neobundle.vim")
   endif
   set runtimepath+=~/.vim/neobundle/neobundle.vim
 endif
 
 
-" neobundle.vim‚Ì‰Šú‰» 
+" neobundle.vimã®åˆæœŸåŒ– 
 call neobundle#begin(expand('~/.vim/neobundle'))
-" NeoBundle‚ğXV‚·‚é‚½‚ß‚Ìİ’è
+" NeoBundleã‚’æ›´æ–°ã™ã‚‹ãŸã‚ã®è¨­å®š
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" “Ç‚İ‚Şƒvƒ‰ƒOƒCƒ“‚ğ‹LÚ
+" èª­ã¿è¾¼ã‚€ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã‚’è¨˜è¼‰
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neocomplete'
+NeoBundle 'sgur/unite-qf'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'mattn/flappyvird-vim'
 
-" neobundle.vim‚Ì‰Šú‰»I—¹
+" neobundle.vimã®åˆæœŸåŒ–çµ‚äº†
 call neobundle#end()
 
 "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-" ƒvƒ‰ƒOƒCƒ“‚ÌƒL[ƒ}ƒbƒsƒ“ƒO
+" ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®ã‚­ãƒ¼ãƒãƒƒãƒ”ãƒ³ã‚°
 "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 nmap <leader>f :Unite file<CR>
@@ -46,13 +49,16 @@ nmap <leader>mf :Unite file_mru<CR>
 nmap <leader>vg :Unite vimgrep -buffer-name=UniteQuickFix<CR>
 nmap <leader>cw :UniteResume -buffer-name=UniteQuickFix<CR>
 nmap <leader>ul :Unite line<CR>
+nmap <leader>ut :Unite tab<CR>
+nmap <C-W>u :Unite outline:!<CR>
 
 
 
 
-" “Ç‚İ‚ñ‚¾ƒvƒ‰ƒOƒCƒ“‚àŠÜ‚ßAƒtƒ@ƒCƒ‹ƒ^ƒCƒv‚ÌŒŸoAƒtƒ@ƒCƒ‹ƒ^ƒCƒv•Êƒvƒ‰ƒOƒCƒ“/ƒCƒ“ƒfƒ“ƒg‚ğ—LŒø‰»‚·‚é
+
+" èª­ã¿è¾¼ã‚“ã ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã‚‚å«ã‚ã€ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—ã®æ¤œå‡ºã€ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—åˆ¥ãƒ—ãƒ©ã‚°ã‚¤ãƒ³/ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã‚’æœ‰åŠ¹åŒ–ã™ã‚‹
 filetype plugin indent on
 
-" ƒCƒ“ƒXƒg[ƒ‹‚Ìƒ`ƒFƒbƒN
+" ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã®ãƒã‚§ãƒƒã‚¯
 NeoBundleCheck
 

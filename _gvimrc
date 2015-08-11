@@ -1,16 +1,21 @@
+ï»¿scriptencoding=utf-8
 "===============================================================================
-"	Brief	ŒÂlGVimİ’èƒtƒ@ƒCƒ‹
+"	Brief	å€‹äººGVimè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«
 "	Author	KORYUOH
 "	Create	2014/10/18
 "	Update	2014/10/18
 "	Version	1.00
 "===============================================================================
 
-"c• ƒfƒtƒHƒ‹ƒg24
+"ç¸¦å¹… ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ24
 set lines=40
-"‰¡• ƒfƒtƒHƒ‹ƒg80
+"æ¨ªå¹… ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ80
 set columns=120
 
-"‹N“®Å‘å‰»
+source $VIMRUNTIME/delmenu.vim
+set langmenu=ja_jp.utf-8
+source $VIMRUNTIME/menu.vim
+
+"èµ·å‹•æ™‚æœ€å¤§åŒ–
 "au GUIEnter * simalt ~x
 
