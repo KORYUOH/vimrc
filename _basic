@@ -1,10 +1,10 @@
-scriptencoding=utf-8
+﻿scriptencoding=utf-8
 "===============================================================================
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2015/08/12
-"	Version	3.00
+"	Update	2016/05/13
+"	Version	4.00
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -30,8 +30,15 @@ set fileencodings=euc-jp,utf-8,cp932
 set noswapfile
 "バックアップファイルもいらない
 set nobackup
-"undoファイルも作らない
-set noundofile
+"undo用のフォルダがあるなら
+if has( 'persistent_undo' ) && isdirectory(expand("~/.vimundo"))
+	"undoファイルの保存先とundoファイルの生成
+	set undodir=~/.vimundo
+	set undofile
+else
+	"undoファイルも作らない
+	set noundofile
+endif
 
 "分割されたのは下
 set splitbelow
@@ -67,6 +74,9 @@ set sidescroll=1
 "インクリメント/デクリメントを0埋めされてても10進数として増減させる
 set nf=
 
+"タブを可視化
+set list listchars=tab:\>\-
+
 "日付の挿入
 nmap <F5> <ESC>a<C-R>=strftime("%Y/%m/%d")<CR><ESC>
 
@@ -93,6 +103,11 @@ nmap <C-Left> <C-W><
 nmap <C-Up> <C-W>-
 nmap <C-Down> <C-W>+
 
+" 対応カッコまで飛ぶ
+nmap <C-[> %
+
+" ESC二回押しでサーチのハイライト非表示
+nmap <silent><ESC><ESC> :nohlsearch<CR>
 
 "_vimrcの再読み込み
 command! ReloadVimrc source ~/github/_vimrc
@@ -120,3 +135,14 @@ augroup VimSettings
 	autocmd!
 	autocmd Bufread,WinEnter,VimEnter {_basic,_plugin} set filetype=vim
 augroup END
+
+"virtualモードの時にスターで選択位置のコードを検索するようにする"
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+function! s:VSetSearch()
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
+

@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル Plugin
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2015/08/12
-"	Version	4.15
+"	Update	2016/05/13
+"	Version	5.00
 "===============================================================================
 "===============================================================================
 "NEOBUNDLEの設定
@@ -33,6 +33,9 @@ NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'sgur/unite-qf'
+NeoBundle 'koron/codic-vim'
+NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'mattn/flappyvird-vim'
@@ -44,13 +47,21 @@ call neobundle#end()
 " プラグインのキーマッピング
 "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-nmap <leader>f :Unite file<CR>
-nmap <leader>mf :Unite file_mru<CR>
+nmap <leader>f :Unite file -buffer-name=UniteFiler<CR>
+nmap <leader>F :Unite file:**/*.{cpp,h} -buffer-name=UniteFiler<CR>
+nmap <leader>mf :Unite file_mru -buffer-name=UniteFiler<CR>
 nmap <leader>vg :Unite vimgrep -buffer-name=UniteQuickFix<CR>
 nmap <leader>cw :UniteResume -buffer-name=UniteQuickFix<CR>
-nmap <leader>ul :Unite line<CR>
-nmap <leader>ut :Unite tab<CR>
-nmap <C-W>u :Unite outline:!<CR>
+nmap <leader>co :UniteResume UniteOutLiner<CR>
+nmap <leader>ucw :Unite qf -buffer-name=UniteQuickFix<CR>
+nmap <leader>ul :Unite line -buffer-name=UniteOutLiner<CR>
+nmap <leader>ut :Unite tab -buffer-name=UniteOutLiner<CR>
+nmap <leader>uc :Unite codic<CR>
+nmap <C-W>u :Unite outline:! -buffer-name=UniteOutLiner<CR>
+
+" XXXXX[Switch.vim]XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+let g:switch_mapping = "-"
 
 
 
