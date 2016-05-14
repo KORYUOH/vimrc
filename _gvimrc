@@ -3,8 +3,8 @@
 "	Brief	個人GVim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/18
-"	Update	2014/10/18
-"	Version	1.00
+"	Update	2016/05/14
+"	Version	1.05
 "===============================================================================
 
 "縦幅 デフォルト24
@@ -18,4 +18,7 @@ source $VIMRUNTIME/menu.vim
 
 "起動時最大化
 "au GUIEnter * simalt ~x
+"
+
+colorscheme torte
 

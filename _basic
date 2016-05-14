@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2016/05/13
-"	Version	4.00
+"	Update	2016/05/14
+"	Version	4.05
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -24,7 +24,7 @@ endif
 "set termencoding=utf-8
 "set fileencoding=utf-8
 "set encoding=utf-8
-set fileencodings=euc-jp,utf-8,cp932
+set fileencodings=utf-8,cp932
 
 "スワップファイルはいらない
 set noswapfile
@@ -78,10 +78,10 @@ set nf=
 set list listchars=tab:\>\-
 
 "日付の挿入
-nmap <F5> <ESC>a<C-R>=strftime("%Y/%m/%d")<CR><ESC>
+nmap <F5> <ESC><ESC>a<C-R>=strftime("%Y/%m/%d")<CR><ESC>
 
 "時間の挿入
-nmap <F6> <ESC>a<C-R>=strftime("%H:%M")<CR><ESC>
+nmap <F6> <ESC><ESC>a<C-R>=strftime("%H:%M")<CR><ESC>
 
 " ; <=> : 入れ替え
 nmap ; :
