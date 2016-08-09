@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル Plugin
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2016/05/13
-"	Version	5.00
+"	Update	2016/08/10
+"	Version	5.50
 "===============================================================================
 "===============================================================================
 "NEOBUNDLEの設定
@@ -34,11 +34,13 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'sgur/unite-qf'
 NeoBundle 'koron/codic-vim'
+NeoBundle 'rhysd/unite-codic.vim'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'mattn/flappyvird-vim'
+NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'tomasr/molokai'		"ColorScheme
 
 " neobundle.vimの初期化終了
@@ -59,13 +61,23 @@ nmap <leader>ul :Unite line -buffer-name=UniteOutLiner<CR>
 nmap <leader>ut :Unite tab -buffer-name=UniteOutLiner<CR>
 nmap <leader>uc :Unite codic<CR>
 nmap <C-W>u :Unite outline:! -buffer-name=UniteOutLiner<CR>
+nmap <leader>mn :MemoNew<CR>
+nmap <leader>mf :MemoList<CR>
+nmap <leader>mg :MemoGrep<CR>
 
 " XXXXX[Switch.vim]XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 let g:switch_mapping = "-"
 
 
+" XXXXX[MemoList.vim]XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+if isdirectory(expand("~/.memolist"))
+	let g:memolist_path = "~/.memolist"
+endif
+let g:memolist_unite        = 1
+let g:memolist_unite_source = "file_rec"
+let g:memolist_unite_option = "-start-insert"
 
 
 " 読み込んだプラグインも含め、ファイルタイプの検出、ファイルタイプ別プラグイン/インデントを有効化する
