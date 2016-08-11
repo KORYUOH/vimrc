@@ -62,7 +62,7 @@ nmap <leader>ut :Unite tab -buffer-name=UniteOutLiner<CR>
 nmap <leader>uc :Unite codic<CR>
 nmap <C-W>u :Unite outline:! -buffer-name=UniteOutLiner<CR>
 nmap <leader>mn :MemoNew<CR>
-nmap <leader>mf :MemoList<CR>
+nmap <leader>ml :MemoList<CR>
 nmap <leader>mg :MemoGrep<CR>
 
 " XXXXX[Switch.vim]XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -73,11 +73,11 @@ let g:switch_mapping = "-"
 " XXXXX[MemoList.vim]XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 if isdirectory(expand("~/.memolist"))
-	let g:memolist_path = "~/.memolist"
+	let g:memolist_path = expand("~/.memolist")
 endif
 let g:memolist_unite        = 1
-let g:memolist_unite_source = "file_rec"
-let g:memolist_unite_option = "-start-insert"
+let g:memolist_unite_source = "file"
+let g:memolist_unite_option = "-auto-preview -start-insert"
 
 
 " 読み込んだプラグインも含め、ファイルタイプの検出、ファイルタイプ別プラグイン/インデントを有効化する
