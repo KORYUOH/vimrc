@@ -41,7 +41,9 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'mattn/flappyvird-vim'
 NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tomasr/molokai'		"ColorScheme
+NeoBundle 'mattn/invader-vim'   
 
 " neobundle.vimの初期化終了
 call neobundle#end()
@@ -61,6 +63,7 @@ nmap <leader>ul :Unite line -buffer-name=UniteOutLiner<CR>
 nmap <leader>ut :Unite tab -buffer-name=UniteOutLiner<CR>
 nmap <leader>uc :Unite codic<CR>
 nmap <C-W>u :Unite outline:! -buffer-name=UniteOutLiner<CR>
+"### [Memolist] 系列
 nmap <leader>mn :MemoNew<CR>
 nmap <leader>ml :MemoList<CR>
 nmap <leader>mg :MemoGrep<CR>
@@ -75,10 +78,33 @@ let g:switch_mapping = "-"
 if isdirectory(expand("~/.memolist"))
 	let g:memolist_path = expand("~/.memolist")
 endif
+
+"let g:memolist_memo_suffix = "txt"
+"let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+"let g:memolist_memo_date = "epoch"
+"let g:memolist_memo_date = "%D %T"
+"let g:memolist_prompt_tags = 1
+"let g:memolist_prompt_categories = 1
+"let g:memolist_qfixgrep = 1
+"let g:memolist_vimfiler = 1
+"let g:memolist_template_dir_path = "path/to/dir"
+
 let g:memolist_unite        = 1
 let g:memolist_unite_source = "file"
 let g:memolist_unite_option = "-auto-preview -start-insert"
 
+function! s:UniteMemoList()
+	let l:memolist_path = unite#util#path2directory(g:memolist_path)
+	call unite#start([['file_rec',l:memolist_path ]])
+endfunction
+
+command! UniteMemoList call s:UniteMemoList()
+
+" XXXXX[tcomment_vim]XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+" et g:tcommentMapLeader1	= '<C-_>'		 " (default: '<c-_>')
+" et g:tcommentMapLeader2	= '<Leader>'	 " (default: '<Leader>_')
+" et g:tcommentMapLeaderOp1	= 'gc'			 " (default: 'gc')
+" et g:tcommentMapLeaderOp2	= 'gC'			 " (default: 'gC')
 
 " 読み込んだプラグインも含め、ファイルタイプの検出、ファイルタイプ別プラグイン/インデントを有効化する
 filetype plugin indent on
