@@ -1,0 +1,21 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = [ 'context_filetype.vim' ]
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'tomasr/molokai'
+hook_add = '''
+	au SetColorScheme VimEnter * nested colorscheme molokai
+	'''
+
+
