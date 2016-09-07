@@ -1,4 +1,4 @@
-[[plugins]]
+﻿[[plugins]]
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
@@ -17,5 +17,82 @@ repo = 'tomasr/molokai'
 hook_add = '''
 	au SetColorScheme VimEnter * nested colorscheme molokai
 	'''
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+hook_add = '''
+	nmap <leader>f :Unite file -buffer-name=UniteFiler<CR>
+	nmap <leader>F :Unite file:**/*.{cpp,h} -buffer-name=UniteFiler<CR>
+	nmap <leader>mf :Unite file_mru -buffer-name=UniteFiler<CR>
+	nmap <leader>vg :Unite vimgrep -buffer-name=UniteQuickFix<CR>
+	nmap <leader>cw :UniteResume -buffer-name=UniteQuickFix<CR>
+	nmap <leader>co :UniteResume UniteOutLiner<CR>
+	nmap <leader>ucw :Unite qf -buffer-name=UniteQuickFix<CR>
+	nmap <leader>ul :Unite line -buffer-name=UniteOutLiner<CR>
+	nmap <leader>ut :Unite tab -buffer-name=UniteOutLiner<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+hook_add = '''
+nmap <C-W>u :Unite outline:! -buffer-name=UniteOutLiner<CR>
+'''
+
+[[plugins]]
+repo = 'sgur/unite-qf'
+
+[[plugins]]
+repo = 'koron/codic-vim'
+
+[[plugins]]
+repo = 'rhysd/unite-codic.vim'
+hook_add = '''
+	nmap <leader>uc :Unite codic<CR>
+'''
+
+[[plugins]]
+repo = 'terryma/vim-multiple-cursors'
+
+[[plugins]]
+repo = 'AndrewRadev/switch.vim'
+hook_add = '''
+let g:switch_mapping = "-"
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'ujihisa/unite-colorscheme'
+
+[[plugins]]
+repo = 'mattn/flappyvird-vim'
+
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+hook_add = '''
+	if isdirectory(expand("C:/Users/yoshitake-koyama/.memolist"))
+		let g:memolist_path = expand("~/.memolist")
+	endif
+	
+	let g:memolist_unite        = 1
+	let g:memolist_unite_source = "file"
+	let g:memolist_unite_option = "-auto-preview -start-insert"
+	function! s:UniteMemoList()
+		let l:memolist_path = unite#util#path2directory(g:memolist_path)
+		call unite#start([['file_rec',l:memolist_path ]])
+	endfunction
+
+	command! UniteMemoList call s:UniteMemoList()
+	nmap <leader>mn :MemoNew<CR>
+	nmap <leader>ml :MemoList<CR>
+	nmap <leader>mg :MemoGrep<CR>
+'''
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+[[plugins]]
+repo = 'mattn/invader-vim'   
 
 
