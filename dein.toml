@@ -1,4 +1,4 @@
-﻿[[plugins]]
+[[plugins]]
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
@@ -15,7 +15,10 @@ on_ft = 'toml'
 [[plugins]]
 repo = 'tomasr/molokai'
 hook_add = '''
-	au SetColorScheme VimEnter * nested colorscheme molokai
+augroup SetColorScheme 
+	au!
+	au VimEnter * nested colorscheme molokai
+augroup END
 	'''
 
 [[plugins]]
@@ -31,6 +34,9 @@ hook_add = '''
 	nmap <leader>ul :Unite line -buffer-name=UniteOutLiner<CR>
 	nmap <leader>ut :Unite tab -buffer-name=UniteOutLiner<CR>
 '''
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
