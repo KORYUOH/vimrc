@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2016/08/25
-"	Version	5.00
+"	Update	2016/10/14
+"	Version	5.10
 "===============================================================================
 "
 "Dein Setting
@@ -33,3 +33,5 @@ endif
 if has('vim_starting') && dein#check_install()
 	call dein#install()
 endif
+
+syntax on

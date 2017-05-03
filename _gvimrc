@@ -20,5 +20,9 @@ source $VIMRUNTIME/menu.vim
 "au GUIEnter * simalt ~x
 "
 
+set guifont=MeiryoKe_Console:h10:cSHIFTJIS
+
+
+
 colorscheme torte
 

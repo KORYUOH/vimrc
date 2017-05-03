@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2016/05/14
-"	Version	4.05
+"	Update	2017/05/03
+"	Version	4.15
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -29,8 +29,16 @@ set fileencodings=utf-8,cp932
 
 "スワップファイルはいらない
 set noswapfile
-"バックアップファイルもいらない
-set nobackup
+
+" バックアップ用のフォルダがあれば
+if isdirectory( expand('~/.vimbackup'))
+	set backupdir=~/.vimbackup
+	set backup
+else
+	"バックアップファイルもいらない
+	set nobackup
+endif
+
 "undo用のフォルダがあるなら
 if has( 'persistent_undo' ) && isdirectory(expand("~/.vimundo"))
 	"undoファイルの保存先とundoファイルの生成

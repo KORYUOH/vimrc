@@ -1,3 +1,12 @@
+#vim:set nobomb:set encoding=utf-8
+########################################
+#	Brief	dein Plugins
+#	Author	KORYUOH
+#	Create	
+#	Update	2017/05/03
+#	Version	1.00
+########################################
+
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -26,17 +35,18 @@ repo = 'Shougo/unite.vim'
 hook_add = '''
 	nmap <leader>f :Unite file -buffer-name=UniteFiler<CR>
 	nmap <leader>F :Unite file:**/*.{cpp,h} -buffer-name=UniteFiler<CR>
-	nmap <leader>mf :Unite file_mru -buffer-name=UniteFiler<CR>
 	nmap <leader>vg :Unite vimgrep -buffer-name=UniteQuickFix<CR>
 	nmap <leader>cw :UniteResume -buffer-name=UniteQuickFix<CR>
 	nmap <leader>co :UniteResume UniteOutLiner<CR>
-	nmap <leader>ucw :Unite qf -buffer-name=UniteQuickFix<CR>
 	nmap <leader>ul :Unite line -buffer-name=UniteOutLiner<CR>
 	nmap <leader>ut :Unite tab -buffer-name=UniteOutLiner<CR>
 '''
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
+hook_add = '''
+	nmap <leader>mf :Unite file_mru -buffer-name=UniteFiler<CR>
+'''
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
@@ -46,6 +56,9 @@ nmap <C-W>u :Unite outline:! -buffer-name=UniteOutLiner<CR>
 
 [[plugins]]
 repo = 'sgur/unite-qf'
+hook_add='''
+	nmap <leader>ucw :Unite qf -buffer-name=UniteQuickFix<CR>
+'''
 
 [[plugins]]
 repo = 'koron/codic-vim'
@@ -77,7 +90,7 @@ repo = 'mattn/flappyvird-vim'
 [[plugins]]
 repo = 'glidenote/memolist.vim'
 hook_add = '''
-	if isdirectory(expand("C:/Users/yoshitake-koyama/.memolist"))
+	if isdirectory(expand("~/.memolist"))
 		let g:memolist_path = expand("~/.memolist")
 	endif
 	
@@ -100,5 +113,11 @@ repo = 'tomtom/tcomment_vim'
 
 [[plugins]]
 repo = 'mattn/invader-vim'   
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add='''
+let g:indent_guides_enable_on_vim_startup = 1
+'''
 
 
