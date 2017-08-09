@@ -3,14 +3,17 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2017/05/03
-"	Version	2.11
+"	Update	2017/08/09
+"	Version	2.12
 "	Encording	utf-8 bomb dos
 "===============================================================================
 
 colorscheme torte
 source ~/github/_plugin
 source ~/github/_basic
+
+" vimrcのUnreal Engine 4 プログラム用 適当スキーム類
+" source ~/github/_vimrc_ue4
 
 if !exists('g:LoadTestSource')
 	let g:LoadTestSource = 0
