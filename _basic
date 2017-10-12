@@ -21,11 +21,12 @@
 if has('gui_running')
 	set encoding=utf-8
 	set bomb
+	set fileencodings=cp932,sjis,utf-8
 endif
 "set termencoding=utf-8
 "set fileencoding=utf-8
 "set encoding=utf-8
-set fileencodings=utf-8,cp932
+set fileencodings=cp932,sjis,utf-8
 
 "スワップファイルはいらない
 set noswapfile
@@ -56,7 +57,7 @@ set splitbelow
 set splitright
 
 "タグファイルの指定
-set tags=~/.tags
+set tags=./tags
 
 "表示タブ幅
 set tabstop=4
@@ -117,6 +118,19 @@ nmap <C-[> %
 
 " ESC二回押しでサーチのハイライト非表示
 nmap <silent><ESC><ESC> :nohlsearch<CR>
+
+" 香り屋版以外のvimで行う
+if !has('kaoriya')
+	" 
+	set cmdheight=2
+	set imsearch=0
+	set autoindent
+	set incsearch
+	set nobuflisted
+	if has('wildmenu')
+		set wildmenu
+	endif
+endif
 
 "_vimrcの再読み込み
 command! ReloadVimrc source ~/github/_vimrc
