@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2017/05/03
-"	Version	4.15
+"	Update	2017/10/13
+"	Version	5.00
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -121,15 +121,61 @@ nmap <silent><ESC><ESC> :nohlsearch<CR>
 
 " 香り屋版以外のvimで行う
 if !has('kaoriya')
-	" 
-	set cmdheight=2
-	set imsearch=0
-	set autoindent
+	"===============
+	"= 検索周り
+	"===============
+	" インクリメンタルサーチを有効
 	set incsearch
+	" 検索時に大文字小文字を無視
+	set ignorecase
+	" 大文字、小文字を含む場合は区別
+	set smartcase
+	" 検索時に最後まで行ったらはじめから
+	set wrapscan
+	
+	"===============
+	"= 編集周り
+	"===============
+	" コマンドラインの高さ
+	set cmdheight=2
+	" 常にステータス行を表示
+	set laststatus=2
+	"
+	set imsearch=0
+	" 自動インデント
+	set autoindent
+	" 
 	set nobuflisted
+	" バックスペースでインデントや行頭、行末を消せる
+	set backspace=indent,eol,start
+	" 括弧入力時に対応括弧の表示
+	set showmatch
+	" 日本語用 入力時自動折り返し
+	set formatoptions+=mM
+	"ルーラー
+	set ruler
+	" タイトル表示
+	set title
+	
+	"===============
+	"= コマンド周り
+	"===============
+	" コマンドをステータス行に表示
+	set showcmd
+	" 強化されたコマンドライン補完
 	if has('wildmenu')
 		set wildmenu
 	endif
+	
+	"===============
+	"= その他
+	"===============
+	" プラットホーム依存の特別な設定
+	" WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
+	if has('win32') && $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
+		let $PATH = $VIM . ';' . $PATH
+	endif
+	
 endif
 
 "_vimrcの再読み込み

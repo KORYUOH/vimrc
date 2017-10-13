@@ -178,6 +178,11 @@ let g:switch_mapping = "-"
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+hook_add = '''
+if !has("kaoriya")
+	set laststatus=2
+endif
+'''
 
 [[plugins]]
 repo = 'ujihisa/unite-colorscheme'
@@ -240,13 +245,6 @@ repo = 'vim-jp/vimdoc-ja'
 if = '!has("kaoriya")'
 hook_add = '''
 set helplang=ja,en
-'''
-
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-if = '!has("kaoriya")'
-hook_add = '''
-set laststatus=2
 '''
 
 [[plugins]]
