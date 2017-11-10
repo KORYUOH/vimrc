@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2017/10/13
-"	Version	5.00
+"	Update	2017/11/10
+"	Version	5.30
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -25,7 +25,7 @@ if has('gui_running')
 endif
 "set termencoding=utf-8
 "set fileencoding=utf-8
-"set encoding=utf-8
+set encoding=utf-8
 set fileencodings=cp932,sjis,utf-8
 
 "スワップファイルはいらない
@@ -48,6 +48,20 @@ if has( 'persistent_undo' ) && isdirectory(expand("~/.vimundo"))
 else
 	"undoファイルも作らない
 	set noundofile
+endif
+
+" 折りたたみの保存場所があればそこに
+if isdirectory(expand('~/.vimviews'))
+	set viewdir=~/.vimviews
+
+	" 折りたたみはシンタックス準拠
+	augroup CPP_FoldMethods
+		autocmd!
+		autocmd FileType cpp setlocal foldmethod=syntax
+		autocmd BufRead *.c,*.cpp,*.h,*.hpp loadview
+		autocmd BufWrite *.c,*.cpp,*.h,*.hpp mkview
+	augroup END
+
 endif
 
 "分割されたのは下
@@ -185,6 +199,19 @@ command! OpenVimrc tabnew $HOME/github/_vimrc
 
 command! OpenGVimrc tabnew $HOME/github/_gvimrc
 
+autocmd InsertEnter * if !exists( 'w:last_fdm' ) | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+autocmd InsertLeave,WinLeave * if exists( 'w:last_fdm' ) | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+
+augroup BinFileEdit
+	autocmd!
+	autocmd BufReadPre *.bin,*.sav let &binary=1
+	autocmd BufReadPost * if &binary | silent %!xxd -g 1
+	autocmd BufReadPost * set filetype=xxd | endif
+	autocmd BufWritePre * if &binary | silent %!xxd -r | endif
+	autocmd BufWritePost * if &binary | silent %xxd -g 1
+	autocmd BufWritePost * set nomod | endif
+augroup END
+
 "全角スペースの表示
 function! WideSpace()
 	highlight WideSpace cterm=underline ctermfg=lightblue guibg=darkgray
@@ -215,3 +242,4 @@ function! s:VSetSearch()
   let @s = temp
 endfunction
 
+"vim:set enc=utf-8:set bomb

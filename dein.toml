@@ -3,8 +3,9 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2017/05/03
-#	Version	1.00
+#	Update	2017/10/16
+#	Version	1.10
+#	Lazy : Not Lazy
 ########################################
 
 [[plugins]]
@@ -12,7 +13,7 @@ repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
-if = "!has('kaoriya')"
+if = '!has("kaoriya")'
 hook_post_update = '''
 	if dein#util#_is_window()
 		let cmd = 'tools\\update-dll-mingw'
@@ -57,7 +58,7 @@ hook_add = '''
 	nmap <leader>co :UniteResume UniteOutLiner<CR>
 	nmap <leader>ul :Unite line -buffer-name=UniteOutLiner<CR>
 	nmap <leader>ut :Unite tab -buffer-name=UniteOutLiner<CR>
-	nmap <leader>ug :Unite grep -buffer-name=UniteQuickFix<CR>
+	nmap <leader>ug :Unite grep::-S -buffer-name=UniteQuickFix<CR>
 	nmap <leader>cg :Unite grep:.:-G\ \\.(h\\\|cpp) -buffer-name=UniteQuickFix<CR>
 	if executable('pt')
 		let g:unite_source_grep_command = 'pt'
@@ -67,11 +68,6 @@ hook_add = '''
 	endif
 '''
 
-[[plugins]]
-repo = 'Shougo/neomru.vim'
-hook_add = '''
-	nmap <leader>mf :Unite file_mru -buffer-name=UniteFiler<CR>
-'''
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
@@ -85,74 +81,6 @@ hook_add='''
 	nmap <leader>ucw :Unite qf -buffer-name=UniteQuickFix<CR>
 '''
 
-[[plugins]]
-repo = 'Shougo/neocomplete.vim'
-if = 'has("lua")'
-on_i = 1
-hook_add='''
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_underbar_completion = 1
-let g:neocomplete#enable_camel_case_completion = 1
-let g:neocomplete#max_list = 20
-let g:neocomplete#auto_complete_start_length = 2
-let g:neocomplete#enable_auto_close_preview = 0
-autocmd! InsertLeave * silent! pclose!
-
-let g:neocomplete#max_keyword_width = 10000
-
-if !exists('g:neocomplete#force_ommni_input_patterns')
-	let g:neocomplete#force_ommni_input_patterns = {}
-endif
-let g:neocomplete#force_ommni_input_patterns.cpp = '[^.[:digit:] *\t\%(/.\|->\)\w*\|\h\w+::\w*'
-
-if isdirectory(expand('~/.vim/cache/neocomplete'))
-	let g:neocomplete#data_directory = $HOME.'/.vim/cache/neocomplete'
-endif
-
-'''
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-# depends = ['neosnippet.vim' ]
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-depends = ['neosnippet-snippets' ]
-on_i = 1
-hook_add='''
-
-let s:snippet_folder = '~/snippet'
-
-if exists(s:snippet_folder)
-	let g:neosnippet#snippets_directory = s:snippet_folder
-endif
-
-
-""" TAB Completion
-inoremap <expr><TAB>  pumvisible() ? "\<C-p>" : "<S-TAB>"
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-'''
 
 
 [[plugins]]
@@ -212,6 +140,13 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/neomru.vim'
+on_source = ['unite.vim']
+hook_add = '''
+	nmap <leader>mf :Unite file_mru -buffer-name=UniteFiler<CR>
+'''
+
+[[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
 " let g:NERDTreeDirArrows=1
@@ -249,11 +184,82 @@ set helplang=ja,en
 
 [[plugins]]
 repo = 'nfvs/vim-perforce'
+if = 'executable("p4")'
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
 hook_add = '''
 vnoremap <leader>= :'<,'>Alignta =<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+if = 'has("lua")'
+on_i = 1
+hook_add='''
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_underbar_completion = 1
+let g:neocomplete#enable_camel_case_completion = 1
+let g:neocomplete#max_list = 20
+let g:neocomplete#auto_complete_start_length = 2
+let g:neocomplete#enable_auto_close_preview = 0
+autocmd! InsertLeave * silent! pclose!
+
+let g:neocomplete#max_keyword_width = 10000
+
+if !exists('g:neocomplete#force_ommni_input_patterns')
+	let g:neocomplete#force_ommni_input_patterns = {}
+endif
+let g:neocomplete#force_ommni_input_patterns.cpp = '[^.[:digit:] *\t\%(/.\|->\)\w*\|\h\w+::\w*'
+
+if isdirectory(expand('~/.vim/cache/neocomplete'))
+	let g:neocomplete#data_directory = $HOME.'/.vim/cache/neocomplete'
+endif
+
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+on_source = ['neosnippet.vim']
+# depends = ['neosnippet.vim' ]
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+depends = ['neosnippet-snippets' ]
+on_i = 1
+hook_add='''
+
+let s:snippet_folder = '~/snippet'
+
+if exists(s:snippet_folder)
+	let g:neosnippet#snippets_directory = s:snippet_folder
+endif
+
+
+""" TAB Completion
+inoremap <expr><TAB>  pumvisible() ? "\<C-p>" : "<S-TAB>"
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
 '''
 
 

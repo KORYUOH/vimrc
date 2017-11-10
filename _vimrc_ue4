@@ -36,6 +36,7 @@ augroup UECPP
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine UFUNCTION
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine UPROPERTY
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine USTRUCT
+	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine DECLARE_DYNAMIC_MULTICAST_DELEGATE
 	"autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match cDefine "\<[A-Z]\+_API\>"
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cStatement Category
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cStatement Super
