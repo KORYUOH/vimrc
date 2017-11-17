@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2017/11/10
-"	Version	5.30
+"	Update	2017/11/17
+"	Version	5.35
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -100,6 +100,14 @@ set nf=
 
 "タブを可視化
 set list listchars=tab:\>\-
+
+" スペルチェックで日本語は無視
+set spelllang+=cjk
+
+" Default( windows ).
+"set guioptions=egmrLT
+"gvimでメニューとツールバーを消す
+set guioptions=egrL
 
 "日付の挿入
 nmap <F5> <ESC><ESC>a<C-R>=strftime("%Y/%m/%d")<CR><ESC>
@@ -199,9 +207,18 @@ command! OpenVimrc tabnew $HOME/github/_vimrc
 
 command! OpenGVimrc tabnew $HOME/github/_gvimrc
 
-autocmd InsertEnter * if !exists( 'w:last_fdm' ) | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-autocmd InsertLeave,WinLeave * if exists( 'w:last_fdm' ) | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+" プラグイン管理の編集
+command! OpenDein tabnew $HOME/github/dein.toml
+command! OpenDeinLazy tabnew $HOME/github/lazy_dein.toml
 
+" 折りたたみの一時変更
+augroup ChangeFold
+	autocmd!
+	autocmd InsertEnter * if !exists( 'w:last_fdm' ) | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+	autocmd InsertLeave,WinLeave * if exists( 'w:last_fdm' ) | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+augroup END
+
+" バイナリ編集時のバイナリエディタ化
 augroup BinFileEdit
 	autocmd!
 	autocmd BufReadPre *.bin,*.sav let &binary=1
