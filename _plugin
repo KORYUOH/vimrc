@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2017/11/10
-"	Version	5.50
+"	Update	2017/12/01
+"	Version	5.55
 "===============================================================================
 "
 "Dein Setting
@@ -13,7 +13,7 @@ if !&compatible
 endif
 
 "dein auto Install
-let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:cache_home = empty($XDG_CACHE_HOME) ? ( has('kaoriya') ? expand('~/.cache') : expand('~/.ncache') ) : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home.'/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shuogo/dein.vim'
 if !isdirectory(s:dein_repo_dir)

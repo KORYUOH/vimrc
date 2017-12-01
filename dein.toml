@@ -269,9 +269,35 @@ hook_add = 'let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQ
 [[plugins]]
 repo = 'mattn/calendar-vim'
 
+[[plugins]]
+repo = 'yaasita/edit-slack.vim'
+if = 'exists("g:yaasita_slack_token")'
 
-
-
+# [[plugins]]
+# repo = 'natebosch/vim-lsc'
+# hook_add = '''
+# " Map a filetype to the command that starts the language server for that filetype in your vimrc.
+# " vimrcでそのファイルタイプの言語サーバを起動するコマンドにファイルタイプをマップします。
+# " let g:lsc_server_commands = { 'dart' : 'dart_language_server'}
+# " To disable autocomplete in favor of manual completion also add
+# " let g:lsc_enable_autocomplete = v:false
+#
+# " Most interactive features are triggered by commands, you can map keys to these commands, or use g:lsc_auto_map to have them automatically mapped for the buffers which have a language server enabled.
+# " You can use the default mappings by setting it to v:true, or specify your own mappings in a dict.
+# " The 'Complete' key will set a completion function only if g:lsc_enable_autocomplete is false.
+# " ほとんどのインタラクティブな機能はコマンドによってトリガされ、キーをこれらのコマンドにマップするか、g：lsc_auto_mapを使用して、言語サーバが有効になっているバッファ用に自動的にマッピングされます。
+# " デフォルトマッピングをv：trueに設定するか、またはdictに独自のマッピングを指定して使用することができます。
+# " 'Complete'キーは、g：lsc_enable_autocompleteがfalseの場合にのみ完了関数を設定します。
+#
+# let g:lsc_auto_map = v:true " Use defaults
+# " ... or set only the keys you want mapped, defaults are:
+# let g:lsc_auto_map = {
+#     \ 'GoToDefinition': '<C-]>',
+#     \ 'FindReferences': 'gr',
+#     \ 'ShowHover': 'K',
+#     \ 'Completion': 'completefunc',
+#     \}
+# '''
 
 
 
