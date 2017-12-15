@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2017/11/17
-"	Version	5.35
+"	Update	2017/12/15
+"	Version	5.50
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -21,7 +21,7 @@
 if has('gui_running')
 	set encoding=utf-8
 	set bomb
-	set fileencodings=cp932,sjis,utf-8
+	set fileencodings=ucs-bom,cp932,sjis,utf-8
 endif
 "set termencoding=utf-8
 "set fileencoding=utf-8
