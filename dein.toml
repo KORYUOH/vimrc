@@ -49,6 +49,12 @@ augroup END
 	'''
 
 [[plugins]]
+repo = 'kmszk/skyhawk'
+
+[[plugins]]
+repo = 'kmszk/skyknight'
+
+[[plugins]]
 repo = 'Shougo/unite.vim'
 hook_add = '''
 	nmap <leader>f :Unite file -buffer-name=UniteFiler<CR>
