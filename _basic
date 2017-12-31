@@ -26,7 +26,7 @@ endif
 "set termencoding=utf-8
 "set fileencoding=utf-8
 set encoding=utf-8
-set fileencodings=cp932,sjis,utf-8
+set fileencodings=ucs-bom,cp932,sjis,utf-8
 
 "スワップファイルはいらない
 set noswapfile
