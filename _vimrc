@@ -3,7 +3,7 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2017/11/10
+"	Update	2018/01/20
 "	Version	2.20
 "	Encording	utf-8 bomb dos
 "===============================================================================
