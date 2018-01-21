@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2016/05/13
-"	Version	4.00
+"	Update	2017/12/15
+"	Version	5.50
 "===============================================================================
 
 "エンコードの指定 UTF-8
@@ -20,16 +20,26 @@
 "ほかのから拾ってみた
 if has('gui_running')
 	set encoding=utf-8
+	set bomb
+	set fileencodings=ucs-bom,cp932,sjis,utf-8
 endif
 "set termencoding=utf-8
 "set fileencoding=utf-8
-"set encoding=utf-8
-set fileencodings=euc-jp,utf-8,cp932
+set encoding=utf-8
+set fileencodings=ucs-bom,cp932,sjis,utf-8
 
 "スワップファイルはいらない
 set noswapfile
-"バックアップファイルもいらない
-set nobackup
+
+" バックアップ用のフォルダがあれば
+if isdirectory( expand('~/.vimbackup'))
+	set backupdir=~/.vimbackup
+	set backup
+else
+	"バックアップファイルもいらない
+	set nobackup
+endif
+
 "undo用のフォルダがあるなら
 if has( 'persistent_undo' ) && isdirectory(expand("~/.vimundo"))
 	"undoファイルの保存先とundoファイルの生成
@@ -40,6 +50,20 @@ else
 	set noundofile
 endif
 
+" 折りたたみの保存場所があればそこに
+if isdirectory(expand('~/.vimviews'))
+	set viewdir=~/.vimviews
+
+	" 折りたたみはシンタックス準拠
+	augroup CPP_FoldMethods
+		autocmd!
+		" autocmd FileType cpp setlocal foldmethod=syntax
+		autocmd BufRead *.c,*.cpp,*.h,*.hpp loadview
+		autocmd BufWrite *.c,*.cpp,*.h,*.hpp mkview
+	augroup END
+
+endif
+
 "分割されたのは下
 set splitbelow
 
@@ -47,7 +71,7 @@ set splitbelow
 set splitright
 
 "タグファイルの指定
-set tags=~/.tags
+set tags=./tags
 
 "表示タブ幅
 set tabstop=4
@@ -77,11 +101,19 @@ set nf=
 "タブを可視化
 set list listchars=tab:\>\-
 
+" スペルチェックで日本語は無視
+set spelllang+=cjk
+
+" Default( windows ).
+"set guioptions=egmrLT
+"gvimでメニューとツールバーを消す
+set guioptions=egrL
+
 "日付の挿入
-nmap <F5> <ESC>a<C-R>=strftime("%Y/%m/%d")<CR><ESC>
+nmap <F5> <ESC><ESC>a<C-R>=strftime("%Y/%m/%d")<CR><ESC>
 
 "時間の挿入
-nmap <F6> <ESC>a<C-R>=strftime("%H:%M")<CR><ESC>
+nmap <F6> <ESC><ESC>a<C-R>=strftime("%H:%M")<CR><ESC>
 
 " ; <=> : 入れ替え
 nmap ; :
@@ -109,12 +141,93 @@ nmap <C-[> %
 " ESC二回押しでサーチのハイライト非表示
 nmap <silent><ESC><ESC> :nohlsearch<CR>
 
+" 香り屋版以外のvimで行う
+if !has('kaoriya')
+	"===============
+	"= 検索周り
+	"===============
+	" インクリメンタルサーチを有効
+	set incsearch
+	" 検索時に大文字小文字を無視
+	set ignorecase
+	" 大文字、小文字を含む場合は区別
+	set smartcase
+	" 検索時に最後まで行ったらはじめから
+	set wrapscan
+	
+	"===============
+	"= 編集周り
+	"===============
+	" コマンドラインの高さ
+	set cmdheight=2
+	" 常にステータス行を表示
+	set laststatus=2
+	"
+	set imsearch=0
+	" 自動インデント
+	set autoindent
+	" 
+	set nobuflisted
+	" バックスペースでインデントや行頭、行末を消せる
+	set backspace=indent,eol,start
+	" 括弧入力時に対応括弧の表示
+	set showmatch
+	" 日本語用 入力時自動折り返し
+	set formatoptions+=mM
+	"ルーラー
+	set ruler
+	" タイトル表示
+	set title
+	
+	"===============
+	"= コマンド周り
+	"===============
+	" コマンドをステータス行に表示
+	set showcmd
+	" 強化されたコマンドライン補完
+	if has('wildmenu')
+		set wildmenu
+	endif
+	
+	"===============
+	"= その他
+	"===============
+	" プラットホーム依存の特別な設定
+	" WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
+	if has('win32') && $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
+		let $PATH = $VIM . ';' . $PATH
+	endif
+	
+endif
+
 "_vimrcの再読み込み
 command! ReloadVimrc source ~/github/_vimrc
 
 command! OpenVimrc tabnew $HOME/github/_vimrc
 
 command! OpenGVimrc tabnew $HOME/github/_gvimrc
+
+" プラグイン管理の編集
+command! OpenDein tabnew $HOME/github/dein.toml
+command! OpenDeinLazy tabnew $HOME/github/lazy_dein.toml
+
+" 折りたたみの一時変更
+augroup ChangeFold
+	autocmd!
+	autocmd InsertEnter {*.h,*.cpp,*.hpp,*.c,*.inc} if !exists( 'w:last_fdm' ) | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | echo 'OperationManual' | endif
+	autocmd InsertLeave,WinLeave {*.h,*.cpp,*.hpp,*.c,*.inc} if exists( 'w:last_fdm' ) | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | echo 'OperationBefore' | endif
+augroup END
+
+" バイナリ編集時のバイナリエディタ化
+augroup BinFileEdit
+	autocmd!
+	autocmd BufReadPre *.bin,*.sav let &binary=1
+	autocmd BufReadPost * if &binary | silent %!xxd -g 1
+	autocmd BufReadPost * set filetype=xxd | endif
+	autocmd BufWritePre * if &binary | silent %!xxd -r | endif
+	autocmd BufWritePost * if &binary | silent %xxd -g 1
+	autocmd BufWritePost * set nomod | endif
+augroup END
 
 "全角スペースの表示
 function! WideSpace()
@@ -146,3 +259,4 @@ function! s:VSetSearch()
   let @s = temp
 endfunction
 
+"vim:set enc=utf-8:set bomb

@@ -11,61 +11,47 @@ colorscheme torte
 source ~/github/_plugin
 source ~/github/_basic
 
+" vimrcのUnreal Engine 4 プログラム用 適当スキーム類
+source ~/github/_vimrc_ue4
+
+" 名前 @ 日付を挿入
+"nmap <F4> <ESC><ESC>a<C-R>=$username.'@'.strftime('%Y/%m/%d')<CR><ESC>
+
+
+" jqが使えるときにjsonでパースをさせる
+if executable('jq')
+	command! -nargs=? Jq call s:Jq(<f-args>)
+
+	function! s:Jq(...)
+		let l:filetype = &filetype
+		
+		if 'json' != l:filetype
+			echo "This File Is No Json File"
+			return
+		endif
+		
+		if 0 == a:0
+			let l:arg = "."
+		else
+			let l:arg=a:1
+		endif
+		execute "%! jq \"" . l:arg . "\""
+	endfunction
+
+	"キーマッピング
+	nmap <leader>jq :Jq<CR>
+endif
+
+if !exists('g:LoadTestSource')
+	let g:LoadTestSource = 0
+endif
+
+" テスト用vimファイル
+if g:LoadTestSource == 1
+	" source ~/github/test/WriteYank.vim
+endif
+
 if !exists('g:unite_source_outline_info')
 	let g:unite_source_outline_info = {}
 endif
 
-" uintとかのカラースキーム
-augroup MSDNCPP
-	autocmd!
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType float32
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType float64
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType int16
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType int32
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType int64
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType int8
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType uint16
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType uint32
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType uint64
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cppType uint8
-augroup END
-
-" UnrealEngine関係のマクロカラースキーム
-augroup UECPP
-	autocmd!
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine UCLASS
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine UENUM
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine GENERATED_BODY
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine GENERATED_STRUCT_BODY
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine GENERATED_USTRUCT_BODY
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine GENERATED_UCLASS_BODY
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine DEFINE_LOG_CATEGORY_STATIC
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine UFUNCTION
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine UPROPERTY
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine USTRUCT
-	"autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match cDefine "\<[A-Z]\+_API\>"
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cStatement Category
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cStatement Super
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cSpecial Cast
-augroup END
-
-"UE4のクラスのなんちゃってカラースキーム 
-augroup UE4CLASS
-	autocmd!
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match Identifier "\<A[A-Z]\w\+\>"
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match Identifier "\<F[A-Z]\w\+\>"
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match Identifier "\<U[A-Z]\w\+\>"
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match Identifier "\<E[A-Z]\w\+\>"
-augroup END
-
-highlight UE4Assertions  guifg=Red
-highlight UE4AssertionsEx  guifg=Red guibg=Yellow
-highlight UE4AssertionsCheck  guifg=Yellow
-
-" UE4のアサートのカラースキーム設定
-augroup UE4Assert
-	autocmd!
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword UE4Assertions unimplemented checkNoEntry checkNoReentry checkNoRecursion
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword UE4AssertionsEx ensure ensureMsg ensureMsgf
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword UE4AssertionsCheck check verify checkf verifyf checkCode
-augroup END
