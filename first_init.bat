@@ -3,7 +3,8 @@
 @rem Brief	vimrc ‰Šúì¬
 @rem Author	KORYUOH
 @rem Create 2017/12/16
-@rem Version 1.0
+@rem Update 2018/01/21
+@rem Version 1.5
 @rem ===========================================================
 @setlocal
 
@@ -20,8 +21,9 @@ set DIRECTORY=~/github/_vimrc
 :CHECK
 echo %DIRECTORY%
 set VIMRCNAME=_vimrc
+set EXPORTFILE=%ROOT%\%VIMRCNAME%
 
-if exist %ROOT%\%VIMRCNAME% goto SELECT
+if exist "%ROOT%\%VIMRCNAME%" goto SELECT
 goto CREATE
 
 :SELECT
@@ -35,18 +37,14 @@ goto EOF
 
 :CREATE
 
-echo CREATE
-
-echo source "%DIRECTORY%"
+echo scriptencoding^=utf-8>%EXPORTFILE%
+echo source %DIRECTORY%>>%EXPORTFILE%
 
 goto EOF
 
 :ADD
-
-echo ADD
-
+echo source %DIRECTORY%>>%EXPORTFILE%
 goto EOF
 
 :EOF
-echo EOF
 @endlocal
