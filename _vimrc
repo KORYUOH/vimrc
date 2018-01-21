@@ -3,8 +3,9 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2016/05/13
-"	Version	2.10UE
+"	Update	2018/01/20
+"	Version	2.20UE
+"	Encording	utf-8 bomb dos
 "===============================================================================
 
 colorscheme torte
@@ -55,3 +56,19 @@ if !exists('g:unite_source_outline_info')
 	let g:unite_source_outline_info = {}
 endif
 
+command! -nargs=1 RenameThisFile call s:RenameFileName(<f-args> );
+function! s:RenameFileName( fileName )
+	let l:fromname = expand('%')
+	let l:toname = fnamemodify( expand('%') , ':h' ) . fileName 
+	rename( l:fromname, l:toname )
+endfunction
+
+
+
+augroup BatFileFenc
+	autocmd!
+	autocmd Bufread,WinEnter,VimEnter *.bat set fileencoding=cp932
+augroup END
+
+
+"vim:set enc=utf-8:set bomb
