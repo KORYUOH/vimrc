@@ -5,7 +5,7 @@
 "	Create	2014/10/02
 "	Update	2018/01/20
 "	Version	2.20
-"	Encording	utf-8 bomb dos
+"	Encoding	utf-8 bomb dos
 "===============================================================================
 
 colorscheme torte
@@ -63,6 +63,17 @@ function! s:RenameFileName( fileName )
 	rename( l:fromname, l:toname )
 endfunction
 
+augroup PHP_IO
+    autocmd!
+	autocmd BufRead *.php set autoindent
+	autocmd BufReadPost  *.php set noexpandtab
+	autocmd BufReadPost  *.php %retab!
+	autocmd BufWritePre  *.php set expandtab
+	autocmd BufWritePre  *.php %retab!
+	autocmd BufWritePost *.php set noexpandtab
+	autocmd BufWritePost *.php %retab!
+	autocmd BufWritePost *.php set nomod
+augroup END
 
 
 augroup BatFileFenc
