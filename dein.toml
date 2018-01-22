@@ -238,7 +238,7 @@ hook_add='''
 
 let s:snippet_folder = '~/snippet'
 
-if exists(s:snippet_folder)
+if isdirectory(s:snippet_folder)
 	let g:neosnippet#snippets_directory = s:snippet_folder
 endif
 
