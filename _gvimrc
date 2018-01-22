@@ -7,17 +7,17 @@
 "	Version	1.05
 "===============================================================================
 
-"縦幅 デフォルト24
-set lines=40
-"横幅 デフォルト80
-set columns=120
+" "縦幅 デフォルト25
+" set lines=40
+" "横幅 デフォルト80
+" set columns=120
 
 source $VIMRUNTIME/delmenu.vim
 set langmenu=ja_jp.utf-8
 source $VIMRUNTIME/menu.vim
 
 "起動時最大化
-"au GUIEnter * simalt ~x
+au GUIEnter * simalt ~x
 "
 
 set guifont=MeiryoKe_Console:h10:cSHIFTJIS
@@ -25,4 +25,5 @@ set guifont=MeiryoKe_Console:h10:cSHIFTJIS
 
 
 colorscheme torte
+colorscheme molokai
 
