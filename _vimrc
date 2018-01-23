@@ -4,8 +4,8 @@
 "	Author	KORYUOH
 "	Create	2014/10/02
 "	Update	2018/01/20
-"	Version	2.20
-"	Encoding	utf-8 bomb dos
+"	Version	2.20UE
+"	Encording	utf-8 bomb dos
 "===============================================================================
 
 colorscheme torte
@@ -13,7 +13,7 @@ source ~/github/_plugin
 source ~/github/_basic
 
 " vimrcのUnreal Engine 4 プログラム用 適当スキーム類
-"source ~/github/_vimrc_ue4
+source ~/github/_vimrc_ue4
 
 " 名前 @ 日付を挿入
 "nmap <F4> <ESC><ESC>a<C-R>=$username.'@'.strftime('%Y/%m/%d')<CR><ESC>
