@@ -82,6 +82,10 @@ nmap <C-W>u :Unite outline:! -buffer-name=UniteOutLiner<CR>
 '''
 
 [[plugins]]
+repo = 'Shougo/unite-help'
+depends = [ 'unite.vim' ]
+
+[[plugins]]
 repo = 'sgur/unite-qf'
 hook_add='''
 	nmap <leader>ucw :Unite qf -buffer-name=UniteQuickFix<CR>
