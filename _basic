@@ -71,7 +71,7 @@ set splitbelow
 set splitright
 
 "タグファイルの指定
-set tags=./tags
+set tags=tags
 
 "表示タブ幅
 set tabstop=4
