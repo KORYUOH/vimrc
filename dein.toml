@@ -280,6 +280,10 @@ hook_add = 'let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQ
 repo = 'mattn/calendar-vim'
 
 [[plugins]]
+repo = 'mtth/scratch.vim'
+if = '!has("kaoriya")'
+
+[[plugins]]
 repo = 'yaasita/edit-slack.vim'
 if = 'exists("g:yaasita_slack_token")'
 
