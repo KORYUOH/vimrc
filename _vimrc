@@ -3,17 +3,49 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/01/20
-"	Version	2.20UE
+"	Update	2018/02/14
+"	Version	2.50
 "	Encording	utf-8 bomb dos
 "===============================================================================
 
 colorscheme torte
-source ~/github/_plugin
-source ~/github/_basic
+
+"=== このファイルの場所.
+let s:filedir = fnamemodify( expand('<sfile>') , ':h')
+let s:filelist = []
+
+"=== 読み込みチェック関数
+function! s:TryLoad()
+	for fpath in s:filelist
+		let s:path = substitute( s:filedir . '/' . fpath , '\' ,'/' , 'g' )
+		if filereadable(s:path)
+			execute "source " . s:path
+		else
+			echomsg 'Not Found File : ' . s:path
+		endif
+	endfor
+endfunction
+
+"=== 読み込み対象追加コマンド
+command! -nargs=1 AddSrc  call s:addSrc(<args>)
+function! s:addSrc( sourcepath )
+	call add( s:filelist , a:sourcepath )
+endfunction
+
+"================================================================================
+" 読み込むロード対応ファイル
+"================================================================================
+AddSrc '_plugin' 
+AddSrc '_basic'
 
 " vimrcのUnreal Engine 4 プログラム用 適当スキーム類
-source ~/github/_vimrc_ue4
+" AddSrc '_vimrc_ue4'
+
+
+"================================================================================
+"読み込みチェック
+"================================================================================
+call s:TryLoad()
 
 " 名前 @ 日付を挿入
 "nmap <F4> <ESC><ESC>a<C-R>=$username.'@'.strftime('%Y/%m/%d')<CR><ESC>
