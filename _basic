@@ -3,9 +3,12 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2017/12/15
-"	Version	5.50
+"	Update	2018/02/14
+"	Version	5.70
 "===============================================================================
+
+" テストコマンドを有効化するか
+let s:basic_test_command_enable = 0
 
 "エンコードの指定 UTF-8
 "set encoding=UTF-8
@@ -201,15 +204,19 @@ if !has('kaoriya')
 endif
 
 "_vimrcの再読み込み
-command! ReloadVimrc source ~/github/_vimrc
+let s:vimrcfold= fnamemodify( expand('<sfile>') , ':h')
+command! ReloadVimrc execute 'source ' . s:vimrcfold.'/_vimrc'
 
-command! OpenVimrc tabnew $HOME/github/_vimrc
+command! OpenVimrc execute 'tabnew '.s:vimrcfold . '/_vimrc'
 
-command! OpenGVimrc tabnew $HOME/github/_gvimrc
+command! OpenGvimrc execute 'tabnew '.s:vimrcfold . '/_gvimrc'
+
+command! SourceThis source %:p
+
 
 " プラグイン管理の編集
-command! OpenDein tabnew $HOME/github/dein.toml
-command! OpenDeinLazy tabnew $HOME/github/lazy_dein.toml
+command! OpenDein execute 'tabnew ' . s:vimrcfold . '/dein.toml'
+command! OpenDeinLazy execute 'tabnew ' . s:vimrcfold . '/lazy_dein.toml'
 
 " 折りたたみの一時変更
 augroup ChangeFold
