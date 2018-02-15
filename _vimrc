@@ -5,6 +5,7 @@
 "	Create	2014/10/02
 "	Update	2018/02/15
 "	Version	2.51
+"	Modify UE4
 "	Encording	utf-8 bomb dos
 "===============================================================================
 
@@ -39,7 +40,7 @@ AddSrc '_plugin'
 AddSrc '_basic'
 
 " vimrcのUnreal Engine 4 プログラム用 適当スキーム類
-" AddSrc '_vimrc_ue4'
+AddSrc '_vimrc_ue4'
 
 
 "=== 読み込み対象追加コマンド の開放
