@@ -1,1 +1,10 @@
 *.bak
+local.vim
+temp.vim
+_local
+_local_vimrc
+_vimrc_local
+.local
+.local_vimrc
+.vimrc_local
+/[Ll]ocal
