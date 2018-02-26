@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2017/12/01
-"	Version	5.55
+"	Update	2018/02/15
+"	Version	5.80
 "===============================================================================
 "
 "Dein Setting
@@ -22,19 +22,68 @@ endif
 
 let &runtimepath = s:dein_repo_dir.",".&runtimepath
 
+"=== 存在チェックして読み込むリスト保存先
+let s:check_toml_list = []
+let s:check_toml_lazy_list = []
+"=========================
+
+function! s:addtoml ( ... )
+	if a:0 != 2
+		return
+	endif
+	let l:isLazy = a:2
+	let l:fname = fnamemodify( expand('<sfile>' ) , ':h' ) . '/' . a:1
+	if( l:isLazy == 0 )
+		call add( s:check_toml_list , l:fname )
+	else
+		call add( s:check_toml_lazy_list , l:fname )
+	endif
+endfunction
+
+command! -nargs=1 CheckToml call s:addtoml( <args> , 0 )
+command! -nargs=1 CheckTomlLazy call s:addtoml( <args> , 1 )
+
+"=== 読み込みチェック対象
+CheckToml 'local.toml'
+CheckToml 'local_dein.toml'
+CheckToml 'local_plugin.toml'
+CheckToml 'add_plugin.toml'
+CheckToml 'dein_local.toml'
+CheckTomlLazy 'local_lazy.toml'
+CheckTomlLazy 'local_dein_lazy.toml'
+CheckTomlLazy 'local_lazy_dein.toml'
+CheckTomlLazy 'local_lazy_plugin.toml'
+CheckTomlLazy 'local_plugin_lazy.toml'
+CheckTomlLazy 'local_add_plugin_lazy.toml'
+CheckTomlLazy 'lazy_local.toml'
+CheckTomlLazy 'dein_lazy_local.toml'
+CheckTomlLazy 'lazy_dein_local.toml'
+CheckTomlLazy 'lazy_plugin_local.toml'
+CheckTomlLazy 'plugin_lazy_local.toml'
+CheckTomlLazy 'add_plugin_lazy_local.toml'
+
+"==== Delete UnUse Command
+delcommand CheckToml
+delcommand CheckTomlLazy
+
 let s:toml_file = fnamemodify( expand('<sfile>'), ':h' ).'/dein.toml'
 let s:lazy_toml_file = fnamemodify( expand('<sfile>'),':h' ).'/lazy_dein.toml'
 if dein#load_state(s:dein_dir)
-	" if exists( s:lazy_toml_file )
-	" 	echo "Found " . s:lazy_toml_file
-		call dein#begin(s:dein_dir,[$MYVIMRC,s:toml_file,s:lazy_toml_file])
-	" else
-	" 	echo "Not Found" . s:lazy_toml_file
-	" 	call dein#begin(s:dein_dir,[$MYVIMRC,s:toml_file])
-	" endif
-	" call dein#begin(s:dein_dir)
+	call dein#begin(s:dein_dir)
 	call dein#load_toml(s:toml_file,{'lazy':0})
-	call dein#load_toml(s:lazy_toml_file,{'lazy':1})
+	if filereadable( s:lazy_toml_file )
+		call dein#load_toml(s:lazy_toml_file,{'lazy':1})
+	endif
+	for toml in s:check_toml_list
+		if filereadable( toml )
+			call dein#load_toml( toml ,{'lazy':0})
+		endif 
+	endfor
+	for toml in s:check_toml_lazy_list
+		if filereadable( toml )
+			call dein#load_toml( toml ,{'lazy':1})
+		endif 
+	endfor
 	call dein#end()
 	call dein#save_state()
 endif
