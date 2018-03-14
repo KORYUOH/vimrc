@@ -4,7 +4,7 @@
 "	Author	KORYUOH
 "	Create	2014/10/02
 "	Update	2018/03/14
-"	Version	2.61
+"	Version	2.66
 "	Encording	utf-8 bomb dos
 "===============================================================================
 
@@ -116,6 +116,14 @@ endif
 if !exists('g:unite_source_outline_info')
 	let g:unite_source_outline_info = {}
 endif
+
+let g:unite_source_outline_info.toml ={
+			\ 'heading' : '^\s*repo',
+			\ 'heading+1' : '\[\[plugins\]\]',
+			\ 'skip' : {
+			\ 'header' : '^#',
+			\}
+			\}
 
 command! -nargs=1 RenameThisFile call s:RenameFileName(<f-args> );
 function! s:RenameFileName( fileName )
