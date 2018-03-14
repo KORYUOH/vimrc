@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/02/26
-"	Version	2.60
+"	Update	2018/03/14
+"	Version	2.61
 "	Encording	utf-8 bomb dos
 "===============================================================================
 
@@ -29,7 +29,7 @@ function! s:TryLoad()
 	for fpath in s:localfilelist
 		let s:path = substitute( s:filedir . '/' . fpath , '\' ,'/' , 'g' )
 		if filereadable(s:path)
-			echomsg "Local vimrc Found : " . s:path
+			echo "Local vimrc Found : " . s:path
 			execute "source " . s:path
 		endif
 	endfor
