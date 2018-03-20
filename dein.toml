@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2017/12/27
-#	Version	1.12
+#	Update	2018/03/16
+#	Version	1.20
 #	Lazy : Not Lazy
 ########################################
 
@@ -72,6 +72,49 @@ hook_add = '''
 		let g:unite_source_grep_recursive_opt = ''
 		let g:unite_source_grep_encoding = 'utf-8'
 	endif
+	function! g:unite_source_menu_map_function(key, value)
+		let [word, value] = a:value
+		if isdirectory(value)
+			return {
+						\"word" : "[directory] ".word,
+						\"kind" : "directory",
+						\"action__directory" : value,
+						\}
+		elseif !empty(glob(value))
+			return {
+						\"word" : "[file] ".word,
+						\"kind" : "file",
+						\"action__path" : value,
+						\}
+		else
+			return {
+						\"word" : "[command] ".word,
+						\"kind" : "command",
+						\"action__command" : value,
+						\}
+		endif
+	endfunction
+	if !exists('g:unite_source_menu_menus')
+		let g:unite_source_menu_menus = {}
+	endif
+
+	if exists('g:unite_source_menu_menus')
+		let g:unite_source_menu_menus.vimrc = {
+					\ "description" : "vimrc depends"
+					\}
+
+		let g:unite_source_menu_menus.vimrc.candidates = [
+					\ [ "vimrc" , fnamemodify( expand('<sfile>' ),':h' )],
+					\ [ "_vimrc" , fnamemodify( expand('<sfile>' ),':h')."/_vimrc" ],
+					\ [ "~/_vimrc" , expand('~' )."/_vimrc" ],
+					\ [ ".dein" , (empty($XDG_CACHE_HOME) ? ( has('kaoriya') ?  expand('~/.cache') : expand('~/.ncache') ) : $XDG_CACHE_HOME ) . '/dein/repos' ],
+					\]
+
+		function! g:unite_source_menu_menus.vimrc.map(key, value )
+			return g:unite_source_menu_map_function( a:key , a:value )
+		endfunction
+	endif
+
 '''
 
 
@@ -79,6 +122,19 @@ hook_add = '''
 repo = 'Shougo/unite-outline'
 hook_add = '''
 nmap <C-W>u :Unite outline:! -buffer-name=UniteOutLiner<CR>
+if !exists('g:unite_source_outline_info')
+	let g:unite_source_outline_info = {}
+endif
+
+if !exists( 'g:unite_source_outline_info.toml' )
+	let g:unite_source_outline_info.toml ={
+				\ 'heading' : '^\s*repo',
+				\ 'heading+1' : '\[\[plugins\]\]',
+				\ 'skip' : {
+				\ 'header' : '^#',
+				\}
+				\}
+endif
 '''
 
 [[plugins]]

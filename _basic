@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/02/14
-"	Version	5.70
+"	Update	2018/03/20
+"	Version	5.80
 "===============================================================================
 
 " テストコマンドを有効化するか
@@ -24,12 +24,12 @@ let s:basic_test_command_enable = 0
 if has('gui_running')
 	set encoding=utf-8
 	set bomb
-	set fileencodings=ucs-bom,cp932,sjis,utf-8
+	set fileencodings=ucs-bom,utf-8,iso-2022-jp,cp932,sjis.euc-jp,cp20932
 endif
 "set termencoding=utf-8
 "set fileencoding=utf-8
 set encoding=utf-8
-set fileencodings=ucs-bom,cp932,sjis,utf-8
+set fileencodings=ucs-bom,utf-8,iso-2022-jp,cp932,sjis.euc-jp,cp20932
 
 "スワップファイルはいらない
 set noswapfile
