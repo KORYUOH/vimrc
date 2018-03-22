@@ -72,7 +72,7 @@ hook_add = '''
 		let g:unite_source_grep_recursive_opt = ''
 		let g:unite_source_grep_encoding = 'utf-8'
 	endif
-	function! g:unite_source_menu_map_function(key, value)
+	function! s:unite_source_menu_map_function(key, value)
 		let [word, value] = a:value
 		if isdirectory(value)
 			return {
@@ -105,13 +105,13 @@ hook_add = '''
 
 		let g:unite_source_menu_menus.vimrc.candidates = [
 					\ [ "vimrc" , fnamemodify( expand('<sfile>' ),':h' )],
-					\ [ "_vimrc" , fnamemodify( expand('<sfile>' ),':h')."/_vimrc" ],
+					\ [ "_vimrc" , fnamemodify( expand('%' ),':h')."/_vimrc" ],
 					\ [ "~/_vimrc" , expand('~' )."/_vimrc" ],
 					\ [ ".dein" , (empty($XDG_CACHE_HOME) ? ( has('kaoriya') ?  expand('~/.cache') : expand('~/.ncache') ) : $XDG_CACHE_HOME ) . '/dein/repos' ],
 					\]
 
 		function! g:unite_source_menu_menus.vimrc.map(key, value )
-			return g:unite_source_menu_map_function( a:key , a:value )
+			return s:unite_source_menu_map_function( a:key , a:value )
 		endfunction
 	endif
 
