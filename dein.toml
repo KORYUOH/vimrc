@@ -104,7 +104,7 @@ hook_add = '''
 					\}
 
 		let g:unite_source_menu_menus.vimrc.candidates = [
-					\ [ "vimrc" , fnamemodify( expand('<sfile>' ),':h' )],
+					\ [ "vimrc" , fnamemodify( expand('%' ),':h' )],
 					\ [ "_vimrc" , fnamemodify( expand('%' ),':h')."/_vimrc" ],
 					\ [ "~/_vimrc" , expand('~' )."/_vimrc" ],
 					\ [ ".dein" , (empty($XDG_CACHE_HOME) ? ( has('kaoriya') ?  expand('~/.cache') : expand('~/.ncache') ) : $XDG_CACHE_HOME ) . '/dein/repos' ],
