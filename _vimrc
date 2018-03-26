@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/02/15
-"	Version	2.51
+"	Update	2018/03/14
+"	Version	2.66
 "	Modify UE4
 "	Encording	utf-8 bomb dos
 "===============================================================================
@@ -14,6 +14,7 @@ colorscheme torte
 "=== このファイルの場所.
 let s:filedir = fnamemodify( expand('<sfile>') , ':h')
 let s:filelist = []
+let s:localfilelist = []
 
 "=== 読み込みチェック関数
 function! s:TryLoad()
@@ -25,12 +26,25 @@ function! s:TryLoad()
 			echomsg 'Not Found File : ' . s:path
 		endif
 	endfor
+
+	for fpath in s:localfilelist
+		let s:path = substitute( s:filedir . '/' . fpath , '\' ,'/' , 'g' )
+		if filereadable(s:path)
+			echo "Local vimrc Found : " . s:path
+			execute "source " . s:path
+		endif
+	endfor
 endfunction
 
 "=== 読み込み対象追加コマンド
-command! -nargs=1 AddSrc  call s:addSrc(<args>)
-function! s:addSrc( sourcepath )
-	call add( s:filelist , a:sourcepath )
+command! -nargs=1 AddSrc  call s:addSrc( <args> , 0  )
+command! -nargs=1 AddSrcLocal  call s:addSrc(<args> , 1 )
+function! s:addSrc( sourcepath, local )
+	if( a:local )
+		call add( s:localfilelist , a:sourcepath )
+	else
+		call add( s:filelist , a:sourcepath )
+	endif
 endfunction
 
 "================================================================================
@@ -42,9 +56,22 @@ AddSrc '_basic'
 " vimrcのUnreal Engine 4 プログラム用 適当スキーム類
 AddSrc '_vimrc_ue4'
 
+"================================================================================
+" ローカルにあったら読み込むリスト
+"================================================================================
+AddSrcLocal "local.vim"
+AddSrcLocal "temp.vim"
+AddSrcLocal "_local"
+AddSrcLocal "_local_vimrc"
+AddSrcLocal "_vimrc_local"
+AddSrcLocal ".local"
+AddSrcLocal ".local_vimrc"
+AddSrcLocal ".vimrc_local"
+
 
 "=== 読み込み対象追加コマンド の開放
 delcommand AddSrc
+delcommand AddSrcLocal
 "================================================================================
 "読み込みチェック
 "================================================================================
@@ -90,6 +117,14 @@ endif
 if !exists('g:unite_source_outline_info')
 	let g:unite_source_outline_info = {}
 endif
+
+let g:unite_source_outline_info.toml ={
+			\ 'heading' : '^\s*repo',
+			\ 'heading+1' : '\[\[plugins\]\]',
+			\ 'skip' : {
+			\ 'header' : '^#',
+			\}
+			\}
 
 command! -nargs=1 RenameThisFile call s:RenameFileName(<f-args> );
 function! s:RenameFileName( fileName )
