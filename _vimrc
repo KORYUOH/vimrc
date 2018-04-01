@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/03/14
-"	Version	2.66
+"	Update	2018/04/01
+"	Version	2.70
 "	Encording	utf-8 bomb dos
 "===============================================================================
 
@@ -14,6 +14,10 @@ colorscheme torte
 let s:filedir = fnamemodify( expand('<sfile>') , ':h')
 let s:filelist = []
 let s:localfilelist = []
+
+if !exists('g:local_echo_silent')
+	let g:local_echo_silent = 0
+endif
 
 "=== 読み込みチェック関数
 function! s:TryLoad()
@@ -29,7 +33,9 @@ function! s:TryLoad()
 	for fpath in s:localfilelist
 		let s:path = substitute( s:filedir . '/' . fpath , '\' ,'/' , 'g' )
 		if filereadable(s:path)
-			echo "Local vimrc Found : " . s:path
+			if g:local_echo_silent == 0
+				echo "Local vimrc Found : " . s:path
+		endif
 			execute "source " . s:path
 		endif
 	endfor
