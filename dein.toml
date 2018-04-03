@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2018/03/26
-#	Version	1.24
+#	Update	2018/04/03
+#	Version	1.26
 #	Lazy : Not Lazy
 ########################################
 
@@ -104,8 +104,8 @@ hook_add = '''
 					\}
 
 		let g:unite_source_menu_menus.vimrc.candidates = [
-					\ [ "vimrc" , fnamemodify( expand('%' ),':h' )],
-					\ [ "_vimrc" , fnamemodify( expand('%' ),':h')."/_vimrc" ],
+					\ [ "vimrc" , exists('g:vimrc_base_dir') ? (g:vimrc_base_dir) : ( fnamemodify( expand('%' ),':h' ) )],
+					\ [ "_vimrc" , exists('g:vimrc_base_dir') ? (g:vimrc_base_dir . "/_vimrc") : (fnamemodify( expand('%' ),':h')."/_vimrc" ) ],
 					\ [ "~/_vimrc" , expand('~' )."/_vimrc" ],
 					\ [ ".dein" , (empty($XDG_CACHE_HOME) ? ( has('kaoriya') ?  expand('~/.cache') : expand('~/.ncache') ) : $XDG_CACHE_HOME ) . '/dein/repos' ],
 					\]
