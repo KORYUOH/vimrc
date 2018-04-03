@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/04/01
-"	Version	2.70
+"	Update	2018/04/03
+"	Version	2.73
 "	Modify UE4
 "	Encording	utf-8 bomb dos
 "===============================================================================
@@ -15,6 +15,8 @@ colorscheme torte
 let s:filedir = fnamemodify( expand('<sfile>') , ':h')
 let s:filelist = []
 let s:localfilelist = []
+"=== tomlで設定するのに必要 このvimrcのあるフォルダ
+let g:vimrc_base_dir = s:filedir
 
 if !exists('g:local_echo_silent')
 	let g:local_echo_silent = 0
