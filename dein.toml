@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2018/04/17
-#	Version	1.30
+#	Update	2018/04/26
+#	Version	1.31
 #	Lazy : Not Lazy
 ########################################
 
@@ -349,6 +349,16 @@ if = 'exists("g:yaasita_slack_token")'
 
 [[plugins]]
 repo = 'vim-syntastic/syntastic.git'
+hook_add = '''
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntasitic_check_on_wq = 0
+'''
 
 # [[plugins]]
 # repo = 'natebosch/vim-lsc'
