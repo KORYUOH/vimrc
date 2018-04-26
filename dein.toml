@@ -347,6 +347,9 @@ if = '!has("kaoriya")'
 repo = 'yaasita/edit-slack.vim'
 if = 'exists("g:yaasita_slack_token")'
 
+[[plugins]]
+repo = 'vim-syntastic/syntastic.git'
+
 # [[plugins]]
 # repo = 'natebosch/vim-lsc'
 # hook_add = '''
