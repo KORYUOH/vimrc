@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2018/04/26
-#	Version	1.31
+#	Update	2018/04/27
+#	Version	1.32
 #	Lazy : Not Lazy
 ########################################
 
@@ -358,6 +358,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntasitic_check_on_wq = 0
+let g:synstatic_enable_signs = 1
+let g:systastic_echo_current_error = 1
+let g:syntastic_enable_higilighting = 1
 '''
 
 # [[plugins]]
