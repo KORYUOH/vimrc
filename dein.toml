@@ -208,6 +208,13 @@ hook_add = '''
 	nmap <leader>ml :MemoList<CR>
 	nmap <leader>mg :MemoGrep<CR>
 '''
+[[plugins]]
+repo = 'kannokanno/previm'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft = 'markdown'
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
@@ -366,6 +373,7 @@ let g:syntastic_enable_higilighting = 1
 [[plugins]]
 repo = 'vim-scripts/confluencewiki.vim'
 on_ft= 'confluencewiki' 
+
 
 # [[plugins]]
 # repo = 'natebosch/vim-lsc'
