@@ -126,6 +126,15 @@ if !exists('g:unite_source_outline_info')
 	let g:unite_source_outline_info = {}
 endif
 
+if !exists( 'g:unite_source_outline_info.bas' )
+	let g:unite_source_outline_info.bas = {
+				\ 'heading' : '^\s*\(Sub\|Function\)'
+				\ 'skip' : {
+				\ 'header' : "'"
+				\}
+				\}
+endif
+
 if !exists( 'g:unite_source_outline_info.toml' )
 	let g:unite_source_outline_info.toml ={
 				\ 'heading' : '^\s*repo',
