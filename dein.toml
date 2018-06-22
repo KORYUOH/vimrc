@@ -172,6 +172,9 @@ repo = 'terryma/vim-multiple-cursors'
 repo = 'AndrewRadev/switch.vim'
 hook_add = '''
 let g:switch_mapping = "-"
+let g:switch_custom_definitions = [
+			\ ['public' , 'protected' , 'private' ]
+			\]
 '''
 
 [[plugins]]
