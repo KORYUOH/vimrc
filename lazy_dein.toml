@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	2017/10/16
-#	Update	2018/06/08
-#	Version	1.07
+#	Update	2018/09/04
+#	Version	1.10
 #	Lazy : Lazy
 ########################################
 
@@ -14,7 +14,7 @@ on_ft = 'php'
 
 [[plugins]]
 repo = 'alvan/vim-closetag'
-on_ft = 'blade'
+on_ft = ['blade','html' , 'xml' ]
 hook_add = '''
 let g:closetag_filetypes = 'html,xml,blade,xhtml'
 '''

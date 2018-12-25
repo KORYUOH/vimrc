@@ -3,10 +3,16 @@
 " 	Brief	UE4用追加vimrc
 "	Author	KORYUOH
 "	Create	2017/08/09
-"	Update	2017/08/09
-"	Version	1.00
+"	Update	2018/12/25
+"	Version	1.10
 "	Encording	utf-8 bomb dos
 "===============================================================================
+hi clear
+if exists("syntax_on" )
+	syntax reset
+endif
+
+let colors_name = "ue_append"
 
 " uintとかのカラースキーム
 augroup MSDNCPP
@@ -52,9 +58,12 @@ augroup UE4CLASS
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match Identifier "\<E[A-Z]\w\+\>"
 augroup END
 
-highlight UE4Assertions  guifg=Red
-highlight UE4AssertionsEx  guifg=Red guibg=Yellow
-highlight UE4AssertionsCheck  guifg=Yellow
+augroup UE4Highlights
+	autocmd!
+	autocmd ColorScheme * highlight UE4Assertions  guifg=Red
+	autocmd ColorScheme * highlight UE4AssertionsEx  guifg=Red guibg=Yellow
+	autocmd ColorScheme * highlight UE4AssertionsCheck  guifg=Yellow
+augroup END<`0`>
 
 " UE4のアサートのカラースキーム設定
 augroup UE4Assert
