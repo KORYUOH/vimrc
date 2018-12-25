@@ -10,6 +10,9 @@
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
+hook_add = '''
+command! RecacheHelp call dein#recache_runtimepath()<CR>
+'''
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
@@ -68,7 +71,9 @@ hook_add = '''
 	nmap <leader>cg :Unite grep:.:-G\ \\.(h\\\|cpp) -buffer-name=UniteQuickFix<CR>
 	if executable('pt')
 		let g:unite_source_grep_command = 'pt'
-		let g:unite_source_grep_default_opts = '--nogroup --nocolor --smart-case --word-regexp'
+		let g:unite_source_grep_default_opts = '--nogroup --nocolor --smart-case'
+		" let g:unite_source_grep_default_opts = '--nogroup --nocolor --smart-case --word-regexp'
+		" let g:unite_source_grep_default_opts = '--nogroup --nocolor'
 		let g:unite_source_grep_recursive_opt = ''
 		let g:unite_source_grep_encoding = 'utf-8'
 	endif
@@ -117,6 +122,36 @@ hook_add = '''
 
 '''
 
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+if = 'has("python3")'
+depends = ['neomru.vim']
+on_event = 'BufRead'
+hook_add = '''
+nmap <silent> <C-u><C-r> :<C-u>Denite -resume<CR>
+nmap <silent> <C-u><C-j> :<C-u>Denite line<CR>
+nmap <silent> <C-u><C-u> :<C-u>Denite file_mru<CR>
+nmap <silent> <C-u><C-f> :<C-u>Denite file_rec<CR>
+nmap <silent> <C-u><C-g> :<C-u>Denite grep<CR>
+nmap <silent> <C-u><C-]> :<C-u>DeniteCursorWord grep<CR>
+nmap <silent> <C-u><C-d> :<C-u>Denite directory_rec<CR>
+'''
+hook_post_source = '''
+call denite#custom#var( 'file_rec' , 'command' , ['pt' , '--nocolor' , '--nogroup' , 'smart-case' , '--follow' , '-G' , '' ] )
+call denite#custom#var( 'grep' , 'command' , ['pt'] )
+call denite#custom#var( 'grep' , 'recursive_opts' , [] )
+call denite#custom#var( 'grep' , 'pattern_opt' , [] )
+call denite#custom#var( 'grep' , 'default_opts' , [ '--follow' , '--nogroup' , '--nocolor' ] )
+'''
+[[plugins]]
+repo = 'Shougo/neossh.vim'
+depends = ['unite.vim' , 'vimfiler' , 'vimproc']
+
+
+[[plugins]]
+repo='Shougo/vimfiler'
+
+
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
@@ -127,10 +162,10 @@ if !exists('g:unite_source_outline_info')
 endif
 
 if !exists( 'g:unite_source_outline_info.bas' )
-	let g:unite_source_outline_info.bas = {
-				\ 'heading' : '^\s*\(Sub\|Function\)'
+	let g:unite_source_outline_info.vb = {
+				\ 'heading' : '^\s*\(Sub\|Function\)',
 				\ 'skip' : {
-				\ 'header' : "'"
+				\ 'header' : "'",
 				\}
 				\}
 endif
@@ -351,9 +386,20 @@ endif
 
 '''
 
+# [[plugins]]
+# repo = 'vim-scripts/ShowMarks'
+# hook_add = 'let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"'
+
 [[plugins]]
-repo = 'vim-scripts/ShowMarks'
-hook_add = 'let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"'
+repo = 'kshenoy/vim-signature'
+
+[[plugins]]
+repo = 'tacroe/unite-mark'
+hook_add = '''
+nmap m/ :Unite mark<CR>
+nmap m :Unite mark<CR>
+'''
+
 
 [[plugins]]
 repo = 'mattn/calendar-vim'
@@ -383,9 +429,36 @@ let g:syntastic_enable_higilighting = 1
 '''
 
 [[plugins]]
+repo = 'regedarek/ZoomWin'
+
+[[plugins]]
 repo = 'vim-scripts/confluencewiki.vim'
 on_ft= 'confluencewiki' 
 
+# [[plugins]]
+# repo = 'autozimu/LanguageClient-neovim'
+# on_ft = 'vue'
+# next = 'rev'
+# build = './install.sh'
+# hook_source = '''
+# let g:LanguageClienmt_serverCommands = {
+# 			\ 'vue' : ['vls'],
+# 			\}
+# let g:LanguageClient_autoStart = 1
+# '''
+
+[[plugins]]
+repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'metakirby5/codi.vim'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'pandysong/ghost-text.vim'
+	
 
 # [[plugins]]
 # repo = 'natebosch/vim-lsc'
