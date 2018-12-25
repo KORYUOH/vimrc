@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/04/17
-"	Version	5.81
+"	Update	2018/09/10
+"	Version	5.82
 "===============================================================================
 "
 "Dein Setting
@@ -90,6 +90,7 @@ endif
 
 if has('vim_starting') && dein#check_install()
 	call dein#install()
+	call dein#recache_runtimepath()
 endif
 
 syntax on
