@@ -467,6 +467,40 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'pandysong/ghost-text.vim'
 	
+[[plugins]]
+repo = 'joonty/vdebug'
+hook_add = '''
+let g:vdebug_options = {
+			\ "port" : 9000,
+			\ "server" : '',
+			\ "timeout" : 20,
+			\ "on_close" :  'detach',
+			\ "ide_key" : '',
+			\ "break_on_open" : 0,
+			\ "debug_window_level" : 0,
+			\ "debug_file_level" : 2,
+			\ "debug_file" : "~/vdebug.log",
+			\ "path_maps" : {
+			\	'/home/vagrant/_vagrant' : 'Z:/SkyBlueServer/web',
+			\	},
+			\"window_arrangement" : [ "DebuggerWatch" , "DebuggerStack" ]
+			\}
+let g:vdebug_keymap = {
+			\    "run" : "<Leader><F5>",
+			\    "run_to_cursor" : "<F9>",
+			\    "step_over" : "<F2>",
+			\    "step_into" : "<F3>",
+			\    "step_out" : "<F4>",
+			\    "close" : "<Leader><F6>",
+			\    "detach" : "<F7>",
+			\    "set_breakpoint" : "<F10>",
+			\    "get_context" : "<F11>",
+			\    "eval_under_cursor" : "<F12>",
+			\    "eval_visual" : "<Leader>e"
+			\}
+			" \	'/home/vagrant/_vagrant/skyblue_auth' : 'Z:/SkyBlueServer/web/skyblue_auth',
+			" \	'/home/vagrant/_vagrant/skyblue_datastore' : 'Z:/SkyBlueServer/web/skyblue_datastore',
+'''
 
 # [[plugins]]
 # repo = 'natebosch/vim-lsc'
