@@ -194,7 +194,7 @@ let g:lightline = {
 			\	'left' : [ [ 'mode' , 'paste' ],[ 'filename' ,'modified' , 'readonly' ] , ['pwd']  ],
 			\	},
 			\	'component' : {
-			\		'pwd'	: 'CD> '.getcwd(),
+			\		'pwd'	: 'CD> '.'%{getcwd(tabpagewinnr( tabpagenr() ) , tabpagenr() )}',
 			\	}
 			\}
 '''
