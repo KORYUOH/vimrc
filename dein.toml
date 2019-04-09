@@ -12,6 +12,7 @@
 repo = 'Shougo/dein.vim'
 hook_add = '''
 command! RecacheHelp call dein#recache_runtimepath()<CR>
+let g:dein#install_log_filename = $HOME."/dein_logs/".localtime().".log"
 '''
 
 [[plugins]]
@@ -235,6 +236,9 @@ let g:lightline = {
 			\		'pwd'	: 'CD> '.'%{getcwd(tabpagewinnr( tabpagenr() ) , tabpagenr() )}',
 			\	}
 			\}
+command! -bar LightlineUpdate  call lightline#init()|
+			\ call lightline#colorscheme()|
+			\ call lightline#update()
 '''
 
 [[plugins]]
@@ -422,6 +426,7 @@ if = 'exists("g:yaasita_slack_token")'
 
 [[plugins]]
 repo = 'vim-syntastic/syntastic.git'
+on_ft='php'
 hook_add = '''
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -443,20 +448,31 @@ repo = 'regedarek/ZoomWin'
 repo = 'vim-scripts/confluencewiki.vim'
 on_ft= 'confluencewiki' 
 
-# [[plugins]]
-# repo = 'autozimu/LanguageClient-neovim'
-# on_ft = 'vue'
-# next = 'rev'
-# build = './install.sh'
-# hook_source = '''
-# let g:LanguageClienmt_serverCommands = {
-# 			\ 'vue' : ['vls'],
-# 			\}
-# let g:LanguageClient_autoStart = 1
-# '''
-
 [[plugins]]
-repo = 'w0rp/ale'
+repo = 'autozimu/LanguageClient-neovim'
+on_ft = ['cpp','c']
+# next = 'rev'
+rev = 'next'
+build = './install.sh'
+hook_source = '''
+let g:LanguageClient_serverCommands = {
+			\ 'vue' : ['vls'],
+			\ 'c':['ccls','--log-file=Z:/Logs/cc.log'],
+			\ 'cpp':['ccls','--log-file=Z:/Logs/cc.log'],
+			\ 'cuda':['ccls','--log-file=Z:/Logs/cc.log'],
+			\ 'objc':['ccls','--log-file=Z:/Logs/cc.log'],
+			\}
+let g:LanguageClient_loadSettings = 1
+let g:LanguageClient_settingsPath='~/.config/settings.json'
+let g:LanguageClient_autoStart = 1
+nnoremap <silent> <leader>K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <leader> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+'''
+
+# [[plugins]]
+# repo = 'w0rp/ale'
 
 [[plugins]]
 repo = 'metakirby5/codi.vim'
@@ -467,40 +483,40 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'pandysong/ghost-text.vim'
 	
-[[plugins]]
-repo = 'joonty/vdebug'
-hook_add = '''
-let g:vdebug_options = {
-			\ "port" : 9000,
-			\ "server" : '',
-			\ "timeout" : 20,
-			\ "on_close" :  'detach',
-			\ "ide_key" : '',
-			\ "break_on_open" : 0,
-			\ "debug_window_level" : 0,
-			\ "debug_file_level" : 2,
-			\ "debug_file" : "~/vdebug.log",
-			\ "path_maps" : {
-			\	'/home/vagrant/_vagrant' : 'Z:/SkyBlueServer/web',
-			\	},
-			\"window_arrangement" : [ "DebuggerWatch" , "DebuggerStack" ]
-			\}
-let g:vdebug_keymap = {
-			\    "run" : "<Leader><F5>",
-			\    "run_to_cursor" : "<F9>",
-			\    "step_over" : "<F2>",
-			\    "step_into" : "<F3>",
-			\    "step_out" : "<F4>",
-			\    "close" : "<Leader><F6>",
-			\    "detach" : "<F7>",
-			\    "set_breakpoint" : "<F10>",
-			\    "get_context" : "<F11>",
-			\    "eval_under_cursor" : "<F12>",
-			\    "eval_visual" : "<Leader>e"
-			\}
-			" \	'/home/vagrant/_vagrant/skyblue_auth' : 'Z:/SkyBlueServer/web/skyblue_auth',
-			" \	'/home/vagrant/_vagrant/skyblue_datastore' : 'Z:/SkyBlueServer/web/skyblue_datastore',
-'''
+# [[plugins]]
+# repo = 'joonty/vdebug'
+# hook_add = '''
+# let g:vdebug_options = {
+# 			\ "port" : 9000,
+# 			\ "server" : '',
+# 			\ "timeout" : 20,
+# 			\ "on_close" :  'detach',
+# 			\ "ide_key" : '',
+# 			\ "break_on_open" : 0,
+# 			\ "debug_window_level" : 0,
+# 			\ "debug_file_level" : 2,
+# 			\ "debug_file" : "~/vdebug.log",
+# 			\ "path_maps" : {
+# 			\	'/home/vagrant/_vagrant' : 'Z:/SkyBlueServer/web',
+# 			\	},
+# 			\"window_arrangement" : [ "DebuggerWatch" , "DebuggerStack" ]
+# 			\}
+# let g:vdebug_keymap = {
+# 			\    "run" : "<Leader><F5>",
+# 			\    "run_to_cursor" : "<F9>",
+# 			\    "step_over" : "<F2>",
+# 			\    "step_into" : "<F3>",
+# 			\    "step_out" : "<F4>",
+# 			\    "close" : "<Leader><F6>",
+# 			\    "detach" : "<F7>",
+# 			\    "set_breakpoint" : "<F10>",
+# 			\    "get_context" : "<F11>",
+# 			\    "eval_under_cursor" : "<F12>",
+# 			\    "eval_visual" : "<Leader>e"
+# 			\}
+# 			" \	'/home/vagrant/_vagrant/skyblue_auth' : 'Z:/SkyBlueServer/web/skyblue_auth',
+# 			" \	'/home/vagrant/_vagrant/skyblue_datastore' : 'Z:/SkyBlueServer/web/skyblue_datastore',
+# '''
 
 # [[plugins]]
 # repo = 'natebosch/vim-lsc'

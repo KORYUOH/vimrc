@@ -74,7 +74,8 @@ set splitbelow
 set splitright
 
 "タグファイルの指定
-set tags=tags,./tags,../tags,./**/tags
+" set tags=tags,./tags,../tags,./**/tags
+set tags=tags,./tags,../tags
 
 "表示タブ幅
 set tabstop=4
@@ -255,6 +256,17 @@ augroup VimSettings
 	autocmd!
 	autocmd Bufread,WinEnter,VimEnter {_basic,_plugin} set filetype=vim
 augroup END
+
+augroup vimrc_local
+	autocmd!
+	autocmd BufNewFile,BufReadPost * call s:vimrc_load_local(expand('<afile>:p:h'))
+augroup END
+function! s:vimrc_load_local(locate) abort
+	let l:files = findfile('.vimrc_local' , escape(a:locate , ' ').';',-1)
+	for i in reverse( filter( l:files ,'filereadable(v:val)'))
+		source `=i`
+	endfor
+endfunction
 
 "virtualモードの時にスターで選択位置のコードを検索するようにする"
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
