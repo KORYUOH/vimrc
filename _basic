@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2019/04/09
-"	Version	5.90
+"	Update	2019/04/24
+"	Version	5.92
 "===============================================================================
 
 " テストコマンドを有効化するか
@@ -228,6 +228,7 @@ augroup END
 " バイナリ編集時のバイナリエディタ化
 augroup BinFileEdit
 	autocmd!
+	autocmd BufReadPre * if &binary | let &binary=0 | endif
 	autocmd BufReadPre *.bin,*.sav let &binary=1
 	autocmd BufReadPost * if &binary | silent %!xxd -g 1
 	autocmd BufReadPost * set filetype=xxd | endif
