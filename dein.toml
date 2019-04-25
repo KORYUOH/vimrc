@@ -231,10 +231,22 @@ endif
 let g:lightline = {
 			\ 'active' : {
 			\	'left' : [ [ 'mode' , 'paste' ],[ 'filename' ,'modified' , 'readonly' ] , ['pwd']  ],
-			\	},
-			\	'component' : {
+			\	'right': [ [ 'lineinfo' ],
+			\				[ 'percent' ],
+			\				[ 'fileformat', 'fileencoding','bomb', 'filetype' ],['syntastic'] ]
+			\ },
+			\ 'inactive' : {
+		    \	'left' : [ [ 'filename' ] ],
+		    \	'right': [ [ 'lineinfo' ],
+		    \				[ 'percent' ] ] 
+			\ },
+			\ 'component' : {
 			\		'pwd'	: 'CD> '.'%{getcwd(tabpagewinnr( tabpagenr() ) , tabpagenr() )}',
-			\	}
+			\		'bomb'	: '%{&bomb?"[B]":"[NB]"}',
+			\	},
+			\ 'component_function' : {
+			\		'syntastic' : 'SyntasticStatuslineFlag',
+			\},
 			\}
 command! -bar LightlineUpdate  call lightline#init()|
 			\ call lightline#colorscheme()|
