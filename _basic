@@ -278,4 +278,20 @@ function! s:VSetSearch()
   let @s = temp
 endfunction
 
+" ファイルの名前+カーソル行数をクリップボードにコピー
+command! -range -nargs=* ClipFileName call s:clip_file_name(<line1>,<line2>)
+function! s:clip_file_name(start,end)
+
+	let l:diff = a:start - a:end
+
+	if l:diff != 0
+		let l:lines = a:start.'-'.a:end
+	else
+		let l:lines = line('.')
+	endif
+
+	let @*=''.expand('%:t').':'.l:lines
+	echo @*
+endfunction
+
 "vim:set enc=utf-8:set bomb
