@@ -18,3 +18,10 @@ on_ft = ['blade','html' , 'xml' ]
 hook_add = '''
 let g:closetag_filetypes = 'html,xml,blade,xhtml'
 '''
+
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = 'vue'
+hook_add = '''
+autocmd FileType vue syntax sync fromstart
+'''
