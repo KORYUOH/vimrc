@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2019/04/25
-#	Version	1.41
+#	Update	2019/06/13
+#	Version	1.53
 #	Lazy : Not Lazy
 ########################################
 
@@ -421,7 +421,7 @@ repo = 'kshenoy/vim-signature'
 repo = 'tacroe/unite-mark'
 hook_add = '''
 nmap m/ :Unite mark<CR>
-nmap m :Unite mark<CR>
+" nmap m :Unite mark<CR>
 '''
 
 
@@ -556,6 +556,11 @@ repo = 'pandysong/ghost-text.vim'
 #     \}
 # '''
 
+[[plugins]]
+repo = 'majutsushi/tagbar'
+
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
 
 
 
