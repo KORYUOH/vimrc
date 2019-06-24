@@ -209,15 +209,19 @@ repo = 'ujihisa/neco-look'
 
 [[plugins]]
 repo = 'koron/codic-vim'
-hook_add = '''
-inoremap <silent> <C-x><C-t> <C-R>=<SID>codic_complete()<CR>
-'''
+# hook_add = '''
+# inoremap <silent> <C-x><C-t> <C-R>=<SID>codic_complete()<CR>
+# '''
 
 [[plugins]]
 repo = 'rhysd/unite-codic.vim'
 hook_add = '''
 	nmap <leader>uc :Unite codic<CR>
 '''
+
+[[plugins]]
+repo = 'sgur/codic_complete.vim'
+deopends = ['codic-vim']
 
 [[plugins]]
 repo = 'terryma/vim-multiple-cursors'
