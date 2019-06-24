@@ -460,7 +460,7 @@ let g:syntasitic_check_on_wq = 0
 let g:synstatic_enable_signs = 1
 let g:systastic_echo_current_error = 1
 let g:syntastic_enable_higilighting = 1
-# see :h syntasitic-loclist-callback
+" see :h syntasitic-loclist-callback
 function! SyntasticCheckHook(errors)
 	if !empty(a:errors)
 		let g:syntastic_loc_list_height = min([len(a:errors) , 5])
