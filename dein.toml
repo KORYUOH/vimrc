@@ -4,7 +4,7 @@
 #	Author	KORYUOH
 #	Create	
 #	Update	2019/06/24
-#	Version	1.55
+#	Version	1.58
 #	Lazy : Not Lazy
 ########################################
 
@@ -196,6 +196,12 @@ hook_add='''
 	nmap <leader>ucw :Unite qf -buffer-name=UniteQuickFix<CR>
 '''
 
+[[plugins]]
+repo = 'sgur/unite-everything'
+if = 'executable("es")&&executable("everything")'
+	hook_add = '''
+	nmap <leader>ue :Unite -buffer-name=files buffer file_mru eberything
+	'''
 
 
 [[plugins]]
