@@ -220,7 +220,7 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'sgur/codic_complete.vim'
+repo = 'sgur/codic-complete.vim'
 deopends = ['codic-vim']
 
 [[plugins]]
