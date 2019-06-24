@@ -199,9 +199,9 @@ hook_add='''
 [[plugins]]
 repo = 'sgur/unite-everything'
 if = 'executable("es")&&executable("everything")'
-	hook_add = '''
-	nmap <leader>ue :Unite -buffer-name=files buffer file_mru eberything
-	'''
+hook_add = '''
+nmap <leader>ue :Unite -buffer-name=files buffer file_mru eberything
+'''
 
 
 [[plugins]]
@@ -209,6 +209,9 @@ repo = 'ujihisa/neco-look'
 
 [[plugins]]
 repo = 'koron/codic-vim'
+hook_add = '''
+inoremap <silent> <C-x><C-t> <C-R>=<SID>codic_complete()<CR>
+'''
 
 [[plugins]]
 repo = 'rhysd/unite-codic.vim'
