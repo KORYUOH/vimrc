@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2019/04/24
-"	Version	5.92
+"	Update	2019/09/19
+"	Version	6.01
 "===============================================================================
 
 " テストコマンドを有効化するか
@@ -138,6 +138,11 @@ nmap <C-Right> <C-W>>
 nmap <C-Left> <C-W><
 nmap <C-Up> <C-W>-
 nmap <C-Down> <C-W>+
+" Ctrl + Shift + 十字キーでウィンドウ幅大幅操作
+nmap <C-S-Right> 20<C-W>>
+nmap <C-S-Left> 20<C-W><
+nmap <C-S-Up> 5<C-W>-
+nmap <C-S-Down> 5<C-W>+
 
 " 対応カッコまで飛ぶ
 nmap <C-[> %
