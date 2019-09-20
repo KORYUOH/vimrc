@@ -4,7 +4,7 @@
 "	Author	KORYUOH
 "	Create	2014/10/18
 "	Update	2019/09/20
-"	Version	2.05
+"	Version	2.06
 "===============================================================================
 
 " "縦幅 デフォルト25
@@ -22,8 +22,10 @@ au GUIEnter * simalt ~x
 
 set guifont=MeiryoKe_Console:h10:cSHIFTJIS
 if has('directx')
-set guifont=Cascadia_Code:h10:cDEFAULT:qCLEARTYPE,MeiryoKe_Console:h10:cSHIFTJIS
-set renderoptions=type:directx,scrlines:1
+	" set guifont=Cascadia_Code:h10:cDEFAULT:qCLEARTYPE,MeiryoKe_Console:h10:cSHIFTJIS
+	set guifont=Cascadia_Code:h10:cSHIFTJIS:qDRAFT
+	set guifontwide=MeiryoKe_Console:h10:cDEFAULT
+	set renderoptions=type:directx,scrlines:1
 endif
 
 
