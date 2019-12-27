@@ -640,6 +640,8 @@ repo ='mbbill/undotree'
 hook_add = '''
 nmap <leader>ud :UndotreeToggle<CR>
 '''
+[[plugins]]
+repo = 'dhruvasagar/vim-table-mode'
 
 
 
