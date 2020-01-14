@@ -212,7 +212,7 @@ hook_add='''
 repo = 'sgur/unite-everything'
 if = 'executable("es")&&executable("everything")'
 hook_add = '''
-nmap <leader>ue :Unite -buffer-name=files buffer file_mru eberything
+nmap <leader>ue :Unite -buffer-name=files buffer file_mru everything<CR>
 '''
 
 
@@ -497,6 +497,11 @@ repo = 'yaasita/edit-slack.vim'
 if = 'exists("g:yaasita_slack_token")'
 
 [[plugins]]
+repo = 'higashi000/sarahck.vim'
+if = 'exists("g:slackToken")'
+# depends=['vim-jp/vital.vim']
+
+[[plugins]]
 repo = 'vim-syntastic/syntastic.git'
 on_ft='php'
 hook_add = '''
@@ -567,6 +572,7 @@ repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'pandysong/ghost-text.vim'
+if = 'has("python3")'
 	
 # [[plugins]]
 # repo = 'joonty/vdebug'
