@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2020/01/14
-"	Version	6.02
+"	Update	2020/04/03
+"	Version	6.04
 "===============================================================================
 
 " テストコマンドを有効化するか
@@ -213,7 +213,17 @@ endif
 let s:vimrcfold= fnamemodify( expand('<sfile>') , ':h')
 command! ReloadVimrc execute 'source ' . s:vimrcfold.'/_vimrc'
 
-command! OpenVimrc execute 'tabnew '.s:vimrcfold . '/_vimrc'
+" vimrcを指定で読み込めるタイプにする
+function! s:openvimrc(default_filename,fname)
+	let l:open_file = a:default_filename
+	if !empty(a:fname)
+		let l:open_file = ''.a:fname
+	endif
+	execute 'tabnew '.s:vimrcfold . '/' .l:open_file
+endfunction
+
+
+command! -nargs=? OpenVimrc call s:openvimrc('_vimrc', '<args>')
 
 command! OpenGvimrc execute 'tabnew '.s:vimrcfold . '/_gvimrc'
 
