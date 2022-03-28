@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2020/04/03
-"	Version	6.04
+"	Update	2022/03/28
+"	Version	6.14
 "===============================================================================
 
 " テストコマンドを有効化するか
@@ -309,5 +309,34 @@ function! s:clip_file_name(start,end)
 	let @*=''.expand('%:t').':'.l:lines
 	echo @*
 endfunction
+
+" UUIDを出力する
+" ハイフンの処理 0 : 消す
+let g:uuid_pyhen = 0
+function! UuidGen(type)abort
+	if !has('python3')
+		finish
+	endif
+
+python3 << endpy
+import vim
+from uuid import uuid4
+vim.command("let l:new_uuid='{}'".format(str(uuid4())))
+endpy
+	if g:uuid_pyhen == 0
+		let l:new_uuid = substitute(l:new_uuid , "-" , "", "g")
+	if a:type == "lower"
+		return tolower(l:new_uuid)
+	else
+		return toupper(l:new_uuid)
+	endif
+endfunction
+
+function! s:Uuid(arg)
+	execute "normal a" . UuidGen(a:arg)
+endfunction
+
+" UUIDでUUIDを入れるコマンド 引数にlowerを入れると小文字で出力
+command! -nargs=? UUID call s:Uuid('<args>')
 
 "vim:set enc=utf-8:set bomb
