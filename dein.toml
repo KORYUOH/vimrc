@@ -3,13 +3,17 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2018/03/26
-#	Version	1.24
+#	Update	2019/06/24
+#	Version	1.58
 #	Lazy : Not Lazy
 ########################################
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
+hook_add = '''
+command! RecacheHelp call dein#recache_runtimepath()<CR>
+let g:dein#install_log_filename = $HOME."/dein_logs/".localtime().".log"
+'''
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
@@ -68,7 +72,9 @@ hook_add = '''
 	nmap <leader>cg :Unite grep:.:-G\ \\.(h\\\|cpp) -buffer-name=UniteQuickFix<CR>
 	if executable('pt')
 		let g:unite_source_grep_command = 'pt'
-		let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+		let g:unite_source_grep_default_opts = '--nogroup --nocolor --smart-case'
+		" let g:unite_source_grep_default_opts = '--nogroup --nocolor --smart-case --word-regexp'
+		" let g:unite_source_grep_default_opts = '--nogroup --nocolor'
 		let g:unite_source_grep_recursive_opt = ''
 		let g:unite_source_grep_encoding = 'utf-8'
 	endif
@@ -104,8 +110,8 @@ hook_add = '''
 					\}
 
 		let g:unite_source_menu_menus.vimrc.candidates = [
-					\ [ "vimrc" , fnamemodify( expand('%' ),':h' )],
-					\ [ "_vimrc" , fnamemodify( expand('%' ),':h')."/_vimrc" ],
+					\ [ "vimrc" , exists('g:vimrc_base_dir') ? (g:vimrc_base_dir) : ( fnamemodify( expand('%' ),':h' ) )],
+					\ [ "_vimrc" , exists('g:vimrc_base_dir') ? (g:vimrc_base_dir . "/_vimrc") : (fnamemodify( expand('%' ),':h')."/_vimrc" ) ],
 					\ [ "~/_vimrc" , expand('~' )."/_vimrc" ],
 					\ [ ".dein" , (empty($XDG_CACHE_HOME) ? ( has('kaoriya') ?  expand('~/.cache') : expand('~/.ncache') ) : $XDG_CACHE_HOME ) . '/dein/repos' ],
 					\]
@@ -117,6 +123,36 @@ hook_add = '''
 
 '''
 
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+if = 'has("python3")'
+depends = ['neomru.vim']
+on_event = 'BufRead'
+hook_add = '''
+nmap <silent> <C-u><C-r> :<C-u>Denite -resume<CR>
+nmap <silent> <C-u><C-j> :<C-u>Denite line<CR>
+nmap <silent> <C-u><C-u> :<C-u>Denite file_mru<CR>
+nmap <silent> <C-u><C-f> :<C-u>Denite file_rec<CR>
+nmap <silent> <C-u><C-g> :<C-u>Denite grep<CR>
+nmap <silent> <C-u><C-]> :<C-u>DeniteCursorWord grep<CR>
+nmap <silent> <C-u><C-d> :<C-u>Denite directory_rec<CR>
+'''
+hook_post_source = '''
+call denite#custom#var( 'file_rec' , 'command' , ['pt' , '--nocolor' , '--nogroup' , 'smart-case' , '--follow' , '-G' , '' ] )
+call denite#custom#var( 'grep' , 'command' , ['pt'] )
+call denite#custom#var( 'grep' , 'recursive_opts' , [] )
+call denite#custom#var( 'grep' , 'pattern_opt' , [] )
+call denite#custom#var( 'grep' , 'default_opts' , [ '--follow' , '--nogroup' , '--nocolor' ] )
+'''
+[[plugins]]
+repo = 'Shougo/neossh.vim'
+depends = ['unite.vim' , 'vimfiler' , 'vimproc']
+
+
+[[plugins]]
+repo='Shougo/vimfiler'
+
+
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
@@ -124,6 +160,15 @@ hook_add = '''
 nmap <C-W>u :Unite outline:! -buffer-name=UniteOutLiner<CR>
 if !exists('g:unite_source_outline_info')
 	let g:unite_source_outline_info = {}
+endif
+
+if !exists( 'g:unite_source_outline_info.bas' )
+	let g:unite_source_outline_info.vb = {
+				\ 'heading' : '^\s*\(Sub\|Function\)',
+				\ 'skip' : {
+				\ 'header' : "'",
+				\}
+				\}
 endif
 
 if !exists( 'g:unite_source_outline_info.toml' )
@@ -151,6 +196,12 @@ hook_add='''
 	nmap <leader>ucw :Unite qf -buffer-name=UniteQuickFix<CR>
 '''
 
+[[plugins]]
+repo = 'sgur/unite-everything'
+if = 'executable("es")&&executable("everything")'
+hook_add = '''
+nmap <leader>ue :Unite -buffer-name=files buffer file_mru eberything
+'''
 
 
 [[plugins]]
@@ -158,12 +209,54 @@ repo = 'ujihisa/neco-look'
 
 [[plugins]]
 repo = 'koron/codic-vim'
+# hook_add = '''
+# inoremap <silent> <C-x><C-t> <C-R>=<SID>codic_complete()<CR>
+# '''
 
 [[plugins]]
 repo = 'rhysd/unite-codic.vim'
 hook_add = '''
 	nmap <leader>uc :Unite codic<CR>
+    
+	"from repo = 'https://gist.github.com/4e1cc8e93798b8fe9621.git'
+	"{{{
+	inoremap <silent> <C-x><C-t>  <C-R>=<SID>codic_complete()<CR>
+	function! s:codic_complete()
+		let line = getline('.')
+		let start = match(line, '\k\+$')
+		let cand = s:codic_candidates(line[start :])
+		call complete(start +1, cand)
+		return ''
+	endfunction
+	function! s:codic_candidates(arglead)
+		let cand = codic#search(a:arglead, 30)
+		" error
+		if type(cand) == type(0)
+			return []
+		endif
+		" english -> english terms
+		if a:arglead =~# '^\w\+$'
+			return map(cand, '{"word": v:val["label"], "menu": join(map(copy(v:val["values"]), "v:val.word"), ",")}')
+		endif
+		" japanese -> english terms
+		return s:reverse_candidates(cand)
+	endfunction
+	function! s:reverse_candidates(cand)
+		let _ = []
+		for c in a:cand
+			for v in c.values
+				call add(_, {"word": v.word, "menu": !empty(v.desc) ? v.desc : c.label })
+			endfor
+		endfor
+		return _
+	endfunction
+	"}}}
 '''
+
+# [[plugins]]
+# repo = 'https://gist.github.com/4e1cc8e93798b8fe9621.git'
+# name = 'codic-complete'
+# deopends = ['codic-vim']
 
 [[plugins]]
 repo = 'terryma/vim-multiple-cursors'
@@ -172,6 +265,9 @@ repo = 'terryma/vim-multiple-cursors'
 repo = 'AndrewRadev/switch.vim'
 hook_add = '''
 let g:switch_mapping = "-"
+let g:switch_custom_definitions = [
+			\ ['public' , 'protected' , 'private' ]
+			\]
 '''
 
 [[plugins]]
@@ -180,6 +276,29 @@ hook_add = '''
 if !has("kaoriya")
 	set laststatus=2
 endif
+let g:lightline = {
+			\ 'active' : {
+			\	'left' : [ [ 'mode' , 'paste' ],[ 'filename' ,'modified' , 'readonly' ] , ['pwd']  ],
+			\	'right': [ [ 'lineinfo' ],
+			\				[ 'percent' ],
+			\				[ 'fileformat', 'fileencoding','bomb', 'filetype' ],['syntastic'] ]
+			\ },
+			\ 'inactive' : {
+		    \	'left' : [ [ 'filename' ] ],
+		    \	'right': [ [ 'lineinfo' ],
+		    \				[ 'percent' ] ] 
+			\ },
+			\ 'component' : {
+			\		'pwd'	: 'CD> '.'%{getcwd(tabpagewinnr( tabpagenr() ) , tabpagenr() )}',
+			\		'bomb'	: '%{&bomb?"[B]":"[NB]"}',
+			\	},
+			\ 'component_function' : {
+			\		'syntastic' : 'SyntasticStatuslineFlag',
+			\},
+			\}
+command! -bar LightlineUpdate  call lightline#init()|
+			\ call lightline#colorscheme()|
+			\ call lightline#update()
 '''
 
 [[plugins]]
@@ -208,6 +327,13 @@ hook_add = '''
 	nmap <leader>ml :MemoList<CR>
 	nmap <leader>mg :MemoGrep<CR>
 '''
+[[plugins]]
+repo = 'kannokanno/previm'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft = 'markdown'
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
@@ -332,9 +458,20 @@ endif
 
 '''
 
+# [[plugins]]
+# repo = 'vim-scripts/ShowMarks'
+# hook_add = 'let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"'
+
 [[plugins]]
-repo = 'vim-scripts/ShowMarks'
-hook_add = 'let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"'
+repo = 'kshenoy/vim-signature'
+
+[[plugins]]
+repo = 'tacroe/unite-mark'
+hook_add = '''
+nmap m/ :Unite mark<CR>
+" nmap m :Unite mark<CR>
+'''
+
 
 [[plugins]]
 repo = 'mattn/calendar-vim'
@@ -346,6 +483,113 @@ if = '!has("kaoriya")'
 [[plugins]]
 repo = 'yaasita/edit-slack.vim'
 if = 'exists("g:yaasita_slack_token")'
+
+[[plugins]]
+repo = 'vim-syntastic/syntastic.git'
+on_ft='php'
+hook_add = '''
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntasitic_check_on_wq = 0
+let g:synstatic_enable_signs = 1
+let g:systastic_echo_current_error = 1
+let g:syntastic_enable_higilighting = 1
+" see :h syntasitic-loclist-callback
+function! SyntasticCheckHook(errors)
+	if !empty(a:errors)
+		let g:syntastic_loc_list_height = min([len(a:errors) , 5])
+	endif
+endfunction
+'''
+
+[[plugins]]
+repo = 'regedarek/ZoomWin'
+
+[[plugins]]
+repo = 'vim-scripts/confluencewiki.vim'
+on_ft= 'confluencewiki' 
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+on_ft = ['cpp','c']
+# next = 'rev'
+rev = 'next'
+# build = './install.sh'
+hook_post_update = '''
+	if dein#util#_is_windows()
+		let cmd = 'powershell -executionpolicy bypass -File install.ps1'
+	else
+		cmd = 'sh install.sh'
+	endif
+'''
+hook_source = '''
+let g:LanguageClient_serverCommands = {
+			\ 'vue' : ['vls'],
+			\ 'c':['ccls','--log-file=Z:/Logs/cc.log'],
+			\ 'cpp':['ccls','--log-file=Z:/Logs/cc.log'],
+			\ 'cuda':['ccls','--log-file=Z:/Logs/cc.log'],
+			\ 'objc':['ccls','--log-file=Z:/Logs/cc.log'],
+			\}
+let g:LanguageClient_loadSettings = 1
+let g:LanguageClient_settingsPath='~/.config/settings.json'
+let g:LanguageClient_autoStart = 1
+nnoremap <silent> <leader>K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <leader> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+'''
+
+# [[plugins]]
+# repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'metakirby5/codi.vim'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'pandysong/ghost-text.vim'
+	
+# [[plugins]]
+# repo = 'joonty/vdebug'
+# hook_add = '''
+# let g:vdebug_options = {
+# 			\ "port" : 9000,
+# 			\ "server" : '',
+# 			\ "timeout" : 20,
+# 			\ "on_close" :  'detach',
+# 			\ "ide_key" : '',
+# 			\ "break_on_open" : 0,
+# 			\ "debug_window_level" : 0,
+# 			\ "debug_file_level" : 2,
+# 			\ "debug_file" : "~/vdebug.log",
+# 			\ "path_maps" : {
+# 			\	'/home/vagrant/_vagrant' : 'Z:/SkyBlueServer/web',
+# 			\	},
+# 			\"window_arrangement" : [ "DebuggerWatch" , "DebuggerStack" ]
+# 			\}
+# let g:vdebug_keymap = {
+# 			\    "run" : "<Leader><F5>",
+# 			\    "run_to_cursor" : "<F9>",
+# 			\    "step_over" : "<F2>",
+# 			\    "step_into" : "<F3>",
+# 			\    "step_out" : "<F4>",
+# 			\    "close" : "<Leader><F6>",
+# 			\    "detach" : "<F7>",
+# 			\    "set_breakpoint" : "<F10>",
+# 			\    "get_context" : "<F11>",
+# 			\    "eval_under_cursor" : "<F12>",
+# 			\    "eval_visual" : "<Leader>e"
+# 			\}
+# 			" \	'/home/vagrant/_vagrant/skyblue_auth' : 'Z:/SkyBlueServer/web/skyblue_auth',
+# 			" \	'/home/vagrant/_vagrant/skyblue_datastore' : 'Z:/SkyBlueServer/web/skyblue_datastore',
+# '''
 
 # [[plugins]]
 # repo = 'natebosch/vim-lsc'
@@ -373,6 +617,11 @@ if = 'exists("g:yaasita_slack_token")'
 #     \}
 # '''
 
+[[plugins]]
+repo = 'majutsushi/tagbar'
+
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
 
 
 

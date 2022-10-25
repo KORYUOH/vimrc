@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/03/20
-"	Version	5.80
+"	Update	2019/04/24
+"	Version	5.92
 "===============================================================================
 
 " テストコマンドを有効化するか
@@ -74,7 +74,8 @@ set splitbelow
 set splitright
 
 "タグファイルの指定
-set tags=tags
+" set tags=tags,./tags,../tags,./**/tags
+set tags=tags,./tags,../tags
 
 "表示タブ幅
 set tabstop=4
@@ -228,6 +229,7 @@ augroup END
 " バイナリ編集時のバイナリエディタ化
 augroup BinFileEdit
 	autocmd!
+	autocmd BufReadPre * if &binary | let &binary=0 | endif
 	autocmd BufReadPre *.bin,*.sav let &binary=1
 	autocmd BufReadPost * if &binary | silent %!xxd -g 1
 	autocmd BufReadPost * set filetype=xxd | endif
@@ -256,6 +258,17 @@ augroup VimSettings
 	autocmd Bufread,WinEnter,VimEnter {_basic,_plugin} set filetype=vim
 augroup END
 
+augroup vimrc_local
+	autocmd!
+	autocmd BufNewFile,BufReadPost * call s:vimrc_load_local(expand('<afile>:p:h'))
+augroup END
+function! s:vimrc_load_local(locate) abort
+	let l:files = findfile('.vimrc_local' , escape(a:locate , ' ').';',-1)
+	for i in reverse( filter( l:files ,'filereadable(v:val)'))
+		source `=i`
+	endfor
+endfunction
+
 "virtualモードの時にスターで選択位置のコードを検索するようにする"
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
@@ -264,6 +277,22 @@ function! s:VSetSearch()
   norm! gv"sy
   let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
   let @s = temp
+endfunction
+
+" ファイルの名前+カーソル行数をクリップボードにコピー
+command! -range -nargs=* ClipFileName call s:clip_file_name(<line1>,<line2>)
+function! s:clip_file_name(start,end)
+
+	let l:diff = a:start - a:end
+
+	if l:diff != 0
+		let l:lines = a:start.'-'.a:end
+	else
+		let l:lines = line('.')
+	endif
+
+	let @*=''.expand('%:t').':'.l:lines
+	echo @*
 endfunction
 
 "vim:set enc=utf-8:set bomb

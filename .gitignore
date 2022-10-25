@@ -1,6 +1,7 @@
 *.bak
 local.vim
 temp.vim
+[Ll]ocal_vim
 _local
 _local_vimrc
 _vimrc_local
