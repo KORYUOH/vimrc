@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2019/12/10
-#	Version	1.60
+#	Update	2021/07/20
+#	Version	1.61
 #	Lazy : Not Lazy
 ########################################
 
@@ -103,6 +103,19 @@ hook_add = '''
 	if !exists('g:unite_source_menu_menus')
 		let g:unite_source_menu_menus = {}
 	endif
+
+	if !exists('g:unite_source_outline_info')
+		let g:unite_source_outline_info = {}
+	endif
+
+	let g:unite_source_outline_info.toml ={
+				\ 'heading' : '^\s*repo',
+				\ 'heading+1' : '\[\[plugins\]\]',
+				\ 'skip' : {
+				\ 'header' : '^#',
+				\}
+				\}
+
 
 	if exists('g:unite_source_menu_menus')
 		let g:unite_source_menu_menus.vimrc = {
@@ -278,7 +291,8 @@ repo = 'AndrewRadev/switch.vim'
 hook_add = '''
 let g:switch_mapping = "-"
 let g:switch_custom_definitions = [
-			\ ['public' , 'protected' , 'private' ]
+			\ ['public' , 'protected' , 'private' ],
+			\ ['>' , '<' ]
 			\]
 '''
 
@@ -345,7 +359,13 @@ on_ft = 'markdown'
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
-on_ft = 'markdown'
+# on_ft = 'markdown'
+hook_add= '''
+	let g:netrw_nogx = 1 " disable netrw's gx mapping.
+	nmap <Leader>gx <Plug>(openbrowser-smart-search)
+	vmap <Leader>gx <Plug>(openbrowser-smart-search)
+
+'''
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
@@ -547,10 +567,10 @@ hook_post_update = '''
 hook_source = '''
 let g:LanguageClient_serverCommands = {
 			\ 'vue' : ['vls'],
-			\ 'c':['ccls','--log-file=Z:/Logs/cc.log'],
-			\ 'cpp':['ccls','--log-file=Z:/Logs/cc.log'],
-			\ 'cuda':['ccls','--log-file=Z:/Logs/cc.log'],
-			\ 'objc':['ccls','--log-file=Z:/Logs/cc.log'],
+			\ 'c':['ccls','--log-file=Z:\Logs\cc.log'],
+			\ 'cpp':['ccls','--log-file=Z:\Logs\cc.log'],
+			\ 'cuda':['ccls','--log-file=Z:\Logs\cc.log'],
+			\ 'objc':['ccls','--log-file=Z:\Logs\cc.log'],
 			\}
 let g:LanguageClient_loadSettings = 1
 let g:LanguageClient_settingsPath='~/.config/settings.json'
@@ -648,6 +668,50 @@ nmap <leader>ud :UndotreeToggle<CR>
 '''
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
+
+[[plugins]]
+repo = 'mattn/vim-findroot'
+hook_add = '''
+" let g:find_root_mask = '*.c'
+let g:find_root_patterns = [
+			\ '.git/',
+			\ '.svn/',
+			\ '.hg/',
+			\ '.bzr/',
+			\ '.gitignore/',
+			\ 'Rakefile',
+			\ 'pom.xml',
+			\ 'project.cli',
+			\ '*.csproj/',
+			\ '*.sln/',
+			\ 'tags',
+			\ 'root',
+			\ 'settings.json',
+			\]
+'''
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+marged = 0
+rev = 'release'
+hook_source = '''
+if filereadable('~/.config/nvim/plugins/coc.rc.vim')
+	source = ~/.config/nvim/plugins/coc.rc.vim
+endif
+''' 
+
+[[plugins]]
+repo = 'haya14busa/vim-migemo'
+if = 'has("migemo")'
+hook_add = '''
+set migemo
+set migemodict=$VIM/dict/utf-8/migemo-dict
+nnoremap / g/
+'''
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
+
 
 
 
