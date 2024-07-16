@@ -3,8 +3,8 @@
 " 	Brief	UE4用追加vimrc
 "	Author	KORYUOH
 "	Create	2017/08/09
-"	Update	2019/03/22
-"	Version	1.20
+"	Update	2022/02/02
+"	Version	1.31
 "	Encording	utf-8 bomb dos
 "===============================================================================
 hi clear
@@ -41,9 +41,11 @@ augroup UECPP
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine DEFINE_LOG_CATEGORY_STATIC
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine UFUNCTION
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine UPROPERTY
+	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine FPROPERTY
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine USTRUCT
+	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine UE_LOG
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cDefine DECLARE_DYNAMIC_MULTICAST_DELEGATE
-	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match cDefine "\<DECLARE_DYNAMIC_MULTICAST_DELEGATE_\(One\|Two\|Three\|Four\|Five\)Params\?\>"
+	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match cDefine "\<DECLARE_DYNAMIC_MULTICAST_DELEGATE_\(One\|Two\|Three\|Four\|Five\|Six\|Seven\|Eight\|Nine\)Params\?\>"
 	"autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn match cDefine "\<[A-Z]\+_API\>"
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cStatement Category
 	autocmd VimEnter,WinEnter,BufRead *.{h,c,cpp,hpp} syn keyword cStatement Super
