@@ -93,5 +93,11 @@ if has('vim_starting') && dein#check_install()
 	call dein#recache_runtimepath()
 endif
 
+let s:token_file = fnamemodify(expand('<sfile>'),':h').'/vault/dein_token'
+if has('vim_starting') && filereadable(s:token_file)
+execute "source ".s:token_file
+call dein#check_update(v:true)
+endif
+
 syntax on
 "vim:set enc=utf-8:set bomb
