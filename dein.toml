@@ -590,9 +590,9 @@ repo = 'metakirby5/codi.vim'
 [[plugins]]
 repo = 'tpope/vim-surround'
 
-[[plugins]]
-repo = 'pandysong/ghost-text.vim'
-if = 'has("python3")'
+# [[plugins]]
+# repo = 'pandysong/ghost-text.vim'
+# if = 'has("python3")'
 	
 # [[plugins]]
 # repo = 'joonty/vdebug'
