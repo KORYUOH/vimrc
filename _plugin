@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/09/10
-"	Version	5.82
+"	Update	2024/08/26
+"	Version	5.83
 "===============================================================================
 "
 "Dein Setting
@@ -67,10 +67,12 @@ delcommand CheckToml
 delcommand CheckTomlLazy
 
 let s:toml_file = fnamemodify( expand('<sfile>'), ':h' ).'/dein.toml'
+let s:ddc_toml = fnamemodify( expand('<sfile>'), ':h' ).'/ddc.toml'
 let s:lazy_toml_file = fnamemodify( expand('<sfile>'),':h' ).'/lazy_dein.toml'
 if dein#load_state(s:dein_dir)
 	call dein#begin(s:dein_dir)
 	call dein#load_toml(s:toml_file,{'lazy':0})
+	call dein#load_toml(s:ddc_toml,{'lazy':0})
 	if filereadable( s:lazy_toml_file )
 		call dein#load_toml(s:lazy_toml_file,{'lazy':1})
 	endif

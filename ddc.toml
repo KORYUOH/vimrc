@@ -1,0 +1,91 @@
+﻿#vim:set nobomb:set encoding=utf-8
+########################################
+#	Brief	ddc.vim plugins
+#	Author	KORYUOH
+#	Create	2024/08/26
+#	Update	2024/08/26
+#	Version	1.00
+#	Lazy : Not Lazy
+########################################
+
+[[plugins]]
+#from neocomplete -> ddc.vim
+repo = 'Shougo/ddc.vim'
+depends=['denops.vim']
+hook_add='''
+call ddc#custom#patch_global({
+\	'ui': 'native',
+\	'sources' :[
+\		'vim-lsp',
+\		'around',
+\		'buffer',
+\		'neosnippet',
+\		],
+\	'sourceOptions': {
+\		'_': {
+\			'matchers'  : ['matcher_fuzzy'],
+\			'sorters'   : ['sorter_fuzzy'],
+\			'converters': ['converter_fuzzy'],
+\			'ignoreCase': v:true,
+\		},
+\		'around': {
+\			'mark': '[Arround]',
+\		},
+\		'buffer': {
+\			'mark': '[Buffer]',
+\		},
+\		'vim-lsp': {
+\			'mark': '[LSP]',
+\			'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+\		},
+\		'neosnippet' : {
+\				'mark' : '[NS]',
+\				},
+\		},
+\	'sourceParams': {
+\		'around': { 'maxSize': 500 },
+\		'buffer': {
+\			'limitBytes': 5000000,
+\			'forceCollect': v:true,
+\			'fromAltBuf': v:true,
+\		},
+\	 },
+\})
+call ddc#enable()
+'''
+
+## ===== DDC Sources
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-native'
+depends = ['denops.vim' , 'ddc.vm']
+
+[[plugins]]
+repo = 'Shougo/ddc-around'
+depends = ['denops.vim' , 'ddc.vm']
+
+[[plugins]]
+repo = 'shun/ddc-source-vim-lsp'
+depends = ['denops.vim' , 'ddc.vm']
+
+[[plugins]]
+repo = 'matsui54/ddc-source-buffer'
+depends = ['denops.vim' , 'ddc.vm']
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
+depends = ['denops.vim' , 'ddc.vm']
+
+# [[plugins]]
+# repo = 'Shougo/ddc-source-nextword'
+# " -> NextWord
+# " \		'nextword' : {
+# " \				'mark' : '[NextWord]',
+# " \				'minAutoCompleteLength' : 3,
+# " \				'isVolatile' : v:true,
+# " \				'matchers' : ['matcher_head'],
+# " \				'sorters' : ['sorter_rank'],
+# " \			},
+	
+
+## ===== DDC Sources
