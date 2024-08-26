@@ -1,0 +1,176 @@
+#vim:set nobomb:set encoding=utf-8
+########################################
+#	Brief	dein Plugins ddu.vim
+#	Author	KORYUOH
+#	Create	2024/08/26
+#	Update	2024/08/26
+#	Version	1.00
+#	Lazy : Not Lazy
+########################################
+
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+hook_add = '''
+let win_border = 'rounded'
+let win_height = '&lines - 3'
+let win_width = '&columns / 2 - 3'
+let win_col = 1
+let win_row = 0
+let preview_row = 3
+let preview_col = '&columns / 2'
+call ddu#custom#patch_global({
+	\"ui" : "ff",
+	\	'uiParams' : {
+	\		'_' : {
+	\			'split': 'horizontal',
+	\			'floatingBorder' : win_border,
+	\			'winHeight' : win_height,
+	\			'winWidth' : win_width,
+	\			'winRow' : win_row,
+	\			'winCol' : win_col,
+	\			'previewFloating' : v:true,
+	\			'previewFloatingBorder' : win_border,
+	\			'previewHeight' : win_height,
+	\			'previewWidth' : win_width,
+	\			'previewRow' : preview_row,
+	\			'previewCol' : preview_col,
+	\		},
+	\		'ff': {
+	\			'ignoreEmpty': v:true,
+	\			'split': 'horizontal',
+	\			'startAutoAction': v:true,
+	\			'autoAction': { 'name': 'preview', 'delay': 0, },
+	\			'prompt': '> ',
+	\			'startFilter': v:true,
+	\			'filterSplitDirection': 'floating',
+	\			'filterFloatingPosition': 'top',
+	\			'floatingBorder': win_border,
+	\			'winHeight': win_height,
+	\			'winWidth': win_width,
+	\			'winRow': win_row,
+	\			'winCol': win_col,
+	\			'previewFloating': v:true,
+	\			'previewFloatingBorder': win_border,
+	\			'previewHeight': win_height,
+	\			'previewWidth': win_width,
+	\			'previewRow': preview_row,
+	\			'previewCol': preview_col,
+	\		},
+	\	},
+    \   'sources': [{'name': 'file', 'params': {}}],
+    \   'sourceOptions': {
+    \     '_': {
+	\		'matchers'  : ['matcher_kensaku'],
+	\		'ignoreCase': v:true,
+    \ 		},
+	\	},
+	\	'file' : {
+    \       'columns': ['filename'],
+	\	 },
+	\	'line' : {
+	\		'sorters' : [],
+	\	},
+    \   'kindOptions': {
+    \     'file': {
+    \       'defaultAction': 'open',
+	\	'word' : {
+    \       'defaultAction': 'append',
+	\		}
+    \     },
+	\	'actionOptions' : {
+	\			'narrow' : {
+	\				'quit' : v:true,
+	\				},
+	\			},
+    \   },
+	\	'filterOptions' : {
+		\		'matcher_kensaku' : {
+		\		'higilightMatched' :'Search'
+		\	}
+	\	}
+	\ })
+
+autocmd FileType ddu-filer call s:ddu_my_settings()
+function! s:ddu_my_settings() abort
+	nnoremap <buffer><silent><expr> <CR>
+  		\	ddu#ui#get_item()->get('isTree' , v:false) ? 
+        \ "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>" : 
+        \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
+	nnoremap <buffer><silent> <Space>
+        \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
+	nnoremap <buffer> o
+        \ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
+	 nnoremap <buffer><silent> q
+        \ <Cmd>call ddu#ui#do_action('quit')<CR>
+	nnoremap <buffer><silent> i	<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
+	nnoremap <buffer><silent> t	<Cmd>call ddu#ui#do_action('chooseAction')<CR>
+endfunction
+autocmd Filetype ddu-ff call s:ddu_ff_my_settings()
+function! s:ddu_ff_my_settings() abort
+	nnoremap <buffer><CR>
+	\	<Cmd>call ddu#ui#do_action('ItemAction')<CR>
+	nnoremap <buffer> i	
+	\	<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
+	 nnoremap <buffer> q
+        \ <Cmd>call ddu#ui#do_action('quit')<CR>
+	nnoremap <buffer> t
+	\ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
+endfunction
+autocmd Filetype ddu-ff-filter call s:ddu_ff_filter_my_settings()
+function! s:ddu_ff_filter_my_settings()abort
+	inoremap <buffter><CR>
+	\	<Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
+	nnoremap <buffter><CR>
+	\	<Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
+endfunction
+'''
+
+## ===== DDU Sources
+[[plugins]]
+repo = 'Shougo/ddu-ui-filer'
+
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+
+[[plugins]]
+repo = 'Shougo/ddu-column-filename'
+
+[[plugins]]
+repo = 'Shougo/ddu-commands.vim'
+# === Source
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-line'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-action'
+
+[[plugins]]
+repo = 'matsui54/ddu-source-help'
+
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+
+# === Source
+[[plugins]]
+repo = 'yuki-yano/ddu-filter-fzf'
+
+[[plugins]]
+repo = 'Milly/ddu-filter-kensaku'
+depends = ['vim-kensaku']
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+
+## ===== DDU Sources
+
+[[plugins]]
+repo = "lambdalisue/vim-kensaku"
+
