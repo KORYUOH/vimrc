@@ -4,7 +4,7 @@
 #	Author	KORYUOH
 #	Create	2024/08/26
 #	Update	2024/08/26
-#	Version	1.00
+#	Version	1.01
 #	Lazy : Not Lazy
 ########################################
 
@@ -61,6 +61,7 @@ call ddu#custom#patch_global({
     \   'sourceOptions': {
     \     '_': {
 	\		'matchers'  : ['matcher_kensaku'],
+	\		'converters' : ['converter_hl_dir'],
 	\		'ignoreCase': v:true,
     \ 		},
 	\	},
@@ -70,32 +71,36 @@ call ddu#custom#patch_global({
 	\	'line' : {
 	\		'sorters' : [],
 	\	},
-    \   'kindOptions': {
-    \     'file': {
-    \       'defaultAction': 'open',
-	\	'word' : {
-    \       'defaultAction': 'append',
-	\		}
+    \	'kindOptions': {
+    \		'file': {
+    \			'defaultAction': 'open',
+	\			},
+	\		'word' : {
+    \			'defaultAction': 'append',
+	\			},
     \     },
 	\	'actionOptions' : {
 	\			'narrow' : {
 	\				'quit' : v:true,
 	\				},
 	\			},
-    \   },
 	\	'filterOptions' : {
-		\		'matcher_kensaku' : {
-		\		'higilightMatched' :'Search'
-		\	}
-	\	}
+	\		'matcher_kensaku' : {
+	\			'higilightMatched' :'Search'
+	\		},
+	\	},
 	\ })
 
 autocmd FileType ddu-filer call s:ddu_my_settings()
 function! s:ddu_my_settings() abort
 	nnoremap <buffer><silent><expr> <CR>
   		\	ddu#ui#get_item()->get('isTree' , v:false) ? 
-        \ "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>" : 
+        \ "<Cmd>call ddu#ui#do_action('cd')<CR>" : 
         \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
+	" nnoremap <buffer><silent><expr> <CR>
+  	" 	\	ddu#ui#get_item()->get('isTree' , v:false) ? 
+    "     \ "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>" : 
+    "     \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
 	nnoremap <buffer><silent> <Space>
         \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
 	nnoremap <buffer> o
@@ -108,7 +113,9 @@ endfunction
 autocmd Filetype ddu-ff call s:ddu_ff_my_settings()
 function! s:ddu_ff_my_settings() abort
 	nnoremap <buffer><CR>
-	\	<Cmd>call ddu#ui#do_action('ItemAction')<CR>
+	\	<Cmd>call ddu#ui#do_action('itemAction')<CR>
+	nnoremap <buffer> <space>
+	\	<Cmd>call ddu#ui#do_adciont('toggleSelectItem')<CR>
 	nnoremap <buffer> i	
 	\	<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
 	 nnoremap <buffer> q
@@ -158,7 +165,7 @@ repo = 'matsui54/ddu-source-help'
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 
-# === Source
+# === Filter
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
 
@@ -168,6 +175,10 @@ depends = ['vim-kensaku']
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
+
+## ===== Converter 
+[[plugins]]
+repo = 'kyoh86/ddu-filter-converter_hl_dir'
 
 ## ===== DDU Sources
 
