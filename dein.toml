@@ -441,7 +441,13 @@ repo = 'mattn/invader-vim'
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add='''
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
+" if has('gui')
+" 	let g:indent_guides_auto_colors = 0
+" 	autocmd VimEnter,ColorScheme * :hi IndentGuidesOdd guibg=red ctermbg=3
+" 	autocmd VimEnter,ColorScheme * :hi IndentGuidesEven guibg=green ctermbg=4
+" endif
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'ddu-ff' , 'ddu-filer' , 'ddu-defualt' , 'ddu-ff-filter']
 '''
 [[plugins]]
 repo = 'idbrii/vim-unreal'
