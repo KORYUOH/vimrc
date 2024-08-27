@@ -10,6 +10,7 @@
 
 [[plugins]]
 repo = 'Shougo/ddu.vim'
+depends = ['denops.vim']
 hook_add = '''
 let win_border = 'rounded'
 let win_height = '&lines - 3'
@@ -20,76 +21,85 @@ let preview_row = 3
 let preview_col = '&columns / 2'
 call ddu#custom#patch_global({
 	\"ui" : "ff",
-	\	'uiParams' : {
-	\		'_' : {
-	\			'split': 'horizontal',
-	\			'floatingBorder' : win_border,
-	\			'winHeight' : win_height,
-	\			'winWidth' : win_width,
-	\			'winRow' : win_row,
-	\			'winCol' : win_col,
-	\			'previewFloating' : v:true,
-	\			'previewFloatingBorder' : win_border,
-	\			'previewHeight' : win_height,
-	\			'previewWidth' : win_width,
-	\			'previewRow' : preview_row,
-	\			'previewCol' : preview_col,
-	\		},
-	\		'ff': {
-	\			'ignoreEmpty': v:true,
-	\			'split': 'horizontal',
-	\			'startAutoAction': v:true,
-	\			'autoAction': { 'name': 'preview', 'delay': 0, },
-	\			'prompt': '> ',
-	\			'startFilter': v:true,
-	\			'filterSplitDirection': 'floating',
-	\			'filterFloatingPosition': 'top',
-	\			'floatingBorder': win_border,
-	\			'winHeight': win_height,
-	\			'winWidth': win_width,
-	\			'winRow': win_row,
-	\			'winCol': win_col,
-	\			'previewFloating': v:true,
-	\			'previewFloatingBorder': win_border,
-	\			'previewHeight': win_height,
-	\			'previewWidth': win_width,
-	\			'previewRow': preview_row,
-	\			'previewCol': preview_col,
-	\		},
-	\	},
-    \   'sources': [{'name': 'file', 'params': {}}],
-    \   'sourceOptions': {
-    \     '_': {
-	\		'matchers'  : ['matcher_kensaku'],
-	\		'converters' : ['converter_hl_dir'],
-	\		'ignoreCase': v:true,
-    \ 		},
-	\	},
-	\	'file' : {
-    \       'columns': ['filename'],
-	\	 },
-	\	'line' : {
-	\		'sorters' : [],
-	\	},
-    \	'kindOptions': {
-    \		'file': {
-    \			'defaultAction': 'open',
-	\			},
-	\		'word' : {
-    \			'defaultAction': 'append',
-	\			},
-    \     },
-	\	'actionOptions' : {
-	\			'narrow' : {
-	\				'quit' : v:true,
-	\				},
-	\			},
-	\	'filterOptions' : {
-	\		'matcher_kensaku' : {
-	\			'higilightMatched' :'Search'
-	\		},
-	\	},
-	\ })
+	\'uiParams' : {
+		\'_' : {
+			\'split': 'horizontal',
+			\'floatingBorder' : win_border,
+			\'winHeight' : win_height,
+			\'winWidth' : win_width,
+			\'winRow' : win_row,
+			\'winCol' : win_col,
+			\'previewFloating' : v:true,
+			\'previewFloatingBorder' : win_border,
+			\'previewHeight' : win_height,
+			\'previewWidth' : win_width,
+			\'previewRow' : preview_row,
+			\'previewCol' : preview_col,
+		\},
+		\'ff': {
+			\'ignoreEmpty': v:true,
+			\'split': 'horizontal',
+			\'startAutoAction': v:true,
+			\'autoAction': { 'name': 'preview', 'delay': 0, },
+			\'prompt': '> ',
+			\'startFilter': v:true,
+			\'filterSplitDirection': 'floating',
+			\'filterFloatingPosition': 'top',
+			\'floatingBorder': win_border,
+			\'winHeight': win_height,
+			\'winWidth': win_width,
+			\'winRow': win_row,
+			\'winCol': win_col,
+			\'previewFloating': v:true,
+			\'previewFloatingBorder': win_border,
+			\'previewHeight': win_height,
+			\'previewWidth': win_width,
+			\'previewRow': preview_row,
+			\'previewCol': preview_col,
+		\},
+	\},
+	\'sources': [{'name': 'file', 'params': {}}],
+	\'sourceOptions': {
+		\'_': {
+			\'matchers'  : ['matcher_kensaku'],
+			\'converters' : ['converter_hl_dir'],
+			\'ignoreCase': v:true,
+		\},
+		\'file' : {
+			\'columns': ['filename'],
+		\},
+		\'line' : {
+			\'sorters' : [],
+		\},
+	\},
+	\'kindOptions': {
+		\'file': {
+			\'defaultAction': 'open',
+		\},
+		\'word' : {
+			\'defaultAction': 'append',
+		\},
+		\'url' : {
+			\'defaultAction' : 'browse',
+		\},
+		\'action' : {
+			\'defaultAction' : 'do',
+		\},
+		\'help' : {
+			\'defaultAction' : 'vsplit',
+		\}
+	\},
+	\'actionOptions' : {
+		\'narrow' : {
+			\'quit' : v:true,
+		\},
+	\},
+	\'filterOptions' : {
+		\'matcher_kensaku' : {
+			\'higilightMatched' :'Search',
+		\},
+	\},
+ \})
 
 autocmd FileType ddu-filer call s:ddu_my_settings()
 function! s:ddu_my_settings() abort
@@ -133,20 +143,39 @@ endfunction
 '''
 
 ## ===== DDU Sources
+## == UI
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 
+## == Kinds
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
 
 [[plugins]]
+repo = 'Shougo/ddu-kind-word'
+
+[[plugins]]
+repo = '4513ECHO/ddu-kind-url'
+
+[[plugin]]
+repo = 'hidez8891/ddu-kind-colorscheme_preview'
+
+## == Other
+[[plugins]]
 repo = 'Shougo/ddu-column-filename'
 
 [[plugins]]
+repo = 'ryota2357/ddu-column-icon_filename'
+
+[[plugins]]
+repo = 'tamago3keran/ddu-column-devicon_filename'
+
+[[plugins]]
 repo = 'Shougo/ddu-commands.vim'
+
 # === Source
 
 [[plugins]]
@@ -161,9 +190,14 @@ repo = 'Shougo/ddu-source-action'
 [[plugins]]
 repo = 'matsui54/ddu-source-help'
 
-
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
+
+[[plugins]]
+repo = '4513ECHO/ddu-source-colorscheme'
+
+[[plugins]]
+repo = 'kamecha/ddu-source-tab'
 
 # === Filter
 [[plugins]]
