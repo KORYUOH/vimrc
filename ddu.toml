@@ -3,8 +3,8 @@
 #	Brief	dein Plugins ddu.vim
 #	Author	KORYUOH
 #	Create	2024/08/26
-#	Update	2024/08/26
-#	Version	1.01
+#	Update	2024/08/28
+#	Version	1.10
 #	Lazy : Not Lazy
 ########################################
 
@@ -104,19 +104,19 @@ call ddu#custom#patch_global({
 autocmd FileType ddu-filer call s:ddu_my_settings()
 function! s:ddu_my_settings() abort
 	nnoremap <buffer><silent><expr> <CR>
-  		\	ddu#ui#get_item()->get('isTree' , v:false) ? 
-        \ "<Cmd>call ddu#ui#do_action('cd')<CR>" : 
-        \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
+		\	ddu#ui#get_item()->get('isTree' , v:false) ? 
+		\ "<Cmd>call ddu#ui#do_action('cd')<CR>" : 
+		\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
 	" nnoremap <buffer><silent><expr> <CR>
-  	" 	\	ddu#ui#get_item()->get('isTree' , v:false) ? 
-    "     \ "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>" : 
-    "     \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
+	"	\	ddu#ui#get_item()->get('isTree' , v:false) ? 
+	"	  \ "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>" : 
+	"	  \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
 	nnoremap <buffer><silent> <Space>
-        \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
+		\ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
 	nnoremap <buffer> o
-        \ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
+		\ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
 	 nnoremap <buffer><silent> q
-        \ <Cmd>call ddu#ui#do_action('quit')<CR>
+		\ <Cmd>call ddu#ui#do_action('quit')<CR>
 	nnoremap <buffer><silent> i	<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
 	nnoremap <buffer><silent> t	<Cmd>call ddu#ui#do_action('chooseAction')<CR>
 endfunction
@@ -125,21 +125,31 @@ function! s:ddu_ff_my_settings() abort
 	nnoremap <buffer><CR>
 	\	<Cmd>call ddu#ui#do_action('itemAction')<CR>
 	nnoremap <buffer> <space>
-	\	<Cmd>call ddu#ui#do_adciont('toggleSelectItem')<CR>
+	\	<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
 	nnoremap <buffer> i	
 	\	<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
-	 nnoremap <buffer> q
-        \ <Cmd>call ddu#ui#do_action('quit')<CR>
+	nnoremap <buffer> q
+		\ <Cmd>call ddu#ui#do_action('quit')<CR>
 	nnoremap <buffer> t
 	\ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
 endfunction
 autocmd Filetype ddu-ff-filter call s:ddu_ff_filter_my_settings()
 function! s:ddu_ff_filter_my_settings()abort
-	inoremap <buffter><CR>
+	inoremap <buffer><CR>
 	\	<Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-	nnoremap <buffter><CR>
+	nnoremap <buffer><CR>
 	\	<Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
 endfunction
+
+" tabで開く
+function! s:ddu_tabnew(args)
+	let items = a:args->get('items')
+	let action = items[0]->get('action')
+	let path = action->get('path') 
+	execute 'tabedit '.path
+endfunction
+
+call ddu#custom#action('kind','file','tabopen', function('s:ddu_tabnew'))
 '''
 
 ## ===== DDU Sources
