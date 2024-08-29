@@ -63,7 +63,7 @@ repo = 'Shougo/vimproc.vim'
 if = '!has("kaoriya")'
 hook_post_update = '''
 	if dein#util#_is_windows()
-		let cmd = 'tools\\update-dll-mingw'
+		let cmd = 'tools\\update-dll-msvc'
 	elif dein#util#_is_cygwin()
 		let cmd = 'make -f make_cygwin.mak'
 	elif executable('gmake')
@@ -516,7 +516,7 @@ endif
 
 
 """ TAB Completion
-inoremap <expr><TAB>  pumvisible() ? "\<C-p>" : "<S-TAB>"
+" inoremap <expr><TAB>  pumvisible() ? "\<C-p>" : "<S-TAB>"
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)

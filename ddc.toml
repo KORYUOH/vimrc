@@ -3,8 +3,8 @@
 #	Brief	ddc.vim plugins
 #	Author	KORYUOH
 #	Create	2024/08/26
-#	Update	2024/08/26
-#	Version	1.00
+#	Update	2024/08/29
+#	Version	1.11
 #	Lazy : Not Lazy
 ########################################
 
@@ -20,6 +20,8 @@ call ddc#custom#patch_global({
 \		'around',
 \		'buffer',
 \		'neosnippet',
+\		'file',
+\		'look',
 \		],
 \	'sourceOptions': {
 \		'_': {
@@ -42,15 +44,43 @@ call ddc#custom#patch_global({
 \				'mark' : '[NS]',
 \				},
 \		},
+\		'file' : {
+\			'mark' : '[file]',
+\			'isVolatile' : v:true,
+\			'forceCompletionPattern':'\S/\S*',
+\		},
+\		'look' : {
+\			'matchers' : [],
+\			'converters' : ['loud','matcher_head'],
+\			'mark' : '[look]',
+\			"isVolatile" : v:true,
+\		},
 \	'sourceParams': {
 \		'around': { 'maxSize': 500 },
+\		'file' : {
+\				'mode' : 'win32',
+\			},
 \		'buffer': {
 \			'limitBytes': 5000000,
 \			'forceCollect': v:true,
 \			'fromAltBuf': v:true,
 \		},
+\		'look' : {
+\			'convertCase' : v:true,
+\			'dict' : v:null,
+\		}
 \	 },
 \})
+
+" Tab Complete
+inoremap <expr> <TAB>
+\pumvisible() ? '<C-n>' : 
+\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ? 
+\ '<TAB>' : ddc#map#ddc#map#manual_complete()
+
+"Shift-Tab completion back
+inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<C-h>'
+
 call ddc#enable()
 '''
 
@@ -70,6 +100,14 @@ depends = ['denops.vim' , 'ddc.vm']
 
 [[plugins]]
 repo = 'matsui54/ddc-source-buffer'
+depends = ['denops.vim' , 'ddc.vm']
+
+[[plugins]]
+repo = 'LumaKernel/ddc-source-file'
+depends = ['denops.vim' , 'ddc.vm']
+
+[[plugins]]
+repo = 'octaltree/cmp-look'
 depends = ['denops.vim' , 'ddc.vm']
 
 [[plugins]]
