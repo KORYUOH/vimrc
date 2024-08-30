@@ -1,4 +1,4 @@
-﻿#vim:set nobomb:set encoding=utf-8
+#vim:set nobomb:set encoding=utf-8
 ########################################
 #	Brief	ddc.vim plugins
 #	Author	KORYUOH
@@ -21,6 +21,7 @@ call ddc#custom#patch_global({
 \		'buffer',
 \		'neosnippet',
 \		'file',
+\		'skkeleton'
 \		],
 \	'sourceOptions': {
 \		'_': {
@@ -40,8 +41,16 @@ call ddc#custom#patch_global({
 \			'forceCompletionPattern': '\.\w*|:\w*|->\w*',
 \		},
 \		'neosnippet' : {
-\				'mark' : '[NS]',
-\				},
+\			'mark' : '[NS]',
+\		},
+\		'skkeleton': {
+\			'mark' : '[skkeleton]' ,
+\			'matchers' : [],
+\			'sorters' : [],
+\			'converters' : [],
+\			'isVolatile' : v:true,
+\			'minAutoCompleteLength' : 1,
+\			},
 \		},
 \	'sourceParams': {
 \		'around': { 'maxSize': 500 },
@@ -65,6 +74,13 @@ call ddc#custom#patch_filetype(
 \				'mode' : 'win32',
 \			},
 \}})
+call skkeleton#config(#{
+\	completionRankFile: '~/.skkeleton/rank.json',
+\	globalDictionaries: [ '~/dict/SKK-JISYO.L' ],
+\})
+
+" skkeletonの有効/無効を切りかえる
+inoremap <C-i> <Plug>(skkeleton-toggle)
 
 " Tab Complete
 inoremap <expr> <TAB>
@@ -103,6 +119,10 @@ depends = ['denops.vim' , 'ddc.vm']
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
 depends = ['denops.vim' , 'ddc.vm']
+
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+depends = ['denops.vim']
 
 # [[plugins]]
 # repo = 'Shougo/ddc-source-nextword'
