@@ -4,7 +4,7 @@
 #	Author	KORYUOH
 #	Create	2024/08/26
 #	Update	2024/08/29
-#	Version	1.11
+#	Version	1.12
 #	Lazy : Not Lazy
 ########################################
 
@@ -21,7 +21,6 @@ call ddc#custom#patch_global({
 \		'buffer',
 \		'neosnippet',
 \		'file',
-\		'look',
 \		],
 \	'sourceOptions': {
 \		'_': {
@@ -44,33 +43,28 @@ call ddc#custom#patch_global({
 \				'mark' : '[NS]',
 \				},
 \		},
-\		'file' : {
-\			'mark' : '[file]',
-\			'isVolatile' : v:true,
-\			'forceCompletionPattern':'\S/\S*',
-\		},
-\		'look' : {
-\			'matchers' : [],
-\			'converters' : ['loud','matcher_head'],
-\			'mark' : '[look]',
-\			"isVolatile" : v:true,
-\		},
 \	'sourceParams': {
 \		'around': { 'maxSize': 500 },
-\		'file' : {
-\				'mode' : 'win32',
-\			},
 \		'buffer': {
 \			'limitBytes': 5000000,
 \			'forceCollect': v:true,
 \			'fromAltBuf': v:true,
 \		},
-\		'look' : {
-\			'convertCase' : v:true,
-\			'dict' : v:null,
-\		}
 \	 },
 \})
+call ddc#custom#patch_filetype(
+\	 ['ps1','dosbatch','autohotkey','registry'], {
+\		'sorceOptions' : {
+\			'file' : {
+\				'forceCompletionPattern' : '\S\\\\S*',
+\				},
+\			},
+\		'sorceParams' : {
+\
+\		'file' : {
+\				'mode' : 'win32',
+\			},
+\}})
 
 " Tab Complete
 inoremap <expr> <TAB>
@@ -104,10 +98,6 @@ depends = ['denops.vim' , 'ddc.vm']
 
 [[plugins]]
 repo = 'LumaKernel/ddc-source-file'
-depends = ['denops.vim' , 'ddc.vm']
-
-[[plugins]]
-repo = 'octaltree/cmp-look'
 depends = ['denops.vim' , 'ddc.vm']
 
 [[plugins]]
