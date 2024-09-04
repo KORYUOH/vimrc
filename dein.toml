@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2024/08/26
-#	Version	2.00
+#	Update	2024/09/04
+#	Version	2.01
 #	Lazy : Not Lazy
 ########################################
 
@@ -561,6 +561,9 @@ repo = 'mattn/calendar-vim'
 [[plugins]]
 repo = 'mtth/scratch.vim'
 if = '!has("kaoriya")'
+hook_add = '''
+	let g:scratch_top = 0
+'''
 
 [[plugins]]
 repo = 'yaasita/edit-slack.vim'
