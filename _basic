@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2022/03/28
-"	Version	6.14
+"	Update	2024/09/06
+"	Version	6.15
 "===============================================================================
 
 " テストコマンドを有効化するか
@@ -340,5 +340,7 @@ endfunction
 
 " UUIDでUUIDを入れるコマンド 引数にlowerを入れると小文字で出力
 command! -nargs=? UUID call s:Uuid('<args>')
+
+command! Hex2Char substitute/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g
 
 "vim:set enc=utf-8:set bomb
