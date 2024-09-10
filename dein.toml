@@ -38,25 +38,24 @@ repo = 'vim-denops/denops-helloworld.vim'
 if = 'len(exepath("deno")) > 0'
 depends = [ 'denops.vim' ]
 
-# [[plugins]]
-# repo = "vim-denops/denops-shared-server.vim"
-# if = 'len(exepath("deno")) > 0'
-# depends = [ 'denops.vim' ]
-# hook_add = '''
-# function! s:DenoSharedServerStart
-# 	let denopath = exepath('deno')
-# 	let enabledeno = len(denopath) > 0
-# 	if enabledeno
-# 		let g:denops_server_addr = '127.0.0.1:32123'
-# 		call denops_shared_server#install()
-# 	endif
-# endfunction
-#
-# augroup StartServer
-# autocmd!
-# autocmd VimEnter * call s:DenoSharedServerStart()
-# augroup END
-# '''
+[[plugins]]
+repo = "vim-denops/denops-shared-server.vim"
+if = 'len(exepath("deno")) > 0'
+depends = [ 'denops.vim' ]
+hook_add = '''
+let denopath = exepath('deno')
+let enabledeno = len(denopath) > 0
+if enabledeno
+	let g:denops_server_addr = '127.0.0.1:32123'
+endif
+
+if enabledeno
+	augroup StartServer
+		autocmd!
+		autocmd VimEnter * call denops_shared_server#install()
+	augroup END
+endif
+'''
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
@@ -740,15 +739,16 @@ let g:find_root_patterns = [
 			\]
 '''
 
-[[plugins]]
-repo = 'neoclide/coc.nvim'
-marged = 0
-rev = 'release'
-hook_source = '''
-if filereadable('~/.config/nvim/plugins/coc.rc.vim')
-	source = ~/.config/nvim/plugins/coc.rc.vim
-endif
-''' 
+# [[plugins]]
+# repo = 'neoclide/coc.nvim'
+# marged = 0
+# rev = 'release'
+# if = 'executable("node")'
+# hook_source = '''
+# if filereadable('~/.config/nvim/plugins/coc.rc.vim')
+# 	source = ~/.config/nvim/plugins/coc.rc.vim
+# endif
+# ''' 
 
 [[plugins]]
 repo = 'haya14busa/vim-migemo'
