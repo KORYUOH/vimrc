@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2024/09/04
-#	Version	2.01
+#	Update	2024/09/10
+#	Version	2.02
 #	Lazy : Not Lazy
 ########################################
 
@@ -63,10 +63,10 @@ repo = 'Shougo/vimproc.vim'
 if = '!has("kaoriya")'
 hook_post_update = '''
 	if dein#util#_is_windows()
-		let cmd = 'tools\\update-dll-msvc'
-	elif dein#util#_is_cygwin()
+		let cmd = 'tools\\update-dll-msvc.bat'
+	elseif dein#util#_is_cygwin()
 		let cmd = 'make -f make_cygwin.mak'
-	elif executable('gmake')
+	elseif executable('gmake')
 		let cmd = 'gmake'
 	else
 		cmd = 'make'
