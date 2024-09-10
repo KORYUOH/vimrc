@@ -4,7 +4,7 @@
 "	Author	KORYUOH
 "	Create	2014/10/02
 "	Update	2024/09/10
-"	Version	6.16
+"	Version	6.20
 "===============================================================================
 
 " テストコマンドを有効化するか
@@ -242,6 +242,15 @@ augroup ChangeFold
 	autocmd InsertEnter {*.h,*.cpp,*.hpp,*.c,*.inc} if !exists( 'w:last_fdm' ) | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | echo 'OperationManual' | endif
 	autocmd InsertLeave,WinLeave {*.h,*.cpp,*.hpp,*.c,*.inc} if exists( 'w:last_fdm' ) | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | echo 'OperationBefore' | endif
 augroup END
+
+" viewモード変更時行番号を相対表示に :help ModeChange から
+augroup ViewModeReritive
+autocmd!
+autocmd ModeChanged [vV\x16]*:* let &l:rnu = mode() =~# '^[vV\x16]'
+autocmd ModeChanged *:[vV\x16]* let &l:rnu = mode() =~# '^[vV\x16]'
+autocmd WinEnter,WinLeave * let &l:rnu = mode() =~# '^[vV\x16]'
+augroup END
+
 
 " バイナリ編集時のバイナリエディタ化
 augroup BinFileEdit
