@@ -38,24 +38,24 @@ repo = 'vim-denops/denops-helloworld.vim'
 if = 'len(exepath("deno")) > 0'
 depends = [ 'denops.vim' ]
 
-[[plugins]]
-repo = "vim-denops/denops-shared-server.vim"
-if = 'len(exepath("deno")) > 0'
-depends = [ 'denops.vim' ]
-hook_add = '''
-let denopath = exepath('deno')
-let enabledeno = len(denopath) > 0
-if enabledeno
-	let g:denops_server_addr = '127.0.0.1:32123'
-endif
-
-if enabledeno
-	augroup StartServer
-		autocmd!
-		autocmd VimEnter * call denops_shared_server#install()
-	augroup END
-endif
-'''
+# [[plugins]]
+# repo = "vim-denops/denops-shared-server.vim"
+# if = 'len(exepath("deno")) > 0'
+# depends = [ 'denops.vim' ]
+# hook_add = '''
+# " let denopath = exepath('deno')
+# " let enabledeno = len(denopath) > 0
+# " if enabledeno
+# " 	let g:denops_server_addr = '127.0.0.1:32123'
+# " endif
+#
+# " if enabledeno
+# " 	augroup StartServer
+# " 		autocmd!
+# " 		autocmd VimEnter * call denops_shared_server#install()
+# " 	augroup END
+# " endif
+# '''
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
@@ -346,7 +346,7 @@ if !has("kaoriya")
 endif
 let g:lightline = {
 			\ 'active' : {
-			\	'left' : [ [ 'mode' , 'paste' ],[ 'filename' ,'modified' , 'readonly' ] , ['pwd']  ],
+			\	'left' : [ [ 'mode' , 'paste' , 'skk_mode'],[ 'filename' ,'modified' , 'readonly' ] , ['pwd']  ],
 			\	'right': [ [ 'lineinfo' ],
 			\				[ 'percent' ],
 			\				[ 'fileformat', 'fileencoding','bomb', 'filetype' ],['syntastic'] ]
@@ -362,6 +362,7 @@ let g:lightline = {
 			\	},
 			\ 'component_function' : {
 			\		'syntastic' : 'SyntasticStatuslineFlag',
+			\		'skk_mode' : 'statusline_skk#mode',
 			\},
 			\}
 command! -bar LightlineUpdate  call lightline#init()|
