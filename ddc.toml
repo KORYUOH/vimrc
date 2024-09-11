@@ -76,7 +76,7 @@ call ddc#custom#patch_filetype(
 \}})
 call skkeleton#config(#{
 \	completionRankFile: '~/.skkeleton/rank.json',
-\	globalDictionaries: [ '~/dict/SKK-JISYO.L' ],
+\	globalDictionaries: [ ['~\dict\SKK-JISYO.L','euc-jp'] ],
 \})
 
 " skkeletonの有効/無効を切りかえる
@@ -123,6 +123,11 @@ depends = ['denops.vim' , 'ddc.vm']
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 depends = ['denops.vim']
+
+[[plugins]]
+repo = 'yasunori0418/statusline_skk.vim'
+on_source = ['skkeleton']
+
 
 # [[plugins]]
 # repo = 'Shougo/ddc-source-nextword'
