@@ -78,6 +78,8 @@ call skkeleton#config(#{
 \	completionRankFile: '~/.skkeleton/rank.json',
 \	globalDictionaries: [ ['~\dict\SKK-JISYO.L','euc-jp'] ],
 \})
+" Skkeletonでカタカナ入力に変更する
+call skkeleton#register_keymap('input', '<C-q>' , 'katakana')
 
 " skkeletonの有効/無効を切りかえる
 inoremap <C-i> <Plug>(skkeleton-toggle)
