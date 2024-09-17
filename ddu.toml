@@ -3,8 +3,8 @@
 #	Brief	dein Plugins ddu.vim
 #	Author	KORYUOH
 #	Create	2024/08/26
-#	Update	2024/08/28
-#	Version	1.20
+#	Update	2024/09/17
+#	Version	1.21
 #	Lazy : Not Lazy
 ########################################
 
@@ -12,7 +12,7 @@
 repo = 'Shougo/ddu.vim'
 depends = ['denops.vim']
 hook_add = '''
-let s:hook_name = expand('%:p:h').'/'.'ddu_setting.vim'
+let s:hook_name = g:vimrc_folder.'/'.'ddu_setting.vim'
 execute 'source '.s:hook_name
 '''
 
