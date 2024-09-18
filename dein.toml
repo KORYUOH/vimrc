@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2024/09/10
-#	Version	2.02
+#	Update	2024/09/18
+#	Version	2.03
 #	Lazy : Not Lazy
 ########################################
 
@@ -25,6 +25,9 @@ hook_add = '''
 		let g:denops#deno = denopath
 	endif
 '''
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
