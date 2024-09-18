@@ -3,8 +3,8 @@ scriptencoding=utf-8
 "	Brief	dduê›íËÉtÉ@ÉCÉã
 "	Author	KORYUOH
 "	Create	2024/09/12
-"	Update	2024/09/12
-"	Version	1.00
+"	Update	2024/09/18
+"	Version	1.01
 "===============================================================================
 
 let win_border = 'rounded'
@@ -88,7 +88,7 @@ call ddu#custom#patch_global({
 		\},
 		\'help' : {
 			\'defaultAction' : 'vsplit',
-		\}
+		\},
 	\},
 	\'actionOptions' : {
 		\'narrow' : {
@@ -107,7 +107,7 @@ function! s:ddu_my_settings() abort
 	nnoremap <buffer><silent><expr> <CR>
 		\	ddu#ui#get_item()->get('isTree' , v:false) ? 
 		\ "<Cmd>call ddu#ui#do_action('itemAction' , {'name' : 'narrow'})<CR>" : 
-		\ "<Cmd>call ddu#ui#do_action('itemAction' , { 'name' : 'open' })<CR>"
+		\ "<Cmd>call ddu#ui#do_action('itemAction' )<CR>"
 	nnoremap <buffer><silent> <Space>
 		\ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
 	nnoremap <buffer> o
@@ -122,7 +122,7 @@ function! s:ddu_ff_my_settings() abort
 	nnoremap <buffer><silent><expr> <CR>
 	\	ddu#ui#get_item()->get('isTree' , v:false ) ? 
 	\	"<Cmd>call ddu#ui#do_action('itemAction',{'name':'narrow' })<CR>" :
-	\	"<Cmd>call ddu#ui#do_action('itemAction' , { 'name' : 'open' })<CR>"
+	\	"<Cmd>call ddu#ui#do_action('itemAction' )<CR>"
 	nnoremap <buffer><silent><expr> <S-CR>
 	\	ddu#ui#get_item()->get('isTree' , v:false) ? 
 	\	"<Cmd> call ddu#ui#do_action('itemAction' , {'name' : 'narrow'})<CR>" :
