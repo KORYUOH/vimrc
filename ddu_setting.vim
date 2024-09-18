@@ -4,7 +4,7 @@ scriptencoding=utf-8
 "	Author	KORYUOH
 "	Create	2024/09/12
 "	Update	2024/09/18
-"	Version	1.01
+"	Version	1.02
 "===============================================================================
 
 let win_border = 'rounded'
@@ -53,7 +53,16 @@ call ddu#custom#patch_global({
 			\'previewCol': preview_col,
 		\},
 	\},
-	\'sources': [{'name': 'file', 'params': {}}],
+	\'sources': [
+		\{
+			\'name': 'file',
+			\'params': {}
+		\},
+		\{
+			\'name' : 'window',
+			\'params' : { 'format' : 'tab\|%tn:%w:%wi' },
+		\}
+	\],
 	\'sourceParams' : {
 		\'mr' : 'mru',
 	\},
@@ -88,6 +97,9 @@ call ddu#custom#patch_global({
 		\},
 		\'help' : {
 			\'defaultAction' : 'vsplit',
+		\},
+		\'window' : {
+			\'defaultAction': 'open',
 		\},
 	\},
 	\'actionOptions' : {

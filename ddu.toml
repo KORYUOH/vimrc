@@ -4,7 +4,7 @@
 #	Author	KORYUOH
 #	Create	2024/08/26
 #	Update	2024/09/17
-#	Version	1.21
+#	Version	1.22
 #	Lazy : Not Lazy
 ########################################
 
@@ -77,6 +77,9 @@ repo = 'kamecha/ddu-source-tab'
 repo = 'kuuote/ddu-source-mr'
 depends = ['vim-mr']
 
+[[plugins]]
+repo = 'kamecha/ddu-source-window'
+
 # === Filter
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
@@ -92,7 +95,7 @@ repo = 'Shougo/ddu-filter-matcher_substring'
 [[plugins]]
 repo = 'kyoh86/ddu-filter-converter_hl_dir'
 
-## ===== DDU Sources
+## ===== DDU Depends Sources
 
 [[plugins]]
 repo = "lambdalisue/vim-kensaku"
