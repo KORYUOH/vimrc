@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2024/09/18
-#	Version	2.03
+#	Update	2024/09/19
+#	Version	2.04
 #	Lazy : Not Lazy
 ########################################
 
@@ -12,7 +12,7 @@
 repo = 'Shougo/dein.vim'
 hook_add = '''
 command! RecacheHelp call dein#recache_runtimepath()<CR>
-let g:dein#install_log_filename = $HOME."/dein_logs/".localtime().".log"
+let g:dein#install_log_filename = $HOME."/dein_logs/".strftime('YYYYMMDD_HHMMSS').".log"
 '''
 
 [[plugins]]
