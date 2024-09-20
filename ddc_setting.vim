@@ -3,8 +3,8 @@
 "	Brief	ddc設定ファイル
 "	Author	KORYUOH
 "	Create	2024/09/18
-"	Update	2024/09/18
-"	Version	1.00
+"	Update	2024/09/20
+"	Version	1.01
 "===============================================================================
 
 call ddc#custom#patch_global({
@@ -70,7 +70,7 @@ call ddc#custom#patch_filetype(
 \}})
 call skkeleton#config(#{
 \	completionRankFile: '~/.skkeleton/rank.json',
-\	globalDictionaries: [ ['~\dict\SKK-JISYO.L','euc-jp'] ],
+\	globalDictionaries: [ ['~\dict\SKK-JISYO.L','euc-jp'] , ['~\dict\SKK-JISYO.propernoun' , 'euc-jp'] ],
 \})
 " Skkeletonでカタカナ入力に変更する
 call skkeleton#register_keymap('input', '<C-q>' , 'katakana')
