@@ -568,14 +568,14 @@ hook_add = '''
 	let g:scratch_top = 0
 '''
 
-[[plugins]]
-repo = 'yaasita/edit-slack.vim'
-if = 'exists("g:yaasita_slack_token")'
-
-[[plugins]]
-repo = 'higashi000/sarahck.vim'
-if = 'exists("g:slackToken")'
-# depends=['vim-jp/vital.vim']
+# [[plugins]]
+# repo = 'yaasita/edit-slack.vim'
+# if = 'exists("g:yaasita_slack_token")'
+#
+# [[plugins]]
+# repo = 'higashi000/sarahck.vim'
+# if = 'exists("g:slackToken")'
+# # depends=['vim-jp/vital.vim']
 
 [[plugins]]
 repo = 'vim-syntastic/syntastic.git'
@@ -607,35 +607,35 @@ repo = 'regedarek/ZoomWin'
 repo = 'vim-scripts/confluencewiki.vim'
 on_ft= 'confluencewiki' 
 
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['cpp','c']
-# next = 'rev'
-rev = 'next'
-# build = './install.sh'
-hook_post_update = '''
-	if dein#util#_is_windows()
-		let cmd = 'powershell -executionpolicy bypass -File install.ps1'
-	else
-		cmd = 'sh install.sh'
-	endif
-'''
-hook_source = '''
-let g:LanguageClient_serverCommands = {
-			\ 'vue' : ['vls'],
-			\ 'c':['ccls','--log-file=Z:\Logs\cc.log'],
-			\ 'cpp':['ccls','--log-file=Z:\Logs\cc.log'],
-			\ 'cuda':['ccls','--log-file=Z:\Logs\cc.log'],
-			\ 'objc':['ccls','--log-file=Z:\Logs\cc.log'],
-			\}
-let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_settingsPath='~/.config/settings.json'
-let g:LanguageClient_autoStart = 1
-nnoremap <silent> <leader>K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <leader> <F2> :call LanguageClient_textDocument_rename()<CR>
-
-'''
+# [[plugins]]
+# repo = 'autozimu/LanguageClient-neovim'
+# on_ft = ['cpp','c']
+# # next = 'rev'
+# rev = 'next'
+# # build = './install.sh'
+# hook_post_update = '''
+# 	if dein#util#_is_windows()
+# 		let cmd = 'powershell -executionpolicy bypass -File install.ps1'
+# 	else
+# 		cmd = 'sh install.sh'
+# 	endif
+# '''
+# hook_source = '''
+# let g:LanguageClient_serverCommands = {
+# 			\ 'vue' : ['vls'],
+# 			\ 'c':['ccls','--log-file=Z:\Logs\cc.log'],
+# 			\ 'cpp':['ccls','--log-file=Z:\Logs\cc.log'],
+# 			\ 'cuda':['ccls','--log-file=Z:\Logs\cc.log'],
+# 			\ 'objc':['ccls','--log-file=Z:\Logs\cc.log'],
+# 			\}
+# let g:LanguageClient_loadSettings = 1
+# let g:LanguageClient_settingsPath='~/.config/settings.json'
+# let g:LanguageClient_autoStart = 1
+# nnoremap <silent> <leader>K :call LanguageClient_textDocument_hover()<CR>
+# nnoremap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
+# nnoremap <silent> <leader> <F2> :call LanguageClient_textDocument_rename()<CR>
+#
+# '''
 
 # [[plugins]]
 # repo = 'w0rp/ale'
@@ -756,9 +756,8 @@ let g:find_root_patterns = [
 
 [[plugins]]
 repo = 'haya14busa/vim-migemo'
-if = 'has("migemo")'
+if = '!has("kaoriya")'
 hook_add = '''
-set migemo
 set migemodict=$VIM/dict/utf-8/migemo-dict
 nnoremap / g/
 '''
