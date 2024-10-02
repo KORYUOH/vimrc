@@ -105,5 +105,13 @@ repo = "lambdalisue/vim-kensaku-command"
 depends = ["vim-kensaku"]
 
 [[plugins]]
+repo = "lambdalisue/vim-kensaku-search"
+depends = ["vim-kensaku"]
+hook_add = '''
+let s:hook_name = g:vimrc_folder.'/'.'vim_kensaku_init.vim'
+execute 'source '.s:hook_name
+'''
+
+[[plugins]]
 repo = "lambdalisue/vim-mr"
 

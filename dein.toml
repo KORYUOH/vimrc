@@ -757,7 +757,8 @@ let g:find_root_patterns = [
 [[plugins]]
 repo = 'haya14busa/vim-migemo'
 if = '!has("kaoriya")'
-hook_add = '''
+hook_source = '''
+set migemo
 set migemodict=$VIM/dict/utf-8/migemo-dict
 nnoremap / g/
 '''
