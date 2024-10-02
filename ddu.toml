@@ -1,0 +1,117 @@
+﻿#vim:set nobomb:set encoding=utf-8
+########################################
+#	Brief	dein Plugins ddu.vim
+#	Author	KORYUOH
+#	Create	2024/08/26
+#	Update	2024/09/17
+#	Version	1.22
+#	Lazy : Not Lazy
+########################################
+
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+depends = ['denops.vim']
+hook_add = '''
+let s:hook_name = g:vimrc_folder.'/'.'ddu_setting.vim'
+execute 'source '.s:hook_name
+'''
+
+## ===== DDU Sources
+## == UI
+[[plugins]]
+repo = 'Shougo/ddu-ui-filer'
+
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+
+## == Kinds
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-word'
+
+[[plugins]]
+repo = '4513ECHO/ddu-kind-url'
+
+[[plugin]]
+repo = 'hidez8891/ddu-kind-colorscheme_preview'
+
+## == Other
+[[plugins]]
+repo = 'Shougo/ddu-column-filename'
+
+[[plugins]]
+repo = 'ryota2357/ddu-column-icon_filename'
+
+[[plugins]]
+repo = 'tamago3keran/ddu-column-devicon_filename'
+
+[[plugins]]
+repo = 'Shougo/ddu-commands.vim'
+
+# === Source
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-line'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-action'
+
+[[plugins]]
+repo = 'matsui54/ddu-source-help'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+
+[[plugins]]
+repo = '4513ECHO/ddu-source-colorscheme'
+
+[[plugins]]
+repo = 'kamecha/ddu-source-tab'
+
+[[plugins]]
+repo = 'kuuote/ddu-source-mr'
+depends = ['vim-mr']
+
+[[plugins]]
+repo = 'kamecha/ddu-source-window'
+
+# === Filter
+[[plugins]]
+repo = 'yuki-yano/ddu-filter-fzf'
+
+[[plugins]]
+repo = 'Milly/ddu-filter-kensaku'
+depends = ['vim-kensaku']
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+
+## ===== Converter 
+[[plugins]]
+repo = 'kyoh86/ddu-filter-converter_hl_dir'
+
+## ===== DDU Depends Sources
+
+[[plugins]]
+repo = "lambdalisue/vim-kensaku"
+
+[[plugins]]
+repo = "lambdalisue/vim-kensaku-command"
+depends = ["vim-kensaku"]
+
+[[plugins]]
+repo = "lambdalisue/vim-kensaku-search"
+depends = ["vim-kensaku"]
+hook_add = '''
+let s:hook_name = g:vimrc_folder.'/'.'vim_kensaku_init.vim'
+execute 'source '.s:hook_name
+'''
+
+[[plugins]]
+repo = "lambdalisue/vim-mr"
+

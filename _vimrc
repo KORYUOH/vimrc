@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/04/03
-"	Version	2.73
+"	Update	2019/09/26
+"	Version	2.76
 "	Modify UE4
 "	Encording	utf-8 bomb dos
 "===============================================================================
@@ -58,8 +58,8 @@ endfunction
 "================================================================================
 " 読み込むロード対応ファイル
 "================================================================================
-AddSrc '_plugin' 
 AddSrc '_basic'
+AddSrc '_plugin' 
 
 " vimrcのUnreal Engine 4 プログラム用 適当スキーム類
 AddSrc '_vimrc_ue4'
@@ -136,9 +136,11 @@ let g:unite_source_outline_info.toml ={
 
 command! -nargs=1 RenameThisFile call s:RenameFileName(<f-args> );
 function! s:RenameFileName( fileName )
-	let l:fromname = expand('%')
-	let l:toname = fnamemodify( expand('%') , ':h' ) . fileName 
-	rename( l:fromname, l:toname )
+	let l:fromname = expand('%:p')
+	let l:toname = fnamemodify( expand('%') , ':p:h' ) .'\'. a:fileName
+
+	call rename( l:fromname , l:toname )
+	execute ':edit '. l:toname
 endfunction
 
 augroup PHP_IO
