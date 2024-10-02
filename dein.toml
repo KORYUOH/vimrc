@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2021/07/20
-#	Version	1.61
+#	Update	2024/09/19
+#	Version	2.04
 #	Lazy : Not Lazy
 ########################################
 
@@ -12,18 +12,63 @@
 repo = 'Shougo/dein.vim'
 hook_add = '''
 command! RecacheHelp call dein#recache_runtimepath()<CR>
-let g:dein#install_log_filename = $HOME."/dein_logs/".localtime().".log"
+let g:dein#install_log_filename = $HOME."/dein_logs/".strftime('YYYYMMDD_HHMMSS').".log"
 '''
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+if = 'len(exepath("deno")) > 0'
+hook_add = '''
+	let denopath = exepath('deno')
+	let enabledeno = len(denopath) > 0
+	if enabledeno
+		let g:denops#deno = denopath
+	endif
+'''
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+
+
+[[plugins]]
+repo = 'vim-denops/denops-helloworld.vim'
+if = 'len(exepath("deno")) > 0'
+depends = [ 'denops.vim' ]
+
+# [[plugins]]
+# repo = "vim-denops/denops-shared-server.vim"
+# if = 'len(exepath("deno")) > 0'
+# depends = [ 'denops.vim' ]
+# hook_add = '''
+# " let denopath = exepath('deno')
+# " let enabledeno = len(denopath) > 0
+# " if enabledeno
+# " 	let g:denops_server_addr = '127.0.0.1:32123'
+# " endif
+#
+# " if enabledeno
+# " 	augroup StartServer
+# " 		autocmd!
+# " 		autocmd VimEnter * call denops_shared_server#install()
+# " 	augroup END
+# " endif
+# '''
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 if = '!has("kaoriya")'
 hook_post_update = '''
 	if dein#util#_is_windows()
-		let cmd = 'tools\\update-dll-mingw'
-	elif dein#util#_is_cygwin()
+		let cmd = 'tools\\update-dll-msvc.bat'
+	elseif dein#util#_is_cygwin()
 		let cmd = 'make -f make_cygwin.mak'
-	elif executable('gmake')
+	elseif executable('gmake')
 		let cmd = 'gmake'
 	else
 		cmd = 'make'
@@ -304,7 +349,7 @@ if !has("kaoriya")
 endif
 let g:lightline = {
 			\ 'active' : {
-			\	'left' : [ [ 'mode' , 'paste' ],[ 'filename' ,'modified' , 'readonly' ] , ['pwd']  ],
+			\	'left' : [ [ 'mode' , 'paste' , 'skk_mode'],[ 'filename' ,'modified' , 'readonly' ] , ['pwd']  ],
 			\	'right': [ [ 'lineinfo' ],
 			\				[ 'percent' ],
 			\				[ 'fileformat', 'fileencoding','bomb', 'filetype' ],['syntastic'] ]
@@ -320,6 +365,7 @@ let g:lightline = {
 			\	},
 			\ 'component_function' : {
 			\		'syntastic' : 'SyntasticStatuslineFlag',
+			\		'skk_mode' : 'statusline_skk#mode',
 			\},
 			\}
 command! -bar LightlineUpdate  call lightline#init()|
@@ -398,7 +444,13 @@ repo = 'mattn/invader-vim'
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add='''
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
+" if has('gui')
+" 	let g:indent_guides_auto_colors = 0
+" 	autocmd VimEnter,ColorScheme * :hi IndentGuidesOdd guibg=red ctermbg=3
+" 	autocmd VimEnter,ColorScheme * :hi IndentGuidesEven guibg=green ctermbg=4
+" endif
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'ddu-ff' , 'ddu-filer' , 'ddu-defualt' , 'ddu-ff-filter']
 '''
 [[plugins]]
 repo = 'idbrii/vim-unreal'
@@ -420,32 +472,33 @@ hook_add = '''
 vnoremap <leader>= :'<,'>Alignta =<CR>
 '''
 
-[[plugins]]
-repo = 'Shougo/neocomplete.vim'
-if = 'has("lua")'
-on_i = 1
-hook_add='''
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_underbar_completion = 1
-let g:neocomplete#enable_camel_case_completion = 1
-let g:neocomplete#max_list = 20
-let g:neocomplete#auto_complete_start_length = 2
-let g:neocomplete#enable_auto_close_preview = 0
-autocmd! InsertLeave * silent! pclose!
 
-let g:neocomplete#max_keyword_width = 10000
-
-if !exists('g:neocomplete#force_ommni_input_patterns')
-	let g:neocomplete#force_ommni_input_patterns = {}
-endif
-let g:neocomplete#force_ommni_input_patterns.cpp = '[^.[:digit:] *\t\%(/.\|->\)\w*\|\h\w+::\w*'
-
-if isdirectory(expand('~/.vim/cache/neocomplete'))
-	let g:neocomplete#data_directory = $HOME.'/.vim/cache/neocomplete'
-endif
-
-'''
+# --> DDC
+# [[plugins]]
+# repo = 'Shougo/neocomplete.vim'
+# on_i = 1
+# hook_add='''
+# let g:neocomplete#enable_at_startup = 1
+# let g:neocomplete#enable_smart_case = 1
+# let g:neocomplete#enable_underbar_completion = 1
+# let g:neocomplete#enable_camel_case_completion = 1
+# let g:neocomplete#max_list = 20
+# let g:neocomplete#auto_complete_start_length = 2
+# let g:neocomplete#enable_auto_close_preview = 0
+# autocmd! InsertLeave * silent! pclose!
+#
+# let g:neocomplete#max_keyword_width = 10000
+#
+# if !exists('g:neocomplete#force_ommni_input_patterns')
+# 	let g:neocomplete#force_ommni_input_patterns = {}
+# endif
+# let g:neocomplete#force_ommni_input_patterns.cpp = '[^.[:digit:] *\t\%(/.\|->\)\w*\|\h\w+::\w*'
+#
+# if isdirectory(expand('~/.vim/cache/neocomplete'))
+# 	let g:neocomplete#data_directory = $HOME.'/.vim/cache/neocomplete'
+# endif
+#
+# '''
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
@@ -466,7 +519,7 @@ endif
 
 
 """ TAB Completion
-inoremap <expr><TAB>  pumvisible() ? "\<C-p>" : "<S-TAB>"
+" inoremap <expr><TAB>  pumvisible() ? "\<C-p>" : "<S-TAB>"
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -511,15 +564,18 @@ repo = 'mattn/calendar-vim'
 [[plugins]]
 repo = 'mtth/scratch.vim'
 if = '!has("kaoriya")'
+hook_add = '''
+	let g:scratch_top = 0
+'''
 
-[[plugins]]
-repo = 'yaasita/edit-slack.vim'
-if = 'exists("g:yaasita_slack_token")'
-
-[[plugins]]
-repo = 'higashi000/sarahck.vim'
-if = 'exists("g:slackToken")'
-# depends=['vim-jp/vital.vim']
+# [[plugins]]
+# repo = 'yaasita/edit-slack.vim'
+# if = 'exists("g:yaasita_slack_token")'
+#
+# [[plugins]]
+# repo = 'higashi000/sarahck.vim'
+# if = 'exists("g:slackToken")'
+# # depends=['vim-jp/vital.vim']
 
 [[plugins]]
 repo = 'vim-syntastic/syntastic.git'
@@ -551,35 +607,35 @@ repo = 'regedarek/ZoomWin'
 repo = 'vim-scripts/confluencewiki.vim'
 on_ft= 'confluencewiki' 
 
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['cpp','c']
-# next = 'rev'
-rev = 'next'
-# build = './install.sh'
-hook_post_update = '''
-	if dein#util#_is_windows()
-		let cmd = 'powershell -executionpolicy bypass -File install.ps1'
-	else
-		cmd = 'sh install.sh'
-	endif
-'''
-hook_source = '''
-let g:LanguageClient_serverCommands = {
-			\ 'vue' : ['vls'],
-			\ 'c':['ccls','--log-file=Z:\Logs\cc.log'],
-			\ 'cpp':['ccls','--log-file=Z:\Logs\cc.log'],
-			\ 'cuda':['ccls','--log-file=Z:\Logs\cc.log'],
-			\ 'objc':['ccls','--log-file=Z:\Logs\cc.log'],
-			\}
-let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_settingsPath='~/.config/settings.json'
-let g:LanguageClient_autoStart = 1
-nnoremap <silent> <leader>K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <leader> <F2> :call LanguageClient_textDocument_rename()<CR>
-
-'''
+# [[plugins]]
+# repo = 'autozimu/LanguageClient-neovim'
+# on_ft = ['cpp','c']
+# # next = 'rev'
+# rev = 'next'
+# # build = './install.sh'
+# hook_post_update = '''
+# 	if dein#util#_is_windows()
+# 		let cmd = 'powershell -executionpolicy bypass -File install.ps1'
+# 	else
+# 		cmd = 'sh install.sh'
+# 	endif
+# '''
+# hook_source = '''
+# let g:LanguageClient_serverCommands = {
+# 			\ 'vue' : ['vls'],
+# 			\ 'c':['ccls','--log-file=Z:\Logs\cc.log'],
+# 			\ 'cpp':['ccls','--log-file=Z:\Logs\cc.log'],
+# 			\ 'cuda':['ccls','--log-file=Z:\Logs\cc.log'],
+# 			\ 'objc':['ccls','--log-file=Z:\Logs\cc.log'],
+# 			\}
+# let g:LanguageClient_loadSettings = 1
+# let g:LanguageClient_settingsPath='~/.config/settings.json'
+# let g:LanguageClient_autoStart = 1
+# nnoremap <silent> <leader>K :call LanguageClient_textDocument_hover()<CR>
+# nnoremap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
+# nnoremap <silent> <leader> <F2> :call LanguageClient_textDocument_rename()<CR>
+#
+# '''
 
 # [[plugins]]
 # repo = 'w0rp/ale'
@@ -590,9 +646,6 @@ repo = 'metakirby5/codi.vim'
 [[plugins]]
 repo = 'tpope/vim-surround'
 
-# [[plugins]]
-# repo = 'pandysong/ghost-text.vim'
-# if = 'has("python3")'
 	
 # [[plugins]]
 # repo = 'joonty/vdebug'
@@ -690,20 +743,21 @@ let g:find_root_patterns = [
 			\]
 '''
 
-[[plugins]]
-repo = 'neoclide/coc.nvim'
-marged = 0
-rev = 'release'
-hook_source = '''
-if filereadable('~/.config/nvim/plugins/coc.rc.vim')
-	source = ~/.config/nvim/plugins/coc.rc.vim
-endif
-''' 
+# [[plugins]]
+# repo = 'neoclide/coc.nvim'
+# marged = 0
+# rev = 'release'
+# if = 'executable("node")'
+# hook_source = '''
+# if filereadable('~/.config/nvim/plugins/coc.rc.vim')
+# 	source = ~/.config/nvim/plugins/coc.rc.vim
+# endif
+# ''' 
 
 [[plugins]]
 repo = 'haya14busa/vim-migemo'
-if = 'has("migemo")'
-hook_add = '''
+if = '!has("kaoriya")'
+hook_source = '''
 set migemo
 set migemodict=$VIM/dict/utf-8/migemo-dict
 nnoremap / g/

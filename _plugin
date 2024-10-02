@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2018/09/10
-"	Version	5.82
+"	Update	2024/09/17
+"	Version	5.89
 "===============================================================================
 "
 "Dein Setting
@@ -21,6 +21,8 @@ if !isdirectory(s:dein_repo_dir)
 endif
 
 let &runtimepath = s:dein_repo_dir.",".&runtimepath
+
+let g:vimrc_folder = fnamemodify( expand('<sfile>') , ':h' )
 
 "=== 存在チェックして読み込むリスト保存先
 let s:check_toml_list = []
@@ -66,11 +68,15 @@ CheckTomlLazy 'add_plugin_lazy_local.toml'
 delcommand CheckToml
 delcommand CheckTomlLazy
 
-let s:toml_file = fnamemodify( expand('<sfile>'), ':h' ).'/dein.toml'
-let s:lazy_toml_file = fnamemodify( expand('<sfile>'),':h' ).'/lazy_dein.toml'
+let s:toml_file			= g:vimrc_folder.'/dein.toml'
+let s:ddu_toml			= g:vimrc_folder.'/ddu.toml'
+let s:ddc_toml			= g:vimrc_folder.'/ddc.toml'
+let s:lazy_toml_file	= g:vimrc_folder.'/lazy_dein.toml'
 if dein#load_state(s:dein_dir)
 	call dein#begin(s:dein_dir)
 	call dein#load_toml(s:toml_file,{'lazy':0})
+	call dein#load_toml(s:ddc_toml,{'lazy':0})
+	call dein#load_toml(s:ddu_toml,{'lazy':0})
 	if filereadable( s:lazy_toml_file )
 		call dein#load_toml(s:lazy_toml_file,{'lazy':1})
 	endif
@@ -93,17 +99,11 @@ if has('vim_starting') && dein#check_install()
 	call dein#recache_runtimepath()
 endif
 
-augroup plugin_auto_update
-	autocmd!
-	autocmd VimEnter * call s:plugin_auto_updatecheck()
-augroup END
-function! s:plugin_auto_updatecheck()
-	let s:token_file = fnamemodify(expand('<sfile>'),':h').'/vault/dein_token'
-	if filereadable(s:token_file)
-		execute "source ".s:token_file
-		call dein#check_update(v:true)
-	endif
-endfunction
+let s:token_file = g:vimrc_folder.'/vault/dein_token'
+if has('vim_starting') && filereadable(s:token_file)
+execute "source ".s:token_file
+call dein#check_update(v:true)
+endif
 
 syntax on
 "vim:set enc=utf-8:set bomb
