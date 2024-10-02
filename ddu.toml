@@ -101,5 +101,9 @@ repo = 'kyoh86/ddu-filter-converter_hl_dir'
 repo = "lambdalisue/vim-kensaku"
 
 [[plugins]]
+repo = "lambdalisue/vim-kensaku-command"
+depends = ["vim-kensaku"]
+
+[[plugins]]
 repo = "lambdalisue/vim-mr"
 
