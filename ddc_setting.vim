@@ -3,8 +3,8 @@
 "	Brief	ddc設定ファイル
 "	Author	KORYUOH
 "	Create	2024/09/18
-"	Update	2024/09/20
-"	Version	1.01
+"	Update	2024/10/02
+"	Version	1.02
 "===============================================================================
 
 call ddc#custom#patch_global({
@@ -36,6 +36,7 @@ call ddc#custom#patch_global({
 \		},
 \		'neosnippet' : {
 \			'mark' : '[NS]',
+\			'dup' : v:true,
 \		},
 \		'skkeleton': {
 \			'mark' : '[skkeleton]' ,
@@ -68,12 +69,24 @@ call ddc#custom#patch_filetype(
 \				'mode' : 'win32',
 \			},
 \}})
-call skkeleton#config(#{
-\	completionRankFile: '~/.skkeleton/rank.json',
-\	globalDictionaries: [ ['~\dict\SKK-JISYO.L','euc-jp'] , ['~\dict\SKK-JISYO.propernoun' , 'euc-jp'] ],
-\})
 " Skkeletonでカタカナ入力に変更する
 call skkeleton#register_keymap('input', '<C-q>' , 'katakana')
+
+function! s:skkeleton_init() abort
+	call skkeleton#config(#{
+	\	completionRankFile: '~/.skkeleton/rank.json',
+	\	globalDictionaries: [ ['~\dict\SKK-JISYO.L','euc-jp'] , ['~\dict\SKK-JISYO.propernoun' , 'euc-jp'] ],
+	\	eggLikeNewline : v:true,
+	\})
+endfunction
+
+augroup skkeleton-initialize-pre
+autocmd!
+autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+augroup END
+
+call s:skkeleton_init()
+
 
 " skkeletonの有効/無効を切りかえる
 inoremap <C-t> <Plug>(skkeleton-toggle)
