@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2024/09/19
-#	Version	2.04
+#	Update	2024/10/04
+#	Version	2.05
 #	Lazy : Not Lazy
 ########################################
 
@@ -508,10 +508,9 @@ on_source = ['neosnippet.vim']
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets' ]
-on_i = 1
 hook_add='''
 
-let s:snippet_folder = '~/snippet'
+let s:snippet_folder = expand('~/snippet')
 
 if isdirectory(s:snippet_folder)
 	let g:neosnippet#snippets_directory = s:snippet_folder
@@ -758,9 +757,11 @@ let g:find_root_patterns = [
 repo = 'haya14busa/vim-migemo'
 if = '!has("kaoriya")'
 hook_source = '''
-set migemo
-set migemodict=$VIM/dict/utf-8/migemo-dict
-nnoremap / g/
+if has('migemo')
+	set migemo
+	set migemodict=$VIM/dict/utf-8/migemo-dict
+	nnoremap / g/
+endif
 '''
 
 [[plugins]]
