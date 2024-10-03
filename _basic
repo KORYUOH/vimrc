@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル 通常
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2024/09/10
-"	Version	6.20
+"	Update	2024/10/04
+"	Version	6.21
 "===============================================================================
 
 " テストコマンドを有効化するか
@@ -177,6 +177,10 @@ if !has('kaoriya')
 	set imsearch=0
 	" 自動インデント
 	set autoindent
+	" 使いやすいインデント
+	set smartindent
+	" Cタイプのインデント
+	set cindent
 	" 
 	set nobuflisted
 	" バックスペースでインデントや行頭、行末を消せる
