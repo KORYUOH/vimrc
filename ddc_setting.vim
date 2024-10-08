@@ -3,8 +3,8 @@
 "	Brief	ddc設定ファイル
 "	Author	KORYUOH
 "	Create	2024/09/18
-"	Update	2024/10/07
-"	Version	1.03
+"	Update2024/10/09
+"	Version	1.04
 "===============================================================================
 
 call ddc#custom#patch_global({
@@ -15,7 +15,8 @@ call ddc#custom#patch_global({
 \		'buffer',
 \		'neosnippet',
 \		'file',
-\		'skkeleton'
+\		'skkeleton',
+\		'ctags'
 \		],
 \	'sourceOptions': {
 \		'_': {
@@ -45,6 +46,9 @@ call ddc#custom#patch_global({
 \			'converters' : [],
 \			'isVolatile' : v:true,
 \			'minAutoCompleteLength' : 1,
+\			},
+\		'ctags' : {
+\			'mark' : '[C]',
 \			},
 \		},
 \	'sourceParams': {

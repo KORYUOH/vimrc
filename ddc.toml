@@ -3,8 +3,8 @@
 #	Brief	ddc.vim plugins
 #	Author	KORYUOH
 #	Create	2024/08/26
-#	Update	2024/09/18
-#	Version	1.13
+#	Update	2024/10/09
+#	Version	1.14
 #	Lazy : Not Lazy
 ########################################
 
@@ -41,6 +41,10 @@ depends = ['denops.vim' , 'ddc.vm']
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
+depends = ['denops.vim' , 'ddc.vm']
+
+[[plugins]]
+repo = 'delphinus/ddc-ctags'
 depends = ['denops.vim' , 'ddc.vm']
 
 [[plugins]]
