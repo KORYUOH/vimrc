@@ -3,8 +3,8 @@
 "	Brief	ddc設定ファイル
 "	Author	KORYUOH
 "	Create	2024/09/18
-"	Update	2024/10/02
-"	Version	1.02
+"	Update	2024/10/07
+"	Version	1.03
 "===============================================================================
 
 call ddc#custom#patch_global({
@@ -89,7 +89,7 @@ call s:skkeleton_init()
 
 
 " skkeletonの有効/無効を切りかえる
-inoremap <C-t> <Plug>(skkeleton-toggle)
+inoremap <C-Space> <Plug>(skkeleton-toggle)
 
 " Tab Complete
 inoremap <expr> <TAB>
