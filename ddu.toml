@@ -80,6 +80,9 @@ depends = ['vim-mr']
 [[plugins]]
 repo = 'kamecha/ddu-source-window'
 
+[[plugins]]
+repo = 'shun/ddu-source-buffer'
+
 # === Filter
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
