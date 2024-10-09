@@ -3,8 +3,8 @@
 "	Brief	ddc設定ファイル
 "	Author	KORYUOH
 "	Create	2024/09/18
-"	Update2024/10/09
-"	Version	1.04
+"	Update	2024/10/10
+"	Version	1.05
 "===============================================================================
 
 call ddc#custom#patch_global({
@@ -58,6 +58,7 @@ call ddc#custom#patch_global({
 \			'forceCollect': v:true,
 \			'fromAltBuf': v:true,
 \		},
+\		'ctags': { 'executable' : exepath('ctags') }
 \	 },
 \})
 call ddc#custom#patch_filetype(
