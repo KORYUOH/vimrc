@@ -4,7 +4,7 @@
 "	Author	KORYUOH
 "	Create	2014/10/02
 "	Update	2024/09/17
-"	Version	5.89
+"	Version	5.90
 "===============================================================================
 "
 "Dein Setting
@@ -104,6 +104,8 @@ if has('vim_starting') && filereadable(s:token_file)
 execute "source ".s:token_file
 call dein#check_update(v:true)
 endif
+
+source scratch.vim
 
 syntax on
 "vim:set enc=utf-8:set bomb
