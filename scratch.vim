@@ -4,13 +4,16 @@ scriptencoding=utf-8
 "	Author	KORYUOH
 "	Create	2024/10/23
 "	Update	2024/10/23
-"	Version	1.00
+"	Version	1.01
 "===============================================================================
 
 "from kaoriya-vim plugin/cmdex.vim
 " :Scratch
 "   Open a scratch (no file) buffer.
-command! -nargs=0 Scratch new | setlocal bt=nofile noswf | let b:cmdex_scratch = 1
+" 2024/10/23 rename Scratch -> Junk modyfy KORYUOH
+" :Junk
+" command! -nargs=0 Scratch new | setlocal bt=nofile noswf | let b:cmdex_scratch = 1
+command! -nargs=0 Junk new | setlocal bt=nofile noswf | let b:cmdex_scratch = 1
 function! s:CheckScratchWritten()
   if &buftype ==# 'nofile' && expand('%').'x' !=# 'x' && exists('b:cmdex_scratch') && b:cmdex_scratch == 1
     setlocal buftype= swapfile
