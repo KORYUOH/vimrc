@@ -3,8 +3,8 @@
 "	Brief	個人Vim設定ファイル
 "	Author	KORYUOH
 "	Create	2014/10/02
-"	Update	2024/09/17
-"	Version	5.90
+"	Update	2024/10/27
+"	Version	5.91
 "===============================================================================
 "
 "Dein Setting
@@ -23,6 +23,8 @@ endif
 let &runtimepath = s:dein_repo_dir.",".&runtimepath
 
 let g:vimrc_folder = fnamemodify( expand('<sfile>') , ':h' )
+
+let &runtimepath = g:vimrc_folder."/plugins/uepathfind.vim".",".&runtimepath
 
 "=== 存在チェックして読み込むリスト保存先
 let s:check_toml_list = []
