@@ -5,10 +5,11 @@ scriptencoding=utf-8
 "	Author	KORYUOH
 "	Create	2024/10/27
 "	Update	2024/10/29
-"	Version	1.01
+"	Version	1.02
 "===============================================================================
 let g:loaded_UE_path_find = 1
 
+" CD直下のフォルダ一覧を取得する
 function! s:GetUEPluginFolders()
 	let l:folders = readdir(getcwd())
 	let s:module_folders = []
@@ -20,6 +21,9 @@ function! s:GetUEPluginFolders()
 	return s:module_folders
 endfunction
 
+" Public/Privateが含まれているフォルダのパスを取得する
+" prefix : UEのモジュール化フォルダ名
+" path : 読もうとしているパス
 function! s:check_folder( prefix,path )
 	let pathlist = split(a:path , "/")
 	call insert(pathlist,a:prefix)
@@ -49,11 +53,14 @@ function! s:check_folder( prefix,path )
 	return a:path 
 endfunction
 
+" UEのPublic/Privateにわかれたファイルに直接飛ぶためのパスを取得する
 function! UE_path_find(path)
 	let l:plugins = s:GetUEPluginFolders()
+	" そのままだとPrefixが全部についてしまうので空を先頭にたす
 	call insert(l:plugins , "")
 	for prefix in l:plugins
 		let result = s:check_folder(prefix ,a:path)
+		" パスが見つからないとそのままのパスが返ってくるので同じか比較することで判定できる
 		if( result != a:path )
 			return result
 		endif
