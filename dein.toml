@@ -686,6 +686,15 @@ let g:vim_current_word#highlight_delay = 500
 let g:vim_current_word#highlight_current_word = 0
 '''
 
+[[plugins]]
+repo = 'obcat/vim-hitspop'
+hook_add = '''
+set updatetime=100
+let g:hitspop_line = "winbot"
+let g:hitspop_line_mod = 0
+let g:hitspop_column = "winright"
+let g:hitspop_column_mod = -2
+'''
 
 
 
