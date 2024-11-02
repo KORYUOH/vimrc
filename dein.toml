@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2024/10/04
-#	Version	2.07
+#	Update	2024/11/02
+#	Version	2.08
 #	Lazy : Not Lazy
 ########################################
 
@@ -678,6 +678,13 @@ endif
 
 [[plugins]]
 repo = 'mattn/webapi-vim'
+
+[[plugins]]
+repo = 'dominikduda/vim_current_word'
+hook_add = '''
+let g:vim_current_word#highlight_delay = 500
+let g:vim_current_word#highlight_current_word = 0
+'''
 
 
 
