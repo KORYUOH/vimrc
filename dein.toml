@@ -4,7 +4,7 @@
 #	Author	KORYUOH
 #	Create	
 #	Update	2024/10/04
-#	Version	2.06
+#	Version	2.07
 #	Lazy : Not Lazy
 ########################################
 
@@ -83,10 +83,6 @@ depends = [ 'context_filetype.vim' ]
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-on_ft = 'toml'
 
 [[plugins]]
 repo = 'tomasr/molokai'
@@ -399,9 +395,6 @@ hook_add = '''
 	nmap <leader>ml :MemoList<CR>
 	nmap <leader>mg :MemoGrep<CR>
 '''
-[[plugins]]
-repo = 'kannokanno/previm'
-on_ft = 'markdown'
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -452,6 +445,7 @@ let g:indent_guides_enable_on_vim_startup = 0
 " endif
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'ddu-ff' , 'ddu-filer' , 'ddu-defualt' , 'ddu-ff-filter']
 '''
+
 [[plugins]]
 repo = 'idbrii/vim-unreal'
 
@@ -567,44 +561,8 @@ hook_add = '''
 	let g:scratch_top = 0
 '''
 
-# [[plugins]]
-# repo = 'yaasita/edit-slack.vim'
-# if = 'exists("g:yaasita_slack_token")'
-#
-# [[plugins]]
-# repo = 'higashi000/sarahck.vim'
-# if = 'exists("g:slackToken")'
-# # depends=['vim-jp/vital.vim']
-
-[[plugins]]
-repo = 'vim-syntastic/syntastic.git'
-on_ft='php'
-hook_add = '''
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntasitic_check_on_wq = 0
-let g:synstatic_enable_signs = 1
-let g:systastic_echo_current_error = 1
-let g:syntastic_enable_higilighting = 1
-" see :h syntasitic-loclist-callback
-function! SyntasticCheckHook(errors)
-	if !empty(a:errors)
-		let g:syntastic_loc_list_height = min([len(a:errors) , 5])
-	endif
-endfunction
-'''
-
 [[plugins]]
 repo = 'regedarek/ZoomWin'
-
-[[plugins]]
-repo = 'vim-scripts/confluencewiki.vim'
-on_ft= 'confluencewiki' 
 
 # [[plugins]]
 # repo = 'autozimu/LanguageClient-neovim'
@@ -636,9 +594,6 @@ on_ft= 'confluencewiki'
 #
 # '''
 
-# [[plugins]]
-# repo = 'w0rp/ale'
-
 [[plugins]]
 repo = 'metakirby5/codi.vim'
 
@@ -646,41 +601,6 @@ repo = 'metakirby5/codi.vim'
 repo = 'tpope/vim-surround'
 
 	
-# [[plugins]]
-# repo = 'joonty/vdebug'
-# hook_add = '''
-# let g:vdebug_options = {
-# 			\ "port" : 9000,
-# 			\ "server" : '',
-# 			\ "timeout" : 20,
-# 			\ "on_close" :  'detach',
-# 			\ "ide_key" : '',
-# 			\ "break_on_open" : 0,
-# 			\ "debug_window_level" : 0,
-# 			\ "debug_file_level" : 2,
-# 			\ "debug_file" : "~/vdebug.log",
-# 			\ "path_maps" : {
-# 			\	'/home/vagrant/_vagrant' : 'Z:/SkyBlueServer/web',
-# 			\	},
-# 			\"window_arrangement" : [ "DebuggerWatch" , "DebuggerStack" ]
-# 			\}
-# let g:vdebug_keymap = {
-# 			\    "run" : "<Leader><F5>",
-# 			\    "run_to_cursor" : "<F9>",
-# 			\    "step_over" : "<F2>",
-# 			\    "step_into" : "<F3>",
-# 			\    "step_out" : "<F4>",
-# 			\    "close" : "<Leader><F6>",
-# 			\    "detach" : "<F7>",
-# 			\    "set_breakpoint" : "<F10>",
-# 			\    "get_context" : "<F11>",
-# 			\    "eval_under_cursor" : "<F12>",
-# 			\    "eval_visual" : "<Leader>e"
-# 			\}
-# 			" \	'/home/vagrant/_vagrant/skyblue_auth' : 'Z:/SkyBlueServer/web/skyblue_auth',
-# 			" \	'/home/vagrant/_vagrant/skyblue_datastore' : 'Z:/SkyBlueServer/web/skyblue_datastore',
-# '''
-
 # [[plugins]]
 # repo = 'natebosch/vim-lsc'
 # hook_add = '''
@@ -709,6 +629,9 @@ repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
+hook_source = '''
+nnoremap <silent> <F8> :TagbarToggle<CR>
+'''
 
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
@@ -741,17 +664,6 @@ let g:find_root_patterns = [
 			\ 'settings.json',
 			\]
 '''
-
-# [[plugins]]
-# repo = 'neoclide/coc.nvim'
-# marged = 0
-# rev = 'release'
-# if = 'executable("node")'
-# hook_source = '''
-# if filereadable('~/.config/nvim/plugins/coc.rc.vim')
-# 	source = ~/.config/nvim/plugins/coc.rc.vim
-# endif
-# ''' 
 
 [[plugins]]
 repo = 'haya14busa/vim-migemo'
