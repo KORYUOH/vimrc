@@ -3,8 +3,8 @@
 #	Brief	dein Plugins
 #	Author	KORYUOH
 #	Create	
-#	Update	2024/11/02
-#	Version	2.08
+#	Update	2024/11/12
+#	Version	2.09
 #	Lazy : Not Lazy
 ########################################
 
@@ -460,11 +460,19 @@ set helplang=ja,en
 repo = 'nfvs/vim-perforce'
 if = 'executable("p4")'
 
+# [[plugins]]
+# repo = 'h1mesuke/vim-alignta'
+# hook_add = '''
+# vnoremap <leader>= :'<,'>Alignta =<CR>
+# '''
+
 [[plugins]]
-repo = 'h1mesuke/vim-alignta'
+repo = 'kg8m/vim-simple-align'
+rev = 'vim9'
 hook_add = '''
-vnoremap <leader>= :'<,'>Alignta =<CR>
+vnoremap <leader>= :SimpleAlign =<CR>
 '''
+
 
 
 # --> DDC
