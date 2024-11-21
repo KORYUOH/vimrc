@@ -3,8 +3,8 @@
 "	Brief	ddc設定ファイル
 "	Author	KORYUOH
 "	Create	2024/09/18
-"	Update	2024/10/10
-"	Version	1.05
+"	Update	2024/11/22
+"	Version	1.06
 "===============================================================================
 
 call ddc#custom#patch_global({
@@ -76,6 +76,23 @@ call ddc#custom#patch_filetype(
 \}})
 " Skkeletonでカタカナ入力に変更する
 call skkeleton#register_keymap('input', '<C-q>' , 'katakana')
+" Skkeletonのかな入力でlで小文字を入力とか
+call skkeleton#register_kanatable('rom', {
+		\'l': v:false,
+		\'la':['ぁ'],
+		\'li':['ぃ'],
+		\'lu':['ぅ'],
+		\'le':['ぇ'],
+		\'lo':['ぉ'],
+		\'lya':['ゃ'],
+		\'lyu':['ゅ'],
+		\'lyo':['ょ'],
+		\'kwa':['くぁ'],
+		\'kwi':['くぃ'],
+		\'kwu':['くぅ'],
+		\'kwe':['くぇ'],
+		\'kwo':['くぉ'],
+		\})
 
 function! s:skkeleton_init() abort
 	call skkeleton#config(#{
