@@ -3,8 +3,8 @@
 "	Brief	ddc設定ファイル
 "	Author	KORYUOH
 "	Create	2024/09/18
-"	Update	2024/11/22
-"	Version	1.06
+"	Update	2024/11/23
+"	Version	1.07
 "===============================================================================
 
 call ddc#custom#patch_global({
@@ -92,6 +92,12 @@ call skkeleton#register_kanatable('rom', {
 		\'kwu':['くぅ'],
 		\'kwe':['くぇ'],
 		\'kwo':['くぉ'],
+		\'q':v:false,
+		\'qa':['くぁ'],
+		\'qi':['くぃ'],
+		\'qu':['くぅ'],
+		\'qe':['くぇ'],
+		\'qo':['くぉ'],
 		\})
 
 function! s:skkeleton_init() abort
