@@ -3,7 +3,7 @@
 "	Brief	ddc設定ファイル
 "	Author	KORYUOH
 "	Create	2024/09/18
-"	Update	2024/11/23
+"	Update	2025/03/12
 "	Version	1.07
 "===============================================================================
 
@@ -63,7 +63,7 @@ call ddc#custom#patch_global({
 \})
 call ddc#custom#patch_filetype(
 \	 ['ps1','dosbatch','autohotkey','registry'], {
-\		'sorceOptions' : {
+\		'sourceOptions' : {
 \			'file' : {
 \				'forceCompletionPattern' : '\S\\\\S*',
 \				},
