@@ -392,7 +392,7 @@ hook_add = '''
 
 	command! UniteMemoList call s:UniteMemoList()
 	nmap <leader>mn :MemoNew<CR>
-	nmap <leader>ml :MemoList<CR>
+	nmap <leader>ml :UniteMemoList<CR>
 	nmap <leader>mg :MemoGrep<CR>
 '''
 
