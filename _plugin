@@ -25,6 +25,8 @@ let &runtimepath = s:dein_repo_dir.",".&runtimepath
 let g:vimrc_folder = fnamemodify( expand('<sfile>') , ':h' )
 
 let &runtimepath = g:vimrc_folder."/plugins/uepathfind.vim".",".&runtimepath
+" Cottle + EDDI
+let &runtimepath = g:vimrc_folder."/plugins/cottle-eddi.vim".",".&runtimepath
 
 "=== 存在チェックして読み込むリスト保存先
 let s:check_toml_list = []
