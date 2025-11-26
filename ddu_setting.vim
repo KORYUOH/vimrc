@@ -3,8 +3,8 @@ scriptencoding=utf-8
 "	Brief	dduê›íËÉtÉ@ÉCÉã
 "	Author	KORYUOH
 "	Create	2024/09/12
-"	Update	2024/09/18
-"	Version	1.02
+"	Update	2025/11/25
+"	Version	1.10
 "===============================================================================
 
 let win_border = 'rounded'
@@ -61,10 +61,15 @@ call ddu#custom#patch_global({
 		\{
 			\'name' : 'window',
 			\'params' : { 'format' : 'tab\|%tn:%w:%wi' },
+		\},
+		\{
+			\'name' : 'rg',
+			\'params': { 'matchers' : [] }
 		\}
 	\],
 	\'sourceParams' : {
 		\'mr' : 'mru',
+		\'rg' : ['--column','--no-heading' , '--color' , 'never'],
 	\},
 	\'sourceOptions': {
 		\'_': {
