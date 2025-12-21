@@ -21,31 +21,31 @@ execute 'source '.s:hook_name
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-native'
-depends = ['denops.vim' , 'ddc.vm']
+depends = ['denops.vim' , 'ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-around'
-depends = ['denops.vim' , 'ddc.vm']
+depends = ['denops.vim' , 'ddc.vim']
 
 [[plugins]]
 repo = 'shun/ddc-source-vim-lsp'
-depends = ['denops.vim' , 'ddc.vm']
+depends = ['denops.vim' , 'ddc.vim']
 
 [[plugins]]
 repo = 'matsui54/ddc-source-buffer'
-depends = ['denops.vim' , 'ddc.vm']
+depends = ['denops.vim' , 'ddc.vim']
 
 [[plugins]]
 repo = 'LumaKernel/ddc-source-file'
-depends = ['denops.vim' , 'ddc.vm']
+depends = ['denops.vim' , 'ddc.vim']
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
-depends = ['denops.vim' , 'ddc.vm']
+depends = ['denops.vim' , 'ddc.vim']
 
 [[plugins]]
 repo = 'delphinus/ddc-ctags'
-depends = ['denops.vim' , 'ddc.vm']
+depends = ['denops.vim' , 'ddc.vim']
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
