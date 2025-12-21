@@ -3,7 +3,7 @@
 "	Brief	ddc設定ファイル
 "	Author	KORYUOH
 "	Create	2024/09/18
-"	Update	2025/03/12
+"	Update	2025/12/21
 "	Version	1.07
 "===============================================================================
 
@@ -102,7 +102,7 @@ call skkeleton#register_kanatable('rom', {
 
 function! s:skkeleton_init() abort
 	call skkeleton#config(#{
-	\	completionRankFile: '~/.skkeleton/rank.json',
+	\	completionRankFile: '~/.skkeleton_rank.json',
 	\	globalDictionaries: [ ['~\dict\SKK-JISYO.L','euc-jp'] , ['~\dict\SKK-JISYO.propernoun' , 'euc-jp'] ],
 	\	eggLikeNewline : v:true,
 	\})
